@@ -1,0 +1,31 @@
+{
+  "version": "20180108",
+  "platform": "IMX6UL",
+  "OS": "linux-3.14.38",
+  "focus": "kernel",
+  "comment": "kernel desciption file for iMX6UL",
+  "orders": [
+    {
+      "require": {
+        "DISK_TYPE": "emmc"
+      },
+      "config": {
+        "defconfig": "linux_imx6ul_emmc_defconfig"
+      },
+      "install": {
+        "dtbs": "arch/arm/boot/dts/imx6ul-14x14-evk*.dtb"
+      }
+    },
+    {
+      "require": {
+        "DISK_TYPE": "nand"
+      },
+      "config": {
+        "defconfig": "linux_imx6ul_nand_defconfig"
+      },
+      "install": {
+        "dtbs": "arch/arm/boot/dts/imx6ul-14x14-evk*.dtb"
+      }
+    }
+  ]
+}

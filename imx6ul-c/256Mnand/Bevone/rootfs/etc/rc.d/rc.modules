@@ -1,0 +1,4 @@
+#!/bin/sh
+#/sbin/insmod /lib/modules/wifi/8723au.ko
+#/sbin/insmod /lib/modules/bluetooth/rtk_btusb.ko
+exit 0

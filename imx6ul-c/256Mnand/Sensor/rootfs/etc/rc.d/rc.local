@@ -1,0 +1,101 @@
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here
+if [ -x "/usr/bin/rpm" -a -e "/tmp/ltib" ]
+then
+    echo "rebuilding rpm database"
+    rm -rf /tmp/ltib
+    rpm --rebuilddb
+fi
+
+# fix up permissions
+if [ -d /home/user ]
+then
+    chown -R user.user /home/user
+fi
+
+# Add nodes when running under the hypervisor and static devices
+if [ -r /sys/class/misc/fsl-hv/dev -a ! -r /dev/fsl-hv ]
+then
+   echo "creating hypervisor nodes"
+   DEVID=`cat /sys/class/misc/fsl-hv/dev`
+   if [ -n "$DEVID" ]
+   then
+       MAJOR="${DEVID%:*}"
+       MINOR="${DEVID##*:}"
+
+       if [ \( "$MAJOR" -gt 0 \) -a \( "$MINOR" -gt 0 \) ]
+       then
+	   rm -f /dev/fsl-hv
+	   mknod /dev/fsl-hv c $MAJOR $MINOR
+       fi
+   fi
+   for i in 0 1 2 3 4 5 6 7
+   do
+       mknod /dev/hvc$i c 229 $i
+   done
+fi
+
+# add the fm device nodes
+if [ -n "$(cat /proc/devices | grep fm | sed 's/\([0-9]*\).*/\1/')" -a ! -r /dev/fm0 ]
+then
+    echo "creating fman device nodes"
+    cd /usr/share/doc/fmd-uspace-01.01/test/
+    sh fm_dev_create
+    cd -
+fi
+
+for i in 0 1 2; 
+do
+    if [ -e /sys/class/graphics/fb$i ]; then
+        chmod 0666 /sys/class/graphics/fb$i/pan
+    fi
+done
+
+mode=$1
+if [ $mode = "start" ]
+then
+    ifconfig lo 127.0.0.1
+    ifconfig lo up
+    #set bits_per_pixel
+
+    board=`cat /proc/boardname | awk '{print $2}'`
+    if [ $board = "OKMX6UL-C2" ]
+    then
+        echo 16 > /sys/class/graphics/fb0/bits_per_pixel
+    else
+        echo 32 > /sys/class/graphics/fb0/bits_per_pixel
+    fi
+
+    #configure can devices
+    ifconfig can0 down
+    ip link set can0 up type can bitrate 10000 triple-sampling on
+    ifconfig can0 up
+
+    ifconfig can1 down
+    ip link set can1 up type can bitrate 10000 triple-sampling on
+    ifconfig can1 up
+    #set network
+    ifconfig eth0 192.168.126.245
+    ifconfig eth1 192.168.126.246 
+
+    #rename ttymxc
+    ln -s /dev/ttymxc3 /dev/ttyS3
+    ln -s /dev/ttymxc4 /dev/ttyS4
+    ln -s /dev/ttymxc5 /dev/ttyS5
+    ln -s /dev/ttymxc1 /dev/ttyS1
+
+    #configure ethenet
+    /etc/rc.d/init.d/networking restart
+
+    #set qt env
+    source /etc/rc.d/qt_env.sh
+    source /etc/rc.d/initgpio.sh
+#    source /root/syserror.sh &
+    cd /root/SSApp
+    ./ssApp &
+    ./ssSet &
+    #enable ssh server
+    /usr/sbin/dropbear
+fi

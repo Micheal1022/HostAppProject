@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib/imx-mm/video-codec
+includedir=${prefix}/include/imx-mm/video-codec
+
+Name: Freescale video codec
+Description: Optimized SW video decoder/encoder from freescale
+Version: 3.0.7
+Libs: -L${libdir}
+Cflags: -I${includedir}

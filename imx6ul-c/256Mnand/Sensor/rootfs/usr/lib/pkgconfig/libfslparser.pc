@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib/imx-mm/parser
+includedir=${prefix}/include/imx-mm/parser
+
+Name: Freescale media format parser 
+Description: Optimized SW media format parser from freescale
+Version: 3.0.7
+Libs: -L${libdir} -L${exec_prefix}/lib
+Cflags: -I${includedir}

@@ -1,0 +1,4 @@
+config GPIO_USER_INTF
+	tristate "gpio user interface"
+	---help---
+	this driver for all gpio control

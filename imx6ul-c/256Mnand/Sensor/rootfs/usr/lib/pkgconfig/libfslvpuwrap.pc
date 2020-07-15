@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/imx-mm/vpu
+
+Name: VPU wrapper for imx vpu
+Description: Providing standard video encode/decode interface
+Version: 1.0.35
+Libs: -L${libdir} -lfslvpuwrap
+Cflags: -I${includedir}

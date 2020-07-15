@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib/imx-mm/audio-codec
+includedir=${prefix}/include/imx-mm/audio-codec
+
+Name: Freescale audio codec
+Description: Optimized SW audio decoder/encoder from freescale
+Version: 3.0.7
+Libs: -L${libdir}
+Cflags: -I${includedir}
