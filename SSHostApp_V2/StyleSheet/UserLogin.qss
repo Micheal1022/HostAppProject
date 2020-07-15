@@ -1,0 +1,35 @@
+QWidget{
+color:rgb(15, 41, 68);
+background-color: rgb(255, 255, 255);
+}
+QToolButton{
+font: 18pt "DejaVu Sans";
+color: rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+background-color: rgb(255, 255, 255);
+}
+QLineEdit{
+font: 18pt "DejaVu Sans";
+background-color: rgb(255, 255, 255);
+border: 2px solid rgb(0, 122, 165);
+border-radius:10px;
+}
+QLabel{
+font: 18pt "DejaVu Sans";
+color:rgb(15, 41, 68);
+}
+QToolButton#tBtnBack{
+font: 16pt "DejaVu Sans";
+color: rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+background-color: rgb(255, 255, 255);
+}
+QToolButton#tBtnOk{
+font: 16pt "DejaVu Sans";
+color: rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+background-color: rgb(255, 255, 255);
+}

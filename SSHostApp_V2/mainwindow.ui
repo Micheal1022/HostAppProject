@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#centralWidget{
+background-color: rgb(255, 255, 255);
+}
+QDialog{
+font: 18pt &quot;文泉驿等宽微米黑&quot;;
+background-color: rgb(255, 255, 255);
+}
+QPushButton{
+width:80px;
+height:35px;
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(0, 0, 0);
+border:2px solid rgb(28, 183, 200);
+border-radius:10px;
+}
+QToolButton{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(0, 101, 150);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+background-color: rgb(255, 255, 255);
+}
+QToolButton:disabled{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(180, 180, 180);
+border-color: rgb(180, 180, 180);
+}
+QLabel#lbTitle{
+font: 30pt &quot;文泉驿等宽微米黑&quot;;
+border:1px solid rgb(0, 122, 165) ;
+color: rgb(255, 255, 255);
+background-color:rgb(0, 122, 165);
+border-bottom-left-radius:40px;
+border-bottom-right-radius:40px;
+}
+QLabel#lbCompany{
+font: 25pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(0, 101, 150);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="font">
+    <font>
+     <family>文泉驿等宽微米黑</family>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <widget class="QLabel" name="lbVersonPM">
+    <property name="geometry">
+     <rect>
+      <x>925</x>
+      <y>565</y>
+      <width>90</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;文泉驿等宽微米黑&quot;;</string>
+    </property>
+    <property name="text">
+     <string>V-2.0.2</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnLginout">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>275</y>
+      <width>150</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="text">
+     <string>用户注销</string>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/Image/quit.png</normaloff>:/Image/quit.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>80</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextUnderIcon</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnRecord">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>275</y>
+      <width>150</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>历史记录</string>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/Image/volume.png</normaloff>:/Image/volume.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>80</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextUnderIcon</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnSystemSet">
+    <property name="geometry">
+     <rect>
+      <x>830</x>
+      <y>275</y>
+      <width>150</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>系统设置</string>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/Image/tools.png</normaloff>:/Image/tools.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>80</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextUnderIcon</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbCurPass">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>515</y>
+      <width>30</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbTitle">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>5</y>
+      <width>524</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>30</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbLogoSensor">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>10</y>
+      <width>226</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>24</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/Image/ss_logo.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnUserLogin">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>275</y>
+      <width>150</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>用户登录</string>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/Image/login.png</normaloff>:/Image/login.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>80</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextUnderIcon</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbBack">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1024</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 30pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(255, 255, 255);
+background-color:rgb(0, 122, 165);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbCompany">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>545</y>
+      <width>504</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>25</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
+    <property name="text">
+     <string>西安盛赛尔电子有限公司</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnSelfCheck">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>275</y>
+      <width>150</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>主机自检</string>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/Image/selfCheck.png</normaloff>:/Image/selfCheck.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>80</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextUnderIcon</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnMonitor">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>275</y>
+      <width>150</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>监控状态</string>
+    </property>
+    <property name="icon">
+     <iconset resource="image.qrc">
+      <normaloff>:/Image/node.png</normaloff>:/Image/node.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>80</width>
+      <height>80</height>
+     </size>
+    </property>
+    <property name="toolButtonStyle">
+     <enum>Qt::ToolButtonTextUnderIcon</enum>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnSystemError">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>520</y>
+      <width>86</width>
+      <height>76</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>系统
+故障</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbLogoBevone">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>216</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>24</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::ClickFocus</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="lbVersonEF">
+    <property name="geometry">
+     <rect>
+      <x>925</x>
+      <y>565</y>
+      <width>90</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>文泉驿等宽微米黑</family>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 12pt &quot;文泉驿等宽微米黑&quot;;</string>
+    </property>
+    <property name="text">
+     <string>V-2.0.1</string>
+    </property>
+   </widget>
+   <zorder>tBtnLginout</zorder>
+   <zorder>tBtnUserLogin</zorder>
+   <zorder>lbVersonPM</zorder>
+   <zorder>tBtnRecord</zorder>
+   <zorder>tBtnSystemSet</zorder>
+   <zorder>lbCurPass</zorder>
+   <zorder>lbBack</zorder>
+   <zorder>lbCompany</zorder>
+   <zorder>tBtnSelfCheck</zorder>
+   <zorder>tBtnMonitor</zorder>
+   <zorder>lbTitle</zorder>
+   <zorder>lbLogoSensor</zorder>
+   <zorder>tBtnSystemError</zorder>
+   <zorder>lbLogoBevone</zorder>
+   <zorder>lbVersonEF</zorder>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="image.qrc"/>
+ </resources>
+ <connections/>
+</ui>

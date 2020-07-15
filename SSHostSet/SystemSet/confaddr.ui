@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfAddr</class>
+ <widget class="QWidget" name="ConfAddr">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#ConfAddr{
+background-color: rgb(255, 255, 255);
+}
+QToolButton{
+font: 18pt &quot;文泉驿等宽微米黑&quot;;
+font: 12pt &quot;DejaVu Sans&quot;;
+color:rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+background-color: rgb(255, 255, 255);
+}
+</string>
+  </property>
+  <widget class="QToolButton" name="tBtnDbSave">
+   <property name="geometry">
+    <rect>
+     <x>885</x>
+     <y>440</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>保存
+数据</string>
+   </property>
+   <property name="icon">
+    <iconset resource="../image.qrc">
+     <normaloff>:/Image/dataExport.png</normaloff>:/Image/dataExport.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>35</width>
+     <height>60</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>5</y>
+     <width>851</width>
+     <height>590</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*
+QScrollBar::handle:vertical {
+    
+    border: 0px solid grey;         
+    border-radius:3px;                 
+    width: 20px;                       
+}
+
+QScrollBar:vertical
+{
+    width:40px;
+    background: rgba(255,255,255,20%);
+    margin:0px,0px,0px,0px;
+    padding-top:12px;  
+    padding-bottom:12px;    
+}
+*/
+
+QScrollBar:vertical
+{
+    width:50px;
+    background:rgb(0,0,0,0%);
+    margin:0px,0px,0px,0px;
+    padding-top:12px;   
+    padding-bottom:12px;    
+}
+ 
+QScrollBar::handle:vertical
+{
+    width:8px;
+    background:rgb(0,0,0,25%);
+    border-radius:4px;
+    min-height:20px;
+}
+ 
+
+QScrollBar::handle:vertical:hover
+{
+    width:9px;
+    background:rgb(0,0,0,50%);
+    border-radius:4px;
+    min-height:20;
+}
+</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="tBtnAllClose">
+   <property name="geometry">
+    <rect>
+     <x>885</x>
+     <y>260</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="text">
+    <string>全部
+禁用</string>
+   </property>
+   <property name="icon">
+    <iconset resource="../image.qrc">
+     <normaloff>:/Image/close.png</normaloff>:/Image/close.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>35</width>
+     <height>60</height>
+    </size>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="tBtnAllStart">
+   <property name="geometry">
+    <rect>
+     <x>885</x>
+     <y>170</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="text">
+    <string>全部
+启用</string>
+   </property>
+   <property name="icon">
+    <iconset resource="../image.qrc">
+     <normaloff>:/Image/ok.png</normaloff>:/Image/ok.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>35</width>
+     <height>60</height>
+    </size>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="tBtnDbOpen">
+   <property name="geometry">
+    <rect>
+     <x>885</x>
+     <y>350</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="text">
+    <string>打开
+数据</string>
+   </property>
+   <property name="icon">
+    <iconset resource="../image.qrc">
+     <normaloff>:/Image/arrow-down.png</normaloff>:/Image/arrow-down.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>35</width>
+     <height>60</height>
+    </size>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="cbBoxLoop">
+   <property name="geometry">
+    <rect>
+     <x>874</x>
+     <y>10</y>
+     <width>135</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QComboBox {
+border-radius: 3px;
+font: 18pt &quot;文泉驿等宽微米黑&quot;;
+font: 12pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+background-color: rgb(255, 255, 255);
+}
+
+
+/* 下拉后，整个下拉窗体样式 */
+QComboBox QAbstractItemView {
+outline: 1px solid rgb(0, 122, 165);   /* 选定项的虚框 */
+border: 1px solid rgb(0, 122, 165);   /* 整个下拉窗体的边框 */
+background-color: rgb(255, 255, 255);  /* 整个下拉窗体的背景色 */
+selection-background-color: lightgreen;   /* 整个下拉窗体被选中项的背景色 */
+}
+
+/* 下拉后，整个下拉窗体每项的样式 */
+QComboBox QAbstractItemView::item {
+border:2px solid rgb(0, 122, 165);
+height: 50px;   /* 项的高度（设置pComboBox-&gt;setView(new QListView());后，该项才起作用） */
+}
+
+/* 下拉后，整个下拉窗体越过每项的样式 */
+QComboBox QAbstractItemView::item:hover {
+border:2px solid rgb(0, 122, 165);
+background-color: lightgreen;   /* 整个下拉窗体越过每项的背景色 */
+}
+
+/* 下拉后，整个下拉窗体被选择的每项的样式 */
+QComboBox QAbstractItemView::item:selected {
+    background-color: rgb(255, 255, 255);
+border:2px solid rgb(0, 122, 165);
+}
+
+
+
+
+
+
+
+</string>
+   </property>
+   <property name="maxVisibleItems">
+    <number>20</number>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../image.qrc"/>
+ </resources>
+ <connections/>
+</ui>

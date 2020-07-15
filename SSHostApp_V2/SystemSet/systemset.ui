@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SystemSet</class>
+ <widget class="QWidget" name="SystemSet">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#SystemSet{
+color:rgb(15, 41, 68);
+background-color: rgb(255, 255, 255);
+}
+QLCDNumber{
+font: 12pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(80, 175, 185);
+border:1px solid white;
+border-color: rgb(79, 229, 219);
+border-radius:8px;
+}
+QToolButton{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(0, 101, 150);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+background-color: rgb(255, 255, 255);
+}
+QToolButton:disabled{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(180, 180, 180);
+border-color: rgb(180, 180, 180);
+}
+
+QLabel{
+font: 16pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(15, 41, 68);
+}
+QLineEdit{
+font: 16pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(15, 41, 68);
+border-radius:5px;
+border:1px solid rgb(79, 229, 219);
+background-color: rgb(255, 255, 255);
+}
+QComboBox {
+color:rgb(15, 41, 68);
+border:1px solid rgb(53, 156, 212);
+ }
+QComboBox QAbstractItemView::item{
+font: 16pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(15, 41, 68);
+height:30px;
+}
+QDialog{
+background-color: rgb(15, 41, 68);
+}
+QPushButton{
+width:50px;
+height:35px;
+font: 14pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(0, 0, 0);
+border:2px solid rgb(28, 183, 200);
+border-radius:10px;
+background-color: rgb(15, 41, 68);
+}</string>
+  </property>
+  <widget class="QStackedWidget" name="stackedWgtBtn">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>600</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="pageBtn">
+    <widget class="QToolButton" name="tBtnConfNode">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>115</y>
+       <width>150</width>
+       <height>130</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿等宽微米黑</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>节点配置</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../image.qrc">
+       <normaloff>:/Image/node.png</normaloff>:/Image/node.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>80</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextUnderIcon</enum>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tBtnConfLoop">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>330</y>
+       <width>150</width>
+       <height>130</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿等宽微米黑</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>回路配置</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../image.qrc">
+       <normaloff>:/Image/connect.png</normaloff>:/Image/connect.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>80</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextUnderIcon</enum>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tBtnConfTime">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>115</y>
+       <width>150</width>
+       <height>130</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿等宽微米黑</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>系统时间</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../image.qrc">
+       <normaloff>:/Image/time.png</normaloff>:/Image/time.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>80</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextUnderIcon</enum>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tBtnConfSystem">
+     <property name="geometry">
+      <rect>
+       <x>710</x>
+       <y>330</y>
+       <width>150</width>
+       <height>130</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿等宽微米黑</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>设备配置</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../image.qrc">
+       <normaloff>:/Image/key.png</normaloff>:/Image/key.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>80</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextUnderIcon</enum>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tBtnConfPwd">
+     <property name="geometry">
+      <rect>
+       <x>710</x>
+       <y>115</y>
+       <width>150</width>
+       <height>130</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿等宽微米黑</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>密码设置</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../image.qrc">
+       <normaloff>:/Image/pwd.png</normaloff>:/Image/pwd.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>80</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextUnderIcon</enum>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tBtnConfNetWork">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>330</y>
+       <width>150</width>
+       <height>130</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿等宽微米黑</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>网络配置</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../image.qrc">
+       <normaloff>:/Image/selfCheck.png</normaloff>:/Image/selfCheck.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>80</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextUnderIcon</enum>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tBtnBackMain">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>920</x>
+       <y>510</y>
+       <width>90</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>文泉驿等宽微米黑</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>返回</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../image.qrc">
+       <normaloff>:/Image/back.png</normaloff>:/Image/back.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextUnderIcon</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_27">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1024</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(255, 255, 255);
+background-color:rgb(0, 122, 165);</string>
+     </property>
+     <property name="text">
+      <string> 系统设置</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="pageConf">
+    <widget class="QStackedWidget" name="stackedWgtConf">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1024</width>
+       <height>600</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QCheckBox{
+spacing: 5px;
+font: 17pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(15, 41, 68);
+border:2px solid rgb(28, 183, 200);
+border-radius:10px;
+}
+QCheckBox::indicator{
+border:1px solid black;
+width:20px;
+height:20px;
+margin-left:5px;
+border-radius:2px;
+image: url(:/Image/uncheck.png);
+}
+QCheckBox::indicator::unchecked {
+image: url(:/Image/uncheck.png);
+}
+QCheckBox::indicator::checked {
+image: url(:/Image/checked.png);
+}</string>
+     </property>
+     <property name="currentIndex">
+      <number>-1</number>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tBtnConfBack">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>920</x>
+       <y>510</y>
+       <width>90</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="text">
+      <string>返回</string>
+     </property>
+     <property name="icon">
+      <iconset resource="../image.qrc">
+       <normaloff>:/Image/back.png</normaloff>:/Image/back.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>35</width>
+       <height>35</height>
+      </size>
+     </property>
+     <property name="toolButtonStyle">
+      <enum>Qt::ToolButtonTextUnderIcon</enum>
+     </property>
+     <property name="arrowType">
+      <enum>Qt::NoArrow</enum>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="../image.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfDevice</class>
+ <widget class="QWidget" name="ConfDevice">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#ConfDevice{
+background-color: rgb(255, 255, 255);
+}
+QToolButton{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+background-color: rgb(255, 255, 255);
+}
+QLabel{
+font: 16pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(15, 41, 68);
+}
+QGroupBox{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+border-radius:8px;
+margin-top:22px;
+}
+QGroupBox:title{
+subcontrol-origin: margin;
+left: 5px;
+}
+QPushButton{
+width:80px;
+height:40px;
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(0, 0, 0);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+}
+</string>
+  </property>
+  <widget class="QLabel" name="lbTitle">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>文泉驿等宽微米黑</family>
+     <pointsize>20</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(255, 255, 255);
+background-color:rgb(0, 122, 165);</string>
+   </property>
+   <property name="text">
+    <string> 设备配置</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>45</y>
+     <width>456</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>回路总数配置</string>
+   </property>
+   <widget class="QToolButton" name="tBtn_4">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>50</y>
+      <width>130</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>4回路</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_12">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>50</y>
+      <width>130</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>12回路</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_8">
+    <property name="geometry">
+     <rect>
+      <x>165</x>
+      <y>50</y>
+      <width>130</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>8回路</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>45</y>
+     <width>550</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>主机类型设置</string>
+   </property>
+   <widget class="QToolButton" name="tBtnEFMQ">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>50</y>
+      <width>250</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>电气火灾主机</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnPMFE">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>50</y>
+      <width>250</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>电源监控主机</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>195</y>
+     <width>550</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>更新操作</string>
+   </property>
+   <widget class="QToolButton" name="tBtnUpdateApp">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>50</y>
+      <width>250</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>主程序更新</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnUpdateDB">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>50</y>
+      <width>250</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>数据库更新</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>TS/APP_ZH_US.ts</file>
+    </qresource>
+</RCC>

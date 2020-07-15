@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConfDevice</class>
+ <widget class="QWidget" name="ConfDevice">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1024</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#ConfDevice{
+background-color: rgb(255, 255, 255);
+}
+QToolButton{
+font: 12pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+background-color: rgb(255, 255, 255);
+}
+QLabel{
+font: 16pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(15, 41, 68);
+}
+QGroupBox{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(0, 122, 165);
+border:2px solid rgb(0, 122, 165);
+border-radius:8px;
+margin-top:22px;
+}
+QGroupBox:title{
+subcontrol-origin: margin;
+left: 5px;
+}
+QPushButton{
+width:80px;
+height:40px;
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(0, 0, 0);
+border:2px solid rgb(0, 122, 165);
+border-radius:10px;
+}
+</string>
+  </property>
+  <widget class="QLabel" name="lbTitle">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>文泉驿等宽微米黑</family>
+     <pointsize>20</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(255, 255, 255);
+background-color:rgb(0, 122, 165);</string>
+   </property>
+   <property name="text">
+    <string> 设备配置</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>280</y>
+     <width>616</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>回路总数配置</string>
+   </property>
+   <widget class="QToolButton" name="tBtn_4">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>50</y>
+      <width>180</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>配置4回路</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_12">
+    <property name="geometry">
+     <rect>
+      <x>415</x>
+      <y>50</y>
+      <width>180</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>配置12回路</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtn_8">
+    <property name="geometry">
+     <rect>
+      <x>215</x>
+      <y>50</y>
+      <width>180</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>配置8回路</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>45</y>
+     <width>380</width>
+     <height>230</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>主机类型设置</string>
+   </property>
+   <widget class="QToolButton" name="tBtnEFMQ">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>45</y>
+      <width>340</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>电气火灾监控系统</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnPMFE">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>135</y>
+      <width>340</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>消防电源监控系统</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4">
+   <property name="geometry">
+    <rect>
+     <x>5</x>
+     <y>45</y>
+     <width>616</width>
+     <height>230</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>更新操作</string>
+   </property>
+   <widget class="QToolButton" name="tBtnUpdateApp">
+    <property name="geometry">
+     <rect>
+      <x>345</x>
+      <y>45</y>
+      <width>250</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>监控程序更新</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnUpdateDB">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>45</y>
+      <width>300</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>节点地址数据库更新</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnUpdateHost">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>135</y>
+      <width>300</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>主机配置数据库更新</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnUpdateConf">
+    <property name="geometry">
+     <rect>
+      <x>345</x>
+      <y>135</y>
+      <width>250</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>配置程序更新</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="gBoxLang">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>280</y>
+     <width>380</width>
+     <height>140</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>语言配置</string>
+   </property>
+   <widget class="QToolButton" name="tBtnEN">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>50</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>英文</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="tBtnZH">
+    <property name="geometry">
+     <rect>
+      <x>25</x>
+      <y>50</y>
+      <width>150</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>中文</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
