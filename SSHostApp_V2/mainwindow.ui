@@ -85,7 +85,7 @@ color: rgb(0, 101, 150);
      <string notr="true">font: 12pt &quot;文泉驿等宽微米黑&quot;;</string>
     </property>
     <property name="text">
-     <string>V-2.0.2</string>
+     <string>V-2.0.3</string>
     </property>
    </widget>
    <widget class="QToolButton" name="tBtnLginout">
