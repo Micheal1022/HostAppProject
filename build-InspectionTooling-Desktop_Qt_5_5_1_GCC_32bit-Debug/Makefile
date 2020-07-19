@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = InspectionTooling1.0.0
-DISTDIR = /root/build-InspectionTooling-Desktop_Qt_5_5_1_GCC_32bit-Debug/.tmp/InspectionTooling1.0.0
+DISTDIR = /root/HostAppProject/build-InspectionTooling-Desktop_Qt_5_5_1_GCC_32bit-Debug/.tmp/InspectionTooling1.0.0
 LINK          = g++
 LFLAGS        = -m32 -Wl,-rpath,/opt/Qt5.5.1/5.5/gcc -Wl,-rpath,/opt/Qt5.5.1/5.5/gcc/lib
 LIBS          = $(SUBLIBS) -L/opt/Qt5.5.1/5.5/gcc/lib -lQt5Widgets -lQt5Gui -lQt5SerialPort -lQt5Core -lGL -lpthread 
@@ -694,7 +694,7 @@ moc_mainwindow.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
 		../InspectionTooling/mainwindow.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/mainwindow.h -o moc_mainwindow.cpp
 
 moc_node_ef.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -799,7 +799,7 @@ moc_node_ef.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../InspectionTooling/Node_EF/node_ef.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/Node_EF/node_ef.h -o moc_node_ef.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/Node_EF/node_ef.h -o moc_node_ef.cpp
 
 moc_node_pm.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -904,7 +904,7 @@ moc_node_pm.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../InspectionTooling/Node_PM/node_pm.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/Node_PM/node_pm.h -o moc_node_pm.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/Node_PM/node_pm.h -o moc_node_pm.cpp
 
 moc_nodevalue_pm.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
@@ -1012,7 +1012,7 @@ moc_nodevalue_pm.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		../InspectionTooling/NodeValue_PM/nodevalue_pm.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/NodeValue_PM/nodevalue_pm.h -o moc_nodevalue_pm.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/NodeValue_PM/nodevalue_pm.h -o moc_nodevalue_pm.cpp
 
 moc_nodevalue_ef.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -1117,7 +1117,7 @@ moc_nodevalue_ef.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../InspectionTooling/NodeValue_EF/nodevalue_ef.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/NodeValue_EF/nodevalue_ef.h -o moc_nodevalue_ef.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/NodeValue_EF/nodevalue_ef.h -o moc_nodevalue_ef.cpp
 
 moc_modbus.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
@@ -1173,7 +1173,7 @@ moc_modbus.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qisenum.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject_impl.h \
 		../InspectionTooling/Modbus/modbus.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/Modbus/modbus.h -o moc_modbus.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/Modbus/modbus.h -o moc_modbus.cpp
 
 moc_candatamgm.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
@@ -1249,7 +1249,7 @@ moc_candatamgm.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QThread \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qthread.h \
 		../InspectionTooling/CanDataMgm/candatamgm.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/CanDataMgm/candatamgm.h -o moc_candatamgm.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/CanDataMgm/candatamgm.h -o moc_candatamgm.cpp
 
 moc_canrecvthread.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QList \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlist.h \
@@ -1324,7 +1324,7 @@ moc_canrecvthread.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QList \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontiguouscache.h \
 		../InspectionTooling/includes.h \
 		../InspectionTooling/CanDataMgm/canrecvthread.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/CanDataMgm/canrecvthread.h -o moc_canrecvthread.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/CanDataMgm/canrecvthread.h -o moc_canrecvthread.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1578,15 +1578,50 @@ mainwindow.o: ../InspectionTooling/mainwindow.cpp ../InspectionTooling/mainwindo
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
 		ui_mainwindow.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QStackedWidget \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstackedwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		../InspectionTooling/Modbus/modbus.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		../InspectionTooling/Node_PM/node_pm.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		../InspectionTooling/Node_EF/node_ef.h \
 		../InspectionTooling/includes.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		../InspectionTooling/CanDataMgm/candatamgm.h \
 		../InspectionTooling/CanDataMgm/initcanport.h \
 		../InspectionTooling/CanDataMgm/canrecvthread.h \
@@ -1778,15 +1813,50 @@ node_ef.o: ../InspectionTooling/Node_EF/node_ef.cpp ../InspectionTooling/Node_EF
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_node_ef.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGroupBox \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgroupbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		../InspectionTooling/NodeValue_EF/nodevalue_ef.h \
 		../InspectionTooling/includes.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QTimer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtimer.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
-		../InspectionTooling/CanMgm/canmgm.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
-		../InspectionTooling/CanMgm/ThirdLib/ECanVci.h
+		../InspectionTooling/CanDataMgm/initcanport.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o node_ef.o ../InspectionTooling/Node_EF/node_ef.cpp
 
 node_pm.o: ../InspectionTooling/Node_PM/node_pm.cpp ../InspectionTooling/Node_PM/node_pm.h \
@@ -1893,18 +1963,52 @@ node_pm.o: ../InspectionTooling/Node_PM/node_pm.cpp ../InspectionTooling/Node_PM
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_node_pm.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGroupBox \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgroupbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		../InspectionTooling/NodeValue_PM/nodevalue_pm.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
 		../InspectionTooling/includes.h \
-		../InspectionTooling/CanMgm/canmgm.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
-		../InspectionTooling/CanMgm/ThirdLib/ECanVci.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QTimer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtimer.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
+		../InspectionTooling/CanDataMgm/initcanport.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o node_pm.o ../InspectionTooling/Node_PM/node_pm.cpp
 
 nodevalue_pm.o: ../InspectionTooling/NodeValue_PM/nodevalue_pm.cpp ../InspectionTooling/NodeValue_PM/nodevalue_pm.h \
@@ -2014,6 +2118,39 @@ nodevalue_pm.o: ../InspectionTooling/NodeValue_PM/nodevalue_pm.cpp ../Inspection
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		ui_nodevalue_pm.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLCDNumber \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlcdnumber.h \
 		../InspectionTooling/includes.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o nodevalue_pm.o ../InspectionTooling/NodeValue_PM/nodevalue_pm.cpp
@@ -2122,6 +2259,42 @@ nodevalue_ef.o: ../InspectionTooling/NodeValue_EF/nodevalue_ef.cpp ../Inspection
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_nodevalue_ef.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLCDNumber \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlcdnumber.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
 		../InspectionTooling/includes.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o nodevalue_ef.o ../InspectionTooling/NodeValue_EF/nodevalue_ef.cpp
