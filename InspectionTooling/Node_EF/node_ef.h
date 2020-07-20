@@ -22,6 +22,7 @@ private:
     int m_pass;
     int m_time;
     int m_step;
+    int m_delay;
     bool m_checkFlag;
     bool m_dataFlag;
     QTimer *m_timer;
@@ -36,6 +37,7 @@ signals:
     void sigBtnBack();
     void sigStart();
     void sigStop();
+    void sigLeakCmd(int cmd,int state);
 private slots:
     void slotTimeOut();
 };

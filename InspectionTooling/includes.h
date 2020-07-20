@@ -89,6 +89,15 @@
 #define PSTATE  9
 #define PTYPE   10
 
+#define D_000   0x00
+#define D_100   0x01
+#define D_150   0x02
+#define D_200   0x03
+#define D_300   0x04
+#define D_500   0x05
+#define D_800   0x06
+
+
 
 
 

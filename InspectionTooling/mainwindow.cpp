@@ -49,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_canDataMgm,SIGNAL(sigSendCanData(QList<int>)),this,SLOT(slotSendCanData(QList<int>)));
 
 
+
+    connect(m_nodeEF, SIGNAL(sigLeakCmd(int,int)),m_modbus,SLOT(slotSendLeakData(int,int)));
     connect(m_node2VA, SIGNAL(sigVoltageCmd(int)),m_modbus,SLOT(slotSendVoltageData(int)));
     connect(m_node2VA, SIGNAL(sigCurrentCmd(int)),m_modbus,SLOT(slotSendCurrentData(int)));
     connect(m_node3V,  SIGNAL(sigVoltageCmd(int)),m_modbus,SLOT(slotSendVoltageData(int)));

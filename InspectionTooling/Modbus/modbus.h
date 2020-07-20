@@ -15,12 +15,23 @@ private:
     QSerialPort *m_voltagePort;
     QSerialPort *m_currentPort;
     QSerialPort *m_leakPort;
-    QSerialPort *initProt(QString port);
+    QByteArray m_BaseByteArray;
+    QByteArray m_100_ByteArray;
+    QByteArray m_150_ByteArray;
+    QByteArray m_200_ByteArray;
+    QByteArray m_300_ByteArray;
+    QByteArray m_500_ByteArray;
+    QByteArray m_800_ByteArray;
+
+    QSerialPort *initProt(QString port,int baudRate);
+
     void sendCurrentData(int cmd);
     void sendVoltageData(int cmd);
-    void sendLeakData(int cmd);
+    void sendLeakData(int cmd, int state);
     void initVoltageConf();
     void initCurrentConf();
+    void initLeakConf();
+    void initLeakValue();
 
     quint16 dataCRC16(uchar *data, int len);
 signals:
@@ -28,6 +39,7 @@ signals:
 public slots:
     void slotSendVoltageData(int cmd);
     void slotSendCurrentData(int cmd);
+    void slotSendLeakData(int cmd, int state);
 };
 
 #endif // MODBUS_H

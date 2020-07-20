@@ -72,13 +72,19 @@ uchar CRC_Low[] = {
 
 Modbus::Modbus(QObject *parent) : QObject(parent)
 {
-    QSettings settings("./COMCONF.ini", QSettings::IniFormat);
-    QString VolCOM  = settings.value("RS232_VOL/VolCOM").toString();
-    QString CurCOM  = settings.value("RS485_CUR/CurCOM").toString();
-    QString LeakCOM = settings.value("RS232_LEAK/LeakCOM").toString();
-    m_voltagePort = initProt(VolCOM);
-    m_currentPort = initProt(CurCOM);
-    m_leakPort    = initProt(LeakCOM);
+//    QSettings settings("./COMCONF.ini", QSettings::IniFormat);
+//    QString VolCOM  = settings.value("RS232_VOL/VolCOM").toString();
+//    QString CurCOM  = settings.value("RS485_CUR/CurCOM").toString();
+//    QString LeakCOM = settings.value("RS232_LEAK/LeakCOM").toString();
+    QString VolCOM  = QString("/dev/ttymxc1");//串口
+    QString CurCOM  = QString("/dev/ttymxc2");//485-1
+    //QString LeakCOM = QString("/dev/ttymxc4");//485-2
+    QString LeakCOM = QString("/dev/ttyUSB0");//485-2
+    m_voltagePort = initProt(VolCOM,QSerialPort::Baud9600);
+    m_currentPort = initProt(CurCOM,QSerialPort::Baud9600);
+    m_leakPort    = initProt(LeakCOM,QSerialPort::Baud115200);
+    initLeakConf();
+    initLeakValue();
     initVoltageConf();
     initCurrentConf();
 }
@@ -94,13 +100,13 @@ Modbus::~Modbus()
     delete m_leakPort;
 }
 
-QSerialPort *Modbus::initProt(QString port)
+QSerialPort *Modbus::initProt(QString port,int baudRate)
 {
     QSerialPort *serialPort = new QSerialPort;
     //设置串口名
     serialPort->setPortName(port);
     //设置波特率
-    serialPort->setBaudRate(QSerialPort::Baud9600);
+    serialPort->setBaudRate(baudRate);;
     //设置数据位数
     serialPort->setDataBits(QSerialPort::Data8);
     //设置停止位
@@ -150,17 +156,54 @@ void Modbus::sendVoltageData(int cmd)
     m_voltagePort->write(byteArray);
 }
 
-void Modbus::sendLeakData(int cmd)
+void Modbus::sendLeakData(int cmd, int state)
 {
+    qDebug()<<"*********************";
+    qDebug()<<"cmd  : "<<cmd;
+    qDebug()<<"state: "<<state;
     QByteArray byteArray;
     if (P_START == cmd) {
-
+        byteArray.append(0x81); byteArray.append((char)_DATA); byteArray.append(0x08); byteArray.append((char)_DATA);
+        byteArray.append(0xDC); byteArray.append(0x04); byteArray.append(0x01); byteArray.append(0xD1);
+        qDebug()<<byteArray;
+        m_leakPort->write(byteArray);
     } else if (P_STOP == cmd) {
-
+        byteArray.append(0x81); byteArray.append((char)_DATA); byteArray.append(0x06); byteArray.append((char)_DATA);
+        byteArray.append(0x4F); byteArray.append(0x49);
+        qDebug()<<byteArray;
+        m_leakPort->write(byteArray);
     } else if (P_SET == cmd) {
-
+        switch (state) {
+        case D_000:
+            qDebug()<<m_BaseByteArray;
+            m_leakPort->write(m_BaseByteArray);
+            break;
+        case D_100:
+            qDebug()<<m_100_ByteArray;
+            m_leakPort->write(m_100_ByteArray);
+            break;
+        case D_150:
+            qDebug()<<m_150_ByteArray;
+            m_leakPort->write(m_150_ByteArray);
+            break;
+        case D_200:
+            qDebug()<<m_200_ByteArray;
+            m_leakPort->write(m_200_ByteArray);
+            break;
+        case D_300:
+            qDebug()<<m_300_ByteArray;
+            m_leakPort->write(m_300_ByteArray);
+            break;
+        case D_500:
+            qDebug()<<m_500_ByteArray;
+            m_leakPort->write(m_500_ByteArray);
+            break;
+        case D_800:
+            qDebug()<<m_800_ByteArray;
+            m_leakPort->write(m_800_ByteArray);
+            break;
+        }
     }
-    m_leakPort->write(byteArray);
 }
 
 void Modbus::initVoltageConf()
@@ -176,6 +219,74 @@ void Modbus::initVoltageConf()
 void Modbus::initCurrentConf()
 {
     sendCurrentData(P_SET);
+}
+
+void Modbus::initLeakConf()
+{
+    QByteArray byteArray;
+    /*设置电压-220V,1A*/
+    byteArray.append(0x81); byteArray.append((char)_DATA); byteArray.append(0x0C); byteArray.append((char)_DATA);
+    byteArray.append(0x31); byteArray.append(0x01); byteArray.append(0x01); byteArray.append(0x01);
+    byteArray.append(0x02); byteArray.append(0x02); byteArray.append(0x02); byteArray.append(0x3E);
+    m_leakPort->write(byteArray);
+}
+
+void Modbus::initLeakValue()
+{
+    m_BaseByteArray.append(0x81);
+    m_BaseByteArray.append((char)_DATA);
+    m_BaseByteArray.append(0x1E);
+    m_BaseByteArray.append((char)_DATA);
+    m_BaseByteArray.append(0x32);
+    for (int i = 0; i < 24;i++) {
+        m_BaseByteArray.append((char)_DATA);
+    }
+    m_BaseByteArray.append(0x2C);
+
+    m_100_ByteArray = m_BaseByteArray;
+    m_100_ByteArray[17] = 0x10;
+    m_100_ByteArray[18] = 0x27;
+    m_100_ByteArray[19] = _DATA;
+    m_100_ByteArray[20] = _DATA;
+    m_100_ByteArray[29] = 0x1B;
+
+    m_150_ByteArray = m_BaseByteArray;
+    m_150_ByteArray[17] = 0x98;
+    m_150_ByteArray[18] = 0x3A  ;
+    m_150_ByteArray[19] = _DATA;
+    m_150_ByteArray[20] = _DATA;
+    m_150_ByteArray[29] = 0x8E;
+
+    m_200_ByteArray = m_BaseByteArray;
+    m_200_ByteArray[17] = 0x20;
+    m_200_ByteArray[18] = 0x4E;
+    m_200_ByteArray[19] = _DATA;
+    m_200_ByteArray[20] = _DATA;
+    m_200_ByteArray[29] = 0x42;
+
+    m_300_ByteArray = m_BaseByteArray;
+    m_300_ByteArray[17] = 0x30;
+    m_300_ByteArray[18] = 0x75;
+    m_300_ByteArray[19] = _DATA;
+    m_300_ByteArray[20] = _DATA;
+    m_300_ByteArray[29] = 0x69;
+
+    m_500_ByteArray = m_BaseByteArray;
+    m_500_ByteArray[17] = 0x50;
+    m_500_ByteArray[18] = 0xC3;
+    m_500_ByteArray[19] = _DATA;
+    m_500_ByteArray[20] = _DATA;
+    m_500_ByteArray[29] = 0xBF;
+
+    m_800_ByteArray = m_BaseByteArray;
+    m_800_ByteArray[17] = 0x80;
+    m_800_ByteArray[18] = 0x38;
+    m_800_ByteArray[19] = 0x01;
+    m_800_ByteArray[20] = _DATA;
+    m_800_ByteArray[29] = 0x95;
+
+
+
 }
 
 
@@ -200,4 +311,9 @@ void Modbus::slotSendVoltageData(int cmd)
 void Modbus::slotSendCurrentData(int cmd)
 {
     sendCurrentData(cmd);
+}
+
+void Modbus::slotSendLeakData(int cmd, int state)
+{
+    sendLeakData(cmd,state);
 }
