@@ -18,6 +18,7 @@ public:
     ~Node_PM();
     void confType(int type);
     void updateValue(QList<int> valueList);
+    void keyCheck();
 
 private:
     Ui::Node_PM *ui;

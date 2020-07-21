@@ -38,7 +38,8 @@ SOURCES += \
 #        CanMgm/thread.cpp
         CanDataMgm/candatamgm.cpp \
         CanDataMgm/canrecvthread.cpp \
-        CanDataMgm/initcanport.cpp
+        CanDataMgm/initcanport.cpp \
+    KeyCheck/keycheck.cpp
 
 HEADERS += \
         includes.h \
@@ -53,7 +54,8 @@ HEADERS += \
 #        CanMgm/ThirdLib/ECanVci.h
         CanDataMgm/candatamgm.h \
         CanDataMgm/canrecvthread.h \
-        CanDataMgm/initcanport.h
+        CanDataMgm/initcanport.h \
+    KeyCheck/keycheck.h
 
 FORMS += \
         mainwindow.ui \

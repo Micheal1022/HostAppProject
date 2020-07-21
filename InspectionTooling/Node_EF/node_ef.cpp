@@ -18,6 +18,7 @@ Node_EF::Node_EF(QWidget *parent) :
     m_pass = 0;
     m_time = 0;
     m_delay= 0;
+    m_keyCheck = false;
     m_dataFlag = false;
     m_checkFlag = false;
 
@@ -36,7 +37,7 @@ Node_EF::Node_EF(QWidget *parent) :
     m_typeBtnGroup->addButton(ui->tBtn_T4,2);
     m_typeBtnGroup->addButton(ui->tBtnSet,3);
     connect(m_typeBtnGroup,SIGNAL(buttonClicked(int)),this,SLOT(slotTypeBtn(int)));
-
+    ui->tBtnClear->setVisible(false);
 
     m_timer = new QTimer;
     connect(m_timer,SIGNAL(timeout()),this,SLOT(slotTimeOut()));
@@ -56,17 +57,40 @@ void Node_EF::updateValue(QList<int> valueList)
     }
 }
 
+void Node_EF::keyCheck()
+{
+    if (m_keyCheck == false) {
+        m_keyCheck = true;
+        slotFunBtn(1);
+    }
+}
+
+void Node_EF::initVar()
+{
+    m_step = 0;
+    m_pass = 0;
+    m_time = 0;
+    m_delay= 0;
+    m_keyCheck = false;
+    m_dataFlag = false;
+    m_checkFlag = false;
+}
+
 void Node_EF::slotFunBtn(int index)
 {
     switch (index) {
     case 0:
-        m_nodeValue_1->clearValue();
-        m_nodeValue_2->clearValue();
+
         break;
     case 1:
+        ui->tBtnCheck->setEnabled(false);
+        ui->tBtnReset->setEnabled(false);
+        ui->tBtnBack->setEnabled(false);
         m_checkFlag = true;
         m_timer->start(TIMEOUT);
         emit sigLeakCmd(P_START,0);
+        m_nodeValue_1->clearValue();
+        m_nodeValue_2->clearValue();
         break;
     case 2:
         for (int i = 0 ; i < 3;i++) {
@@ -212,6 +236,10 @@ void Node_EF::slotTimeOut()
         } else {
             m_checkFlag = true;
             m_dataFlag = false;
+            m_keyCheck = false;
+            ui->tBtnBack->setEnabled(true);
+            ui->tBtnCheck->setEnabled(true);
+            ui->tBtnReset->setEnabled(true);
             m_time = 0;
             m_timer->stop();
             emit sigLeakCmd(P_STOP,0);

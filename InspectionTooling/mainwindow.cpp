@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QButtonGroup>
 #include "CanDataMgm/candatamgm.h"
+#include <KeyCheck/keycheck.h>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -47,7 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     m_canDataMgm = new CanDataMgm;
     connect(m_canDataMgm,SIGNAL(sigSendCanData(QList<int>)),this,SLOT(slotSendCanData(QList<int>)));
-
+    m_keyCheck = new KeyCheck;
+    connect(m_keyCheck,SIGNAL(sigkeyCheck()),this,SLOT(slotKeyCheck()));
 
 
     connect(m_nodeEF, SIGNAL(sigLeakCmd(int,int)),m_modbus,SLOT(slotSendLeakData(int,int)));
@@ -108,5 +110,19 @@ void MainWindow::slotSendCanData(QList<int> valueList)
         m_node3V->updateValue(valueList);
     } else if (m_node6V3AFlag) {
         m_node6V3A->updateValue(valueList);
+    }
+}
+
+void MainWindow::slotKeyCheck()
+{
+    qDebug("******slotKeyCheck********");
+    if (m_nodeEFFlag) {
+        m_nodeEF->keyCheck();
+    } else if (m_node2VAFlag) {
+        m_node2VA->keyCheck();
+    } else if (m_node3VFlag) {
+        m_node3V->keyCheck();
+    } else if (m_node6V3AFlag) {
+        m_node6V3A->keyCheck();
     }
 }

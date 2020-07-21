@@ -17,12 +17,15 @@ public:
     explicit Node_EF(QWidget *parent = 0);
     ~Node_EF();
     void updateValue(QList<int> valueList);
+    void keyCheck();
+    void initVar();
 private:
     Ui::Node_EF *ui;
     int m_pass;
     int m_time;
     int m_step;
     int m_delay;
+    bool m_keyCheck;
     bool m_checkFlag;
     bool m_dataFlag;
     QTimer *m_timer;

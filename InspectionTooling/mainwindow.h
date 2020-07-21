@@ -9,6 +9,7 @@ class MainWindow;
 class Modbus;
 class Node_EF;
 class Node_PM;
+class KeyCheck;
 class CanDataMgm;
 class QButtonGroup;
 class MainWindow : public QMainWindow
@@ -27,6 +28,7 @@ private:
     Node_PM *m_node2VA;
     Node_PM *m_node6V3A;
     Node_EF *m_nodeEF;
+    KeyCheck *m_keyCheck;
     //Thread  *m_thread;
     CanDataMgm *m_canDataMgm;
 
@@ -40,6 +42,7 @@ private slots:
     void slotBtnIndex(int index);
     void slotBtnBack();
     void slotSendCanData(QList<int> valueList);
+    void slotKeyCheck();
 };
 
 #endif // MAINWINDOW_H

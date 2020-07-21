@@ -42,7 +42,7 @@ top:10px;
 left: 10px;
 }
 QLabel{
-font:12pt &quot;宋体&quot;;
+font:10pt &quot;宋体&quot;;
 color: rgb(0, 122, 165);
 color: rgb(255, 255, 255);
 }

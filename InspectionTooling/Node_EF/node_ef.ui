@@ -63,10 +63,10 @@ color: rgb(0, 122, 165);
    <widget class="QToolButton" name="tBtnReset">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>50</y>
-      <width>80</width>
-      <height>40</height>
+      <x>215</x>
+      <y>40</y>
+      <width>90</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -76,10 +76,10 @@ color: rgb(0, 122, 165);
    <widget class="QToolButton" name="tBtnClear">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>50</y>
-      <width>80</width>
-      <height>40</height>
+      <x>25</x>
+      <y>40</y>
+      <width>90</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -89,10 +89,10 @@ color: rgb(0, 122, 165);
    <widget class="QToolButton" name="tBtnBack">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>50</y>
-      <width>80</width>
-      <height>40</height>
+      <x>385</x>
+      <y>40</y>
+      <width>90</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -102,10 +102,10 @@ color: rgb(0, 122, 165);
    <widget class="QToolButton" name="tBtnCheck">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>50</y>
-      <width>80</width>
-      <height>40</height>
+      <x>25</x>
+      <y>40</y>
+      <width>90</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -144,10 +144,10 @@ color: rgb(0, 122, 165);
    <widget class="QToolButton" name="tBtnSet">
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>50</y>
-      <width>80</width>
-      <height>40</height>
+      <x>385</x>
+      <y>40</y>
+      <width>90</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -157,10 +157,10 @@ color: rgb(0, 122, 165);
    <widget class="QToolButton" name="tBtn_T4">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>50</y>
-      <width>80</width>
-      <height>40</height>
+      <x>265</x>
+      <y>40</y>
+      <width>90</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -170,10 +170,10 @@ color: rgb(0, 122, 165);
    <widget class="QToolButton" name="tBtn_L8T4">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>50</y>
-      <width>80</width>
-      <height>40</height>
+      <x>145</x>
+      <y>40</y>
+      <width>90</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -183,10 +183,10 @@ color: rgb(0, 122, 165);
    <widget class="QToolButton" name="tBtn_L12">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>50</y>
-      <width>80</width>
-      <height>40</height>
+      <x>25</x>
+      <y>40</y>
+      <width>90</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">

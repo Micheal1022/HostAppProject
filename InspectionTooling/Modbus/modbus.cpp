@@ -78,8 +78,9 @@ Modbus::Modbus(QObject *parent) : QObject(parent)
 //    QString LeakCOM = settings.value("RS232_LEAK/LeakCOM").toString();
     QString VolCOM  = QString("/dev/ttymxc1");//串口
     QString CurCOM  = QString("/dev/ttymxc2");//485-1
-    //QString LeakCOM = QString("/dev/ttymxc4");//485-2
-    QString LeakCOM = QString("/dev/ttyUSB0");//485-2
+    QString LeakCOM = QString("/dev/ttymxc4");//485-2
+//    QString LeakCOM  = QString("/dev/ttymxc1");//串口
+    //QString LeakCOM = QString("/dev/ttyUSB0");//485-2
     m_voltagePort = initProt(VolCOM,QSerialPort::Baud9600);
     m_currentPort = initProt(CurCOM,QSerialPort::Baud9600);
     m_leakPort    = initProt(LeakCOM,QSerialPort::Baud115200);

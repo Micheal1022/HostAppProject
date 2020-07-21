@@ -76,6 +76,11 @@ void Node_PM::updateValue(QList<int> valueList)
 
 }
 
+void Node_PM::keyCheck()
+{
+    slotFunBtn(1);
+}
+
 void Node_PM::slotTimeOut()
 {
     //发命令，获取数据

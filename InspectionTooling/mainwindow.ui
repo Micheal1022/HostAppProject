@@ -83,7 +83,7 @@ background-color: rgb(255, 255, 255);</string>
 background-color: rgb(0, 85, 127);
 }
 QToolButton{
-font: 30pt &quot;宋体&quot;;
+font: 28pt &quot;宋体&quot;;
 color:  rgb(0, 85, 127);
 border:2px solid rgb(0, 122, 165);
 border-radius:10px;
@@ -100,6 +100,15 @@ background-color: rgb(255, 255, 255);
         <width>200</width>
         <height>140</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>宋体</family>
+        <pointsize>28</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+       </font>
       </property>
       <property name="text">
        <string>漏电</string>
@@ -130,7 +139,7 @@ background-color: rgb(255, 255, 255);
       <property name="font">
        <font>
         <family>宋体</family>
-        <pointsize>30</pointsize>
+        <pointsize>28</pointsize>
         <weight>50</weight>
         <italic>false</italic>
         <bold>false</bold>
@@ -165,7 +174,7 @@ background-color: rgb(255, 255, 255);
       <property name="font">
        <font>
         <family>宋体</family>
-        <pointsize>30</pointsize>
+        <pointsize>28</pointsize>
         <weight>50</weight>
         <italic>false</italic>
         <bold>false</bold>
@@ -200,7 +209,7 @@ background-color: rgb(255, 255, 255);
       <property name="font">
        <font>
         <family>宋体</family>
-        <pointsize>30</pointsize>
+        <pointsize>28</pointsize>
         <weight>50</weight>
         <italic>false</italic>
         <bold>false</bold>
@@ -235,7 +244,7 @@ background-color: rgb(255, 255, 255);
       <property name="font">
        <font>
         <family>宋体</family>
-        <pointsize>30</pointsize>
+        <pointsize>28</pointsize>
         <weight>50</weight>
         <italic>false</italic>
         <bold>false</bold>
