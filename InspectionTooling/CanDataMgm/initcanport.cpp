@@ -1,7 +1,7 @@
 #include "initcanport.h"
 
 //#define SendData
-//#define RecvData;
+//#define RecvData
 
 int InitCanPort::m_canFd = 0;
 InitCanPort::InitCanPort()
@@ -39,7 +39,7 @@ int InitCanPort::getCanfd(const char *canName)
             qDebug()<<"bind error";
             return -1;
         }
-        qDebug()<<"**** Open "<<canName<<"_canFD"<<m_canFd<<" OK **** ";
+        qDebug()<<"**** Open "<<canName<<" OK **** ";
     }
     return m_canFd;
 }
@@ -78,11 +78,9 @@ can_frame InitCanPort::confCanFrame(uint loop, uint canId, uint cmd, uint type, 
         break;
     case SCMD_CHECK://回路板工作
         canFrame.can_dlc = 0;
-
         break;
     case SCMD_WORK://回路板工作
         canFrame.can_dlc = 0;
-
         break;
     case DEV_REPLY://主机回复
         canFrame.can_dlc = 8;

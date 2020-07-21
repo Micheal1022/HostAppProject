@@ -45,12 +45,13 @@ void NodeValue_EF::updateValue(QList<int> valueList)
 //    int pstate  = dataList.value(PSTATE);
 //    int ptype   = dataList.value(PTYPE);
 
-    int nodeType  = valueList.value(2);
     int nodeAddr  = valueList.value(3);
     int nodeState = valueList.value(4);
     int nodeValue1= valueList.value(5);
     int nodeValue2= valueList.value(6);
     int nodePass  = valueList.value(8);
+    int nodeType  = valueList.value(10);
+
     ui->lbAddrValue->setText(QString::number(nodeAddr));
     confNodeType(nodeType);
     confNodeState(nodeState);
@@ -59,8 +60,8 @@ void NodeValue_EF::updateValue(QList<int> valueList)
 
 void NodeValue_EF::clearValue()
 {
-    m_baseLeakValue = 5000;
-    m_baseAlarmValue = 5000;
+    m_baseLeakValue = 100;
+    m_baseAlarmValue = 300;
     ui->lbAddrValue->clear();
     ui->lbTypeValue->clear();
     ui->lbStateValue->clear();
@@ -101,12 +102,11 @@ void NodeValue_EF::confResult(int index, NodeValue_EF::RESULT type)
         m_labelList[index]->setStyleSheet("color: rgb(55, 255, 20);");
     } else if (NodeValue_EF::Unqualified == type) {
         m_labelList[index]->setText(tr("不合格"));
-        m_labelList[index]->setStyleSheet("color: rgb(255, 170, 0);");
+        m_labelList[index]->setStyleSheet("color: rgb(255, 0, 0);");
     } else {
         m_labelList[index]->setText(tr("待测"));
         m_labelList[index]->setStyleSheet("color: rgb(255, 255, 255);");
     }
-
 }
 
 void NodeValue_EF::confNodeType(int nodeType)
@@ -153,8 +153,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit01->setText(tr("℃"));
             ui->lb_AlarmUnit01->setText(tr("℃"));
         }
-        ui->lcd_Leak01->display(leakValue/10);
-        ui->lcd_Alarm01->display(alarmValue/10);
+        ui->lcd_Leak01->display(leakValue);
+        ui->lcd_Alarm01->display(alarmValue);
 
         if (m_testLeakFlag_01 == true) {
             if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04) && m_baseAlarmValue == alarmValue) {
@@ -180,8 +180,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit02->setText(tr("℃"));
             ui->lb_AlarmUnit02->setText(tr("℃"));
         }
-        ui->lcd_Leak02->display(leakValue/10);
-        ui->lcd_Alarm02->display(alarmValue/10);
+        ui->lcd_Leak02->display(leakValue);
+        ui->lcd_Alarm02->display(alarmValue);
         if (m_testLeakFlag_02 == true) {
             if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
                 m_testLeakTimes_02++;
@@ -206,8 +206,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit03->setText(tr("℃"));
             ui->lb_AlarmUnit03->setText(tr("℃"));
         }
-        ui->lcd_Leak03->display(leakValue/10);
-        ui->lcd_Alarm03->display(alarmValue/10);
+        ui->lcd_Leak03->display(leakValue);
+        ui->lcd_Alarm03->display(alarmValue);
 
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_03++;
@@ -229,8 +229,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit04->setText(tr("℃"));
             ui->lb_AlarmUnit04->setText(tr("℃"));
         }
-        ui->lcd_Leak04->display(leakValue/10);
-        ui->lcd_Alarm04->display(alarmValue/10);
+        ui->lcd_Leak04->display(leakValue);
+        ui->lcd_Alarm04->display(alarmValue);
 
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_04++;
@@ -252,8 +252,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit05->setText(tr("℃"));
             ui->lb_AlarmUnit05->setText(tr("℃"));
         }
-        ui->lcd_Leak05->display(leakValue/10);
-        ui->lcd_Alarm05->display(alarmValue/10);
+        ui->lcd_Leak05->display(leakValue);
+        ui->lcd_Alarm05->display(alarmValue);
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_05++;
             if (m_testLeakTimes_05 == TIMENUM ) {
@@ -274,8 +274,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit06->setText(tr("℃"));
             ui->lb_AlarmUnit06->setText(tr("℃"));
         }
-        ui->lcd_Leak06->display(leakValue/10);
-        ui->lcd_Alarm06->display(alarmValue/10);
+        ui->lcd_Leak06->display(leakValue);
+        ui->lcd_Alarm06->display(alarmValue);
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_06++;
             if (m_testLeakTimes_06 == TIMENUM ) {
@@ -296,8 +296,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit07->setText(tr("℃"));
             ui->lb_AlarmUnit07->setText(tr("℃"));
         }
-        ui->lcd_Leak07->display(leakValue/10);
-        ui->lcd_Alarm07->display(alarmValue/10);
+        ui->lcd_Leak07->display(leakValue);
+        ui->lcd_Alarm07->display(alarmValue);
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_07++;
             if (m_testLeakTimes_07 == TIMENUM ) {
@@ -318,8 +318,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit08->setText(tr("℃"));
             ui->lb_AlarmUnit08->setText(tr("℃"));
         }
-        ui->lcd_Leak08->display(leakValue/10);
-        ui->lcd_Alarm08->display(alarmValue/10);
+        ui->lcd_Leak08->display(leakValue);
+        ui->lcd_Alarm08->display(alarmValue);
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_08++;
             if (m_testLeakTimes_08 == TIMENUM ) {
@@ -340,8 +340,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit09->setText(tr("℃"));
             ui->lb_AlarmUnit09->setText(tr("℃"));
         }
-        ui->lcd_Leak09->display(leakValue/10);
-        ui->lcd_Alarm09->display(alarmValue/10);
+        ui->lcd_Leak09->display(leakValue);
+        ui->lcd_Alarm09->display(alarmValue);
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_09++;
             if (m_testLeakTimes_09 == TIMENUM ) {
@@ -362,8 +362,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit10->setText(tr("℃"));
             ui->lb_AlarmUnit10->setText(tr("℃"));
         }
-        ui->lcd_Leak10->display(leakValue/10);
-        ui->lcd_Alarm10->display(alarmValue/10);
+        ui->lcd_Leak10->display(leakValue);
+        ui->lcd_Alarm10->display(alarmValue);
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_10++;
             if (m_testLeakTimes_10 == TIMENUM ) {
@@ -384,8 +384,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit11->setText(tr("℃"));
             ui->lb_AlarmUnit11->setText(tr("℃"));
         }
-        ui->lcd_Leak11->display(leakValue/10);
-        ui->lcd_Alarm11->display(alarmValue/10);
+        ui->lcd_Leak11->display(leakValue);
+        ui->lcd_Alarm11->display(alarmValue);
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_11++;
             if (m_testLeakTimes_11 == TIMENUM ) {
@@ -405,8 +405,8 @@ void NodeValue_EF::confNodeValue(int pass, int nodeType, int leakValue, int alar
             ui->lb_LeakUnit12->setText(tr("℃"));
             ui->lb_AlarmUnit12->setText(tr("℃"));
         }
-        ui->lcd_Leak12->display(leakValue/10);
-        ui->lcd_Alarm12->display(alarmValue/10);
+        ui->lcd_Leak12->display(leakValue);
+        ui->lcd_Alarm12->display(alarmValue);
         if (leakValue <= m_baseLeakValue*(1 + 0.04) && leakValue >= m_baseLeakValue*(1 - 0.04)) {
             m_testLeakTimes_12++;
             if (m_testLeakTimes_12 == TIMENUM ) {

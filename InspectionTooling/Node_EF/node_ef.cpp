@@ -145,8 +145,8 @@ void Node_EF::slotTimeOut()
                 emit sigLeakCmd(P_SET,D_100);
             } else if (m_delay == 50) {
                 m_delay = 0;
-                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+1);
-                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+1);
+                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+2);
+                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+2);
                 m_step++;
             }
             break;
@@ -156,8 +156,8 @@ void Node_EF::slotTimeOut()
                 emit sigLeakCmd(P_SET,D_150);
             } else if (m_delay == 50) {
                 m_delay = 0;
-                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+1);
-                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+1);
+                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+2);
+                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+2);
                 m_step++;
             }
             break;
@@ -167,8 +167,8 @@ void Node_EF::slotTimeOut()
                 emit sigLeakCmd(P_SET,D_200);
             } else if (m_delay == 50) {
                 m_delay = 0;
-                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+1);
-                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+1);
+                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+2);
+                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+2);
                 m_step++;
             }
             break;
@@ -178,8 +178,8 @@ void Node_EF::slotTimeOut()
                 emit sigLeakCmd(P_SET,D_300);
             } else if (m_delay == 50) {
                 m_delay = 0;
-                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+1);
-                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+1);
+                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+2);
+                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+2);
                 m_step++;
             }
             break;

@@ -1,7 +1,7 @@
 #ifndef INCLUDES_H
 #define INCLUDES_H
 
-#define CANFRAMESIZE 1
+#define CANFRAMESIZE 16
 
 #define PF_CAN 29
 #define LEAKTYPE 1

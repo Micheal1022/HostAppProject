@@ -433,9 +433,6 @@ border-radius:5px;
      <height>25</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true"/>
-   </property>
    <property name="text">
     <string>待测</string>
    </property>

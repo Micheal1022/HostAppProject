@@ -57,14 +57,16 @@ SOURCES       = ../InspectionTooling/main.cpp \
 		../InspectionTooling/NodeValue_EF/nodevalue_ef.cpp \
 		../InspectionTooling/CanDataMgm/candatamgm.cpp \
 		../InspectionTooling/CanDataMgm/canrecvthread.cpp \
-		../InspectionTooling/CanDataMgm/initcanport.cpp moc_mainwindow.cpp \
+		../InspectionTooling/CanDataMgm/initcanport.cpp \
+		../InspectionTooling/KeyCheck/keycheck.cpp moc_mainwindow.cpp \
 		moc_node_ef.cpp \
 		moc_node_pm.cpp \
 		moc_nodevalue_pm.cpp \
 		moc_nodevalue_ef.cpp \
 		moc_modbus.cpp \
 		moc_candatamgm.cpp \
-		moc_canrecvthread.cpp
+		moc_canrecvthread.cpp \
+		moc_keycheck.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		modbus.o \
@@ -75,6 +77,7 @@ OBJECTS       = main.o \
 		candatamgm.o \
 		canrecvthread.o \
 		initcanport.o \
+		keycheck.o \
 		moc_mainwindow.o \
 		moc_node_ef.o \
 		moc_node_pm.o \
@@ -82,7 +85,8 @@ OBJECTS       = main.o \
 		moc_nodevalue_ef.o \
 		moc_modbus.o \
 		moc_candatamgm.o \
-		moc_canrecvthread.o
+		moc_canrecvthread.o \
+		moc_keycheck.o
 DIST          = /opt/Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.5.1/5.5/gcc/mkspecs/common/unix.conf \
 		/opt/Qt5.5.1/5.5/gcc/mkspecs/common/linux.conf \
@@ -226,7 +230,8 @@ DIST          = /opt/Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../InspectionTooling/Modbus/modbus.h \
 		../InspectionTooling/CanDataMgm/candatamgm.h \
 		../InspectionTooling/CanDataMgm/canrecvthread.h \
-		../InspectionTooling/CanDataMgm/initcanport.h ../InspectionTooling/main.cpp \
+		../InspectionTooling/CanDataMgm/initcanport.h \
+		../InspectionTooling/KeyCheck/keycheck.h ../InspectionTooling/main.cpp \
 		../InspectionTooling/mainwindow.cpp \
 		../InspectionTooling/Modbus/modbus.cpp \
 		../InspectionTooling/Node_EF/node_ef.cpp \
@@ -235,7 +240,8 @@ DIST          = /opt/Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../InspectionTooling/NodeValue_EF/nodevalue_ef.cpp \
 		../InspectionTooling/CanDataMgm/candatamgm.cpp \
 		../InspectionTooling/CanDataMgm/canrecvthread.cpp \
-		../InspectionTooling/CanDataMgm/initcanport.cpp
+		../InspectionTooling/CanDataMgm/initcanport.cpp \
+		../InspectionTooling/KeyCheck/keycheck.cpp
 QMAKE_TARGET  = InspectionTooling
 DESTDIR       = APP/#avoid trailing-slash linebreak
 TARGET        = APP/InspectionTooling
@@ -560,8 +566,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../InspectionTooling/includes.h ../InspectionTooling/mainwindow.h ../InspectionTooling/Node_EF/node_ef.h ../InspectionTooling/Node_PM/node_pm.h ../InspectionTooling/NodeValue_PM/nodevalue_pm.h ../InspectionTooling/NodeValue_EF/nodevalue_ef.h ../InspectionTooling/Modbus/modbus.h ../InspectionTooling/CanDataMgm/candatamgm.h ../InspectionTooling/CanDataMgm/canrecvthread.h ../InspectionTooling/CanDataMgm/initcanport.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../InspectionTooling/main.cpp ../InspectionTooling/mainwindow.cpp ../InspectionTooling/Modbus/modbus.cpp ../InspectionTooling/Node_EF/node_ef.cpp ../InspectionTooling/Node_PM/node_pm.cpp ../InspectionTooling/NodeValue_PM/nodevalue_pm.cpp ../InspectionTooling/NodeValue_EF/nodevalue_ef.cpp ../InspectionTooling/CanDataMgm/candatamgm.cpp ../InspectionTooling/CanDataMgm/canrecvthread.cpp ../InspectionTooling/CanDataMgm/initcanport.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../InspectionTooling/includes.h ../InspectionTooling/mainwindow.h ../InspectionTooling/Node_EF/node_ef.h ../InspectionTooling/Node_PM/node_pm.h ../InspectionTooling/NodeValue_PM/nodevalue_pm.h ../InspectionTooling/NodeValue_EF/nodevalue_ef.h ../InspectionTooling/Modbus/modbus.h ../InspectionTooling/CanDataMgm/candatamgm.h ../InspectionTooling/CanDataMgm/canrecvthread.h ../InspectionTooling/CanDataMgm/initcanport.h ../InspectionTooling/KeyCheck/keycheck.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../InspectionTooling/main.cpp ../InspectionTooling/mainwindow.cpp ../InspectionTooling/Modbus/modbus.cpp ../InspectionTooling/Node_EF/node_ef.cpp ../InspectionTooling/Node_PM/node_pm.cpp ../InspectionTooling/NodeValue_PM/nodevalue_pm.cpp ../InspectionTooling/NodeValue_EF/nodevalue_ef.cpp ../InspectionTooling/CanDataMgm/candatamgm.cpp ../InspectionTooling/CanDataMgm/canrecvthread.cpp ../InspectionTooling/CanDataMgm/initcanport.cpp ../InspectionTooling/KeyCheck/keycheck.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../InspectionTooling/mainwindow.ui ../InspectionTooling/Node_EF/node_ef.ui ../InspectionTooling/Node_PM/node_pm.ui ../InspectionTooling/NodeValue_PM/nodevalue_pm.ui ../InspectionTooling/NodeValue_EF/nodevalue_ef.ui $(DISTDIR)/
 
 
@@ -585,9 +591,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_node_ef.cpp moc_node_pm.cpp moc_nodevalue_pm.cpp moc_nodevalue_ef.cpp moc_modbus.cpp moc_candatamgm.cpp moc_canrecvthread.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_node_ef.cpp moc_node_pm.cpp moc_nodevalue_pm.cpp moc_nodevalue_ef.cpp moc_modbus.cpp moc_candatamgm.cpp moc_canrecvthread.cpp moc_keycheck.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_node_ef.cpp moc_node_pm.cpp moc_nodevalue_pm.cpp moc_nodevalue_ef.cpp moc_modbus.cpp moc_candatamgm.cpp moc_canrecvthread.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_node_ef.cpp moc_node_pm.cpp moc_nodevalue_pm.cpp moc_nodevalue_ef.cpp moc_modbus.cpp moc_candatamgm.cpp moc_canrecvthread.cpp moc_keycheck.cpp
 moc_mainwindow.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -1326,6 +1332,62 @@ moc_canrecvthread.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QList \
 		../InspectionTooling/CanDataMgm/canrecvthread.h
 	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/CanDataMgm/canrecvthread.h -o moc_canrecvthread.cpp
 
+moc_keycheck.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qnamespace.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qglobal.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qconfig.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfeatures.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtypetraits.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsysinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlogging.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qflags.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_gcc.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv7.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv6.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv5.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_ia64.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_mips.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_x86.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_unix.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmutex.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qnumeric.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstring.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qchar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbytearray.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qrefcount.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qarraydata.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qalgorithms.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qiterator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregexp.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreevent.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetatype.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qisenum.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject_impl.h \
+		../InspectionTooling/KeyCheck/keycheck.h
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/InspectionTooling -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSerialPort -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../InspectionTooling/KeyCheck/keycheck.h -o moc_keycheck.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
 compiler_uic_make_all: ui_mainwindow.h ui_node_ef.h ui_node_pm.h ui_nodevalue_pm.h ui_nodevalue_ef.h
@@ -1468,7 +1530,9 @@ main.o: ../InspectionTooling/main.cpp ../InspectionTooling/mainwindow.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QTextCodec \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextcodec.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../InspectionTooling/main.cpp
 
 mainwindow.o: ../InspectionTooling/mainwindow.cpp ../InspectionTooling/mainwindow.h \
@@ -1627,7 +1691,8 @@ mainwindow.o: ../InspectionTooling/mainwindow.cpp ../InspectionTooling/mainwindo
 		../InspectionTooling/CanDataMgm/canrecvthread.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QList \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QThread \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qthread.h
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qthread.h \
+		../InspectionTooling/KeyCheck/keycheck.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../InspectionTooling/mainwindow.cpp
 
 modbus.o: ../InspectionTooling/Modbus/modbus.cpp ../InspectionTooling/Modbus/modbus.h \
@@ -2520,6 +2585,79 @@ initcanport.o: ../InspectionTooling/CanDataMgm/initcanport.cpp ../InspectionTool
 		../InspectionTooling/includes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o initcanport.o ../InspectionTooling/CanDataMgm/initcanport.cpp
 
+keycheck.o: ../InspectionTooling/KeyCheck/keycheck.cpp ../InspectionTooling/KeyCheck/keycheck.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qnamespace.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qglobal.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qconfig.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfeatures.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtypetraits.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsysinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlogging.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qflags.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_gcc.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv7.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv6.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv5.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_ia64.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_mips.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_x86.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_unix.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmutex.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qnumeric.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstring.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qchar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbytearray.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qrefcount.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qarraydata.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qalgorithms.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qiterator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregexp.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreevent.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetatype.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qisenum.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QTimer \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qdebug.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qhash.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qpair.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextstream.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qiodevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlocale.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvariant.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qshareddata.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvector.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qpoint.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qset.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontiguouscache.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o keycheck.o ../InspectionTooling/KeyCheck/keycheck.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
 
@@ -2543,6 +2681,9 @@ moc_candatamgm.o: moc_candatamgm.cpp
 
 moc_canrecvthread.o: moc_canrecvthread.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_canrecvthread.o moc_canrecvthread.cpp
+
+moc_keycheck.o: moc_keycheck.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_keycheck.o moc_keycheck.cpp
 
 ####### Install
 

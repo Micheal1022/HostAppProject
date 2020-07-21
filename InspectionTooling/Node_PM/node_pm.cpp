@@ -175,7 +175,6 @@ void Node_PM::btnCheck()
 
 void Node_PM::slotGetData()
 {
-
     InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,0);
     InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,0);
     m_timer->start(100);

@@ -79,8 +79,6 @@ Modbus::Modbus(QObject *parent) : QObject(parent)
     QString VolCOM  = QString("/dev/ttymxc1");//串口
     QString CurCOM  = QString("/dev/ttymxc2");//485-1
     QString LeakCOM = QString("/dev/ttymxc4");//485-2
-//    QString LeakCOM  = QString("/dev/ttymxc1");//串口
-    //QString LeakCOM = QString("/dev/ttyUSB0");//485-2
     m_voltagePort = initProt(VolCOM,QSerialPort::Baud9600);
     m_currentPort = initProt(CurCOM,QSerialPort::Baud9600);
     m_leakPort    = initProt(LeakCOM,QSerialPort::Baud115200);
@@ -159,9 +157,9 @@ void Modbus::sendVoltageData(int cmd)
 
 void Modbus::sendLeakData(int cmd, int state)
 {
-    qDebug()<<"*********************";
-    qDebug()<<"cmd  : "<<cmd;
-    qDebug()<<"state: "<<state;
+//    qDebug()<<"*********************";
+//    qDebug()<<"cmd  : "<<cmd;
+//    qDebug()<<"state: "<<state;
     QByteArray byteArray;
     if (P_START == cmd) {
         byteArray.append(0x81); byteArray.append((char)_DATA); byteArray.append(0x08); byteArray.append((char)_DATA);
@@ -176,31 +174,31 @@ void Modbus::sendLeakData(int cmd, int state)
     } else if (P_SET == cmd) {
         switch (state) {
         case D_000:
-            qDebug()<<m_BaseByteArray;
+            //qDebug()<<m_BaseByteArray;
             m_leakPort->write(m_BaseByteArray);
             break;
         case D_100:
-            qDebug()<<m_100_ByteArray;
+            //qDebug()<<m_100_ByteArray;
             m_leakPort->write(m_100_ByteArray);
             break;
         case D_150:
-            qDebug()<<m_150_ByteArray;
+            //qDebug()<<m_150_ByteArray;
             m_leakPort->write(m_150_ByteArray);
             break;
         case D_200:
-            qDebug()<<m_200_ByteArray;
+            //qDebug()<<m_200_ByteArray;
             m_leakPort->write(m_200_ByteArray);
             break;
         case D_300:
-            qDebug()<<m_300_ByteArray;
+            //qDebug()<<m_300_ByteArray;
             m_leakPort->write(m_300_ByteArray);
             break;
         case D_500:
-            qDebug()<<m_500_ByteArray;
+            //qDebug()<<m_500_ByteArray;
             m_leakPort->write(m_500_ByteArray);
             break;
         case D_800:
-            qDebug()<<m_800_ByteArray;
+            //qDebug()<<m_800_ByteArray;
             m_leakPort->write(m_800_ByteArray);
             break;
         }

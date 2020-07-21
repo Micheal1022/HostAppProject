@@ -46,13 +46,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(m_node2VA, SIGNAL(sigBtnBack()),this,SLOT(slotBtnBack()));
     connect(m_node6V3A,SIGNAL(sigBtnBack()),this,SLOT(slotBtnBack()));
 
-    m_canDataMgm = new CanDataMgm;
+    m_canDataMgm = new CanDataMgm("can0");
     connect(m_canDataMgm,SIGNAL(sigSendCanData(QList<int>)),this,SLOT(slotSendCanData(QList<int>)));
     m_keyCheck = new KeyCheck;
     connect(m_keyCheck,SIGNAL(sigkeyCheck()),this,SLOT(slotKeyCheck()));
 
 
     connect(m_nodeEF, SIGNAL(sigLeakCmd(int,int)),m_modbus,SLOT(slotSendLeakData(int,int)));
+
     connect(m_node2VA, SIGNAL(sigVoltageCmd(int)),m_modbus,SLOT(slotSendVoltageData(int)));
     connect(m_node2VA, SIGNAL(sigCurrentCmd(int)),m_modbus,SLOT(slotSendCurrentData(int)));
     connect(m_node3V,  SIGNAL(sigVoltageCmd(int)),m_modbus,SLOT(slotSendVoltageData(int)));
@@ -115,7 +116,6 @@ void MainWindow::slotSendCanData(QList<int> valueList)
 
 void MainWindow::slotKeyCheck()
 {
-    qDebug("******slotKeyCheck********");
     if (m_nodeEFFlag) {
         m_nodeEF->keyCheck();
     } else if (m_node2VAFlag) {
