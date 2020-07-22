@@ -31,7 +31,7 @@ private:
     void confResult(int index, NodeValue_EF::RESULT type);
     void confNodeType(int nodeType);
     void confNodeState(int nodeState);
-    void confNodeValue(int pass, int nodeType, int leakValue, int alarmValue);
+    void confNodeValue(int pass, int passType, int leakValue, int alarmValue);
 
 private:
 

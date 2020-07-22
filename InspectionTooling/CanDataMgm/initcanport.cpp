@@ -87,7 +87,11 @@ can_frame InitCanPort::confCanFrame(uint loop, uint canId, uint cmd, uint type, 
         canFrame.data[0] = valueSet;
         canFrame.data[6] = pass << 4 | pstate;
         canFrame.data[7] = ptype;
-
+        break;
+    case SCMD_SCALIB:
+        canFrame.can_dlc = 8;
+        canFrame.data[0] = state;
+        canFrame.data[6] = 17;
         break;
     case SCMD_QALARM://查询阈值
         canFrame.can_dlc = 0;

@@ -97,7 +97,8 @@
 #define D_500   0x05
 #define D_800   0x06
 
-
+#define MAX 1.05
+#define MIN 0.95
 
 
 

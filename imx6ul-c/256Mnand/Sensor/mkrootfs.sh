@@ -8,5 +8,6 @@ tar cjf update.tar.bz2 ./*
 mv update.tar.bz2 ../createSdcard-qt4
 cd ../createSdcard-qt4
 ./createSdcard.sh
+rm update.tar.bz2
 echo "!!!!finished!!!!"
 

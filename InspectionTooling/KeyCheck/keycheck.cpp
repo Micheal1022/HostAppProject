@@ -14,6 +14,21 @@
 const char *in  = "in";
 //复位信号
 const char *btnResetValue = "/sys/class/gpio/gpio124/value";
+//继电器K1 高电平导通
+const char *ledRelay_1Value = "/sys/class/gpio/gpio251/value";
+//继电器K2 高电平导通
+const char *ledRelay_2Value = "/sys/class/gpio/gpio252/value";
+//蜂鸣器 low-open high-close
+const char *buzzValue =       "/sys/class/gpio/gpio253/value";
+//声音类型 low-alarm high-error
+const char *buzzTypeValue =   "/sys/class/gpio/gpio254/value";
+/*
+ *读操作引脚
+*/
+//主电状态  低电平正常，高电平故障
+const char *mainPowerValue = "/sys/class/gpio/gpio5/value";
+//备电状态  高电平正常，低电平故障
+const char *backupPowerValue = "/sys/class/gpio/gpio18/value";
 KeyCheck::KeyCheck(QObject *parent) : QObject(parent)
 {
     m_keyCheck = new GPIOKeyPin;

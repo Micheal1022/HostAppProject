@@ -125,8 +125,12 @@ void Node_EF::slotTypeBtn(int index)
 
 void Node_EF::slotTimeOut()
 {
-    /*0-100-150-200-300-500-800*/
+    /*
+     * 1-000ma  2-050ma  3-100ma  4-150ma
+     * 5-200ma  6-300ma  7-500ma  8-800ma
+    */
     if(m_checkFlag == true) {
+        //发命令，模块校准
         switch (m_step) {
         case 0:
             m_delay++;
@@ -189,8 +193,8 @@ void Node_EF::slotTimeOut()
                 emit sigLeakCmd(P_SET,D_500);
             } else if (m_delay == 50) {
                 m_delay = 0;
-                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+1);
-                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+1);
+                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+2);
+                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+2);
                 m_step++;
             }
             break;
@@ -200,8 +204,8 @@ void Node_EF::slotTimeOut()
                 emit sigLeakCmd(P_SET,D_800);
             } else if (m_delay == 50) {
                 m_delay = 0;
-                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+1);
-                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+1);
+                InitCanPort::sendCmdDate(1,0,SCMD_SCALIB,0,m_step+2);
+                InitCanPort::sendCmdDate(2,0,SCMD_SCALIB,0,m_step+2);
                 m_step++;
             }
             break;
@@ -209,24 +213,20 @@ void Node_EF::slotTimeOut()
             m_delay++;
             if (m_delay == 10) {
                 emit sigLeakCmd(P_SET,D_100);
-            } else if (m_delay == 50) {
+            } else if (m_delay == 40) {
                 m_delay = 0;
-                m_step++;
+                m_step = 0;
+                m_checkFlag = false;
+                m_dataFlag = true;
             }
             break;
-        }
-
-        if (m_step == 8) {
-            m_step = 0;
-            m_checkFlag = false;
-            m_dataFlag = true;
         }
 
     } else if (m_dataFlag == true) {
         //发命令，获取数据
         if (m_time < 10) {
             m_pass++;
-            if (m_pass == 13) {
+            if (m_pass == 12) {
                 m_time++;
                 m_pass = 0;
             } else {
@@ -235,14 +235,15 @@ void Node_EF::slotTimeOut()
             }
         } else {
             m_checkFlag = true;
-            m_dataFlag = false;
-            m_keyCheck = false;
+            m_dataFlag  = false;
+            m_keyCheck  = false;
             ui->tBtnBack->setEnabled(true);
             ui->tBtnCheck->setEnabled(true);
             ui->tBtnReset->setEnabled(true);
             m_time = 0;
             m_timer->stop();
-            emit sigLeakCmd(P_STOP,0);
+            emit sigLeakCmd(P_SET,D_000);
+            //emit sigLeakCmd(P_STOP,0);
         }
     }
 }

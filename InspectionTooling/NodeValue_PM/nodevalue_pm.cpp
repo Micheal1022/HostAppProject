@@ -2,8 +2,7 @@
 #include "ui_nodevalue_pm.h"
 #include "includes.h"
 #include <QDebug>
-#define MAX 1.04
-#define MIN 0.96
+
 NodeValue_PM::NodeValue_PM(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::NodeValue_PM)
