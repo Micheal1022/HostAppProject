@@ -1,7 +1,7 @@
 #include "canrecvthread.h"
 
 
-#define PRINT
+//#define PRINT
 //命令解析
 #define LOOP_FLGE   0x1F000000
 #define CMD_FLGE    0x003F0000
@@ -94,8 +94,9 @@ void CanRecvThread::parseCanData(can_frame frame)
     case DEV_UPDATE://实时数据
         InitCanPort::sendCmdDate(loop,canId,DEV_REPLY,type,state,pass,DEV_UPDATE,pstate,ptype);
         //发送数值到节点信息
+
         dataList<<loop<<cmd<<type<<state<<canId<<value_1<<value_2<<value_3<<pass<<pstate<<ptype;
-        if(dataList.isEmpty() == false)
+        if (dataList.isEmpty() == false && state != N_ALARM)
             emit sigSendCanData(dataList);
         break;
     }

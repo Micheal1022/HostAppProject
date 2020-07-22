@@ -49,9 +49,9 @@ color: rgb(255, 255, 255);
 QLCDNumber{
 font: 10pt &quot;宋体&quot;;
 border:1px solid rgb(0, 122, 165);
+border:1px solid rgb(255, 255, 255);
 color: rgb(255, 255, 255);
 border-radius:5px;
-
 }</string>
   </property>
   <widget class="QLCDNumber" name="lcd_Leak11">
@@ -59,7 +59,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>415</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -134,7 +134,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit05">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>205</y>
      <width>25</width>
      <height>25</height>
@@ -152,7 +152,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>380</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -194,7 +194,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>205</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -234,7 +234,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit01">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>65</y>
      <width>25</width>
      <height>25</height>
@@ -250,7 +250,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit07">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>275</y>
      <width>25</width>
      <height>25</height>
@@ -268,7 +268,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>135</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -279,7 +279,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit09">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>345</y>
      <width>25</width>
      <height>25</height>
@@ -295,7 +295,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit06">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>240</y>
      <width>25</width>
      <height>25</height>
@@ -313,7 +313,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>100</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -371,7 +371,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>240</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -461,7 +461,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>170</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -474,15 +474,12 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>450</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
    <property name="value" stdset="0">
     <double>0.000000000000000</double>
-   </property>
-   <property name="intValue" stdset="0">
-    <number>0</number>
    </property>
   </widget>
   <widget class="QLabel" name="lb_Pass04">
@@ -517,7 +514,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit02">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>100</y>
      <width>25</width>
      <height>25</height>
@@ -623,7 +620,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit03">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>135</y>
      <width>25</width>
      <height>25</height>
@@ -641,7 +638,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>65</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -652,7 +649,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit04">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>170</y>
      <width>25</width>
      <height>25</height>
@@ -668,7 +665,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit08">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>310</y>
      <width>25</width>
      <height>25</height>
@@ -723,9 +720,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm01">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>65</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -738,7 +735,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>345</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -754,7 +751,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>275</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -770,7 +767,7 @@ border-radius:5px;
     <rect>
      <x>140</x>
      <y>310</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -800,14 +797,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm01">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>65</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1008,7 +1005,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit10">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>380</y>
      <width>25</width>
      <height>25</height>
@@ -1024,7 +1021,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit12">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>450</y>
      <width>25</width>
      <height>25</height>
@@ -1040,7 +1037,7 @@ border-radius:5px;
   <widget class="QLabel" name="lb_LeakUnit11">
    <property name="geometry">
     <rect>
-     <x>220</x>
+     <x>210</x>
      <y>415</y>
      <width>25</width>
      <height>25</height>
@@ -1056,14 +1053,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm02">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>100</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1088,9 +1085,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm02">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>100</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1101,9 +1098,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm04">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>170</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1114,14 +1111,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm04">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>170</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1146,14 +1143,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm03">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>135</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1178,9 +1175,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm03">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>135</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1191,9 +1188,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm07">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>275</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1220,14 +1217,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm06">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>240</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1236,14 +1233,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm07">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>275</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1252,9 +1249,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm08">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>310</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1297,14 +1294,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm05">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>205</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1313,9 +1310,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm06">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>240</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1342,14 +1339,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm08">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>310</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1358,9 +1355,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm05">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>205</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1371,9 +1368,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm09">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>345</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1400,14 +1397,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm12">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>450</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1432,9 +1429,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm10">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>380</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1445,9 +1442,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm12">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>450</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>
@@ -1458,14 +1455,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm10">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>380</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1474,14 +1471,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm09">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>345</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1490,14 +1487,14 @@ border-radius:5px;
   <widget class="QLabel" name="lb_Alarm11">
    <property name="geometry">
     <rect>
-     <x>255</x>
+     <x>265</x>
      <y>415</y>
      <width>50</width>
      <height>25</height>
     </rect>
    </property>
    <property name="text">
-    <string>报警:</string>
+    <string>阈值:</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -1506,9 +1503,9 @@ border-radius:5px;
   <widget class="QLCDNumber" name="lcd_Alarm11">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>320</x>
      <y>415</y>
-     <width>75</width>
+     <width>65</width>
      <height>25</height>
     </rect>
    </property>

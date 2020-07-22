@@ -213,7 +213,9 @@ void Node_EF::slotTimeOut()
             m_delay++;
             if (m_delay == 10) {
                 emit sigLeakCmd(P_SET,D_100);
-            } else if (m_delay == 40) {
+                InitCanPort::sendCmdDate(1,1,SCMD_RESET,0,0);
+                InitCanPort::sendCmdDate(2,1,SCMD_RESET,0,0);
+            } else if (m_delay == 100) {
                 m_delay = 0;
                 m_step = 0;
                 m_checkFlag = false;
@@ -224,15 +226,11 @@ void Node_EF::slotTimeOut()
 
     } else if (m_dataFlag == true) {
         //发命令，获取数据
-        if (m_time < 10) {
-            m_pass++;
-            if (m_pass == 12) {
-                m_time++;
-                m_pass = 0;
-            } else {
-                InitCanPort::sendCmdDate(1,1,SCMD_UPDATE,0,0,m_pass);
-                InitCanPort::sendCmdDate(2,1,SCMD_UPDATE,0,0,m_pass);
-            }
+
+        m_pass++;
+        if (m_pass < 96) {
+            InitCanPort::sendCmdDate(1,1,SCMD_UPDATE,0,0,m_pass % 12 + 1);
+            InitCanPort::sendCmdDate(2,1,SCMD_UPDATE,0,0,m_pass % 12 + 1);
         } else {
             m_checkFlag = true;
             m_dataFlag  = false;
@@ -240,10 +238,10 @@ void Node_EF::slotTimeOut()
             ui->tBtnBack->setEnabled(true);
             ui->tBtnCheck->setEnabled(true);
             ui->tBtnReset->setEnabled(true);
-            m_time = 0;
+            m_pass = 0;
             m_timer->stop();
-            emit sigLeakCmd(P_SET,D_000);
-            //emit sigLeakCmd(P_STOP,0);
+            //emit sigLeakCmd(P_SET,D_000);
         }
+
     }
 }

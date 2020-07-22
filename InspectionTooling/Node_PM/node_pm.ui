@@ -86,7 +86,7 @@ color: rgb(0, 122, 165);
      <x>5</x>
      <y>460</y>
      <width>500</width>
-     <height>100</height>
+     <height>95</height>
     </rect>
    </property>
    <property name="title">
@@ -177,7 +177,7 @@ color: rgb(0, 122, 165);
      <x>515</x>
      <y>460</y>
      <width>500</width>
-     <height>100</height>
+     <height>95</height>
     </rect>
    </property>
    <property name="title">

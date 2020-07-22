@@ -63,7 +63,7 @@ color:rgb(0, 122, 165);
 background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string>电压/电流探测器检测工装</string>
+     <string>探测器检测工装</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>

@@ -34,21 +34,21 @@ void NodeValue_EF::updateValue(QList<int> valueList)
 {
 
     qDebug()<<"dataList : "<<valueList;
-//    int loop    = dataList.value(LOOP);
-//    int type    = dataList.value(TYPE);
-//    int state   = dataList.value(STATE);
-//    int canId   = dataList.value(CANID);
-//    int value_1 = dataList.value(VALUE_1);
-//    int value_2 = dataList.value(VALUE_2);
-//    int value_3 = dataList.value(VALUE_3);
-//    int pass    = dataList.value(PASS);
-//    int pstate  = dataList.value(PSTATE);
-//    int ptype   = dataList.value(PTYPE);
+    //    int loop    = dataList.value(LOOP);
+    //    int type    = dataList.value(TYPE);
+    //    int state   = dataList.value(STATE);
+    //    int canId   = dataList.value(CANID);
+    //    int value_1 = dataList.value(VALUE_1);
+    //    int value_2 = dataList.value(VALUE_2);
+    //    int value_3 = dataList.value(VALUE_3);
+    //    int pass    = dataList.value(PASS);
+    //    int pstate  = dataList.value(PSTATE);
+    //    int ptype   = dataList.value(PTYPE);
 
     int nodeAddr  = valueList.value(3);
     int nodeState = valueList.value(4);
     int nodeValue1= valueList.value(5);
-    int nodeValue2= valueList.value(6);
+    int nodeValue2= valueList.value(7);
     int nodePass  = valueList.value(8);
     int nodeType  = valueList.value(10);
 
@@ -209,16 +209,18 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak03->display(leakValue);
         ui->lcd_Alarm03->display(alarmValue);
-
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_03++;
-            if (m_testLeakTimes_03 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_03 == true) {
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_03++;
+                if (m_testLeakTimes_03 == TIMENUM ) {
+                    m_testLeakFlag_03 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_03 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
-
         break;
     case 4:
         if (N_LEAK == passType) {
@@ -232,16 +234,18 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak04->display(leakValue);
         ui->lcd_Alarm04->display(alarmValue);
-
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_04++;
-            if (m_testLeakTimes_04 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_04 == true){
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_04++;
+                if (m_testLeakTimes_04 == TIMENUM ) {
+                    m_testLeakFlag_04 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_04 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
-
         break;
     case 5:
         if (N_LEAK == passType) {
@@ -255,13 +259,17 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak05->display(leakValue);
         ui->lcd_Alarm05->display(alarmValue);
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_05++;
-            if (m_testLeakTimes_05 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_05 == true){
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_05++;
+                if (m_testLeakTimes_05 == TIMENUM ) {
+                    m_testLeakFlag_05 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_05 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
 
         break;
@@ -277,13 +285,17 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak06->display(leakValue);
         ui->lcd_Alarm06->display(alarmValue);
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_06++;
-            if (m_testLeakTimes_06 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_06 == true) {
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_06++;
+                if (m_testLeakTimes_06 == TIMENUM ) {
+                    m_testLeakFlag_06 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_06 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
 
         break;
@@ -299,13 +311,17 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak07->display(leakValue);
         ui->lcd_Alarm07->display(alarmValue);
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_07++;
-            if (m_testLeakTimes_07 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_07 == true) {
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_07++;
+                if (m_testLeakTimes_07 == TIMENUM ) {
+                    m_testLeakFlag_07 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_07 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
 
         break;
@@ -321,14 +337,19 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak08->display(leakValue);
         ui->lcd_Alarm08->display(alarmValue);
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_08++;
-            if (m_testLeakTimes_08 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_08 == true) {
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_08++;
+                if (m_testLeakTimes_08 == TIMENUM ) {
+                    m_testLeakFlag_08 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_08 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
+
 
         break;
     case 9:
@@ -343,13 +364,17 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak09->display(leakValue);
         ui->lcd_Alarm09->display(alarmValue);
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_09++;
-            if (m_testLeakTimes_09 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_09 == true) {
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_09++;
+                if (m_testLeakTimes_09 == TIMENUM ) {
+                    m_testLeakFlag_09 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_09 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
 
         break;
@@ -365,13 +390,17 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak10->display(leakValue);
         ui->lcd_Alarm10->display(alarmValue);
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_10++;
-            if (m_testLeakTimes_10 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_10 == true) {
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_10++;
+                if (m_testLeakTimes_10 == TIMENUM ) {
+                    m_testLeakFlag_10 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_10 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
 
         break;
@@ -387,13 +416,17 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak11->display(leakValue);
         ui->lcd_Alarm11->display(alarmValue);
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_11++;
-            if (m_testLeakTimes_11 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_11 == true) {
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_11++;
+                if (m_testLeakTimes_11 == TIMENUM ) {
+                    m_testLeakFlag_11 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_11 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
         break;
     case 12:
@@ -408,13 +441,17 @@ void NodeValue_EF::confNodeValue(int pass, int passType, int leakValue, int alar
         }
         ui->lcd_Leak12->display(leakValue);
         ui->lcd_Alarm12->display(alarmValue);
-        if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
-            m_testLeakTimes_12++;
-            if (m_testLeakTimes_12 == TIMENUM ) {
-                confResult(pass,NodeValue_EF::Qualified);
+        if (m_testLeakFlag_12 == true) {
+            if (leakValue <= m_baseLeakValue*MAX && leakValue >= m_baseLeakValue*MIN) {
+                m_testLeakTimes_12++;
+                if (m_testLeakTimes_12 == TIMENUM ) {
+                    m_testLeakFlag_12 = false;
+                    confResult(pass,NodeValue_EF::Qualified);
+                }
+            } else {
+                m_testLeakFlag_12 = false;
+                confResult(pass,NodeValue_EF::Unqualified);
             }
-        } else {
-            confResult(pass,NodeValue_EF::Unqualified);
         }
         break;
     }
