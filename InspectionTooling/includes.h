@@ -65,6 +65,7 @@
 #define N_OFFLINE     0x0A//节点掉线
 #define N_LOOPERR     0x0B//回路板故障
 #define TIMENUM       0x05
+#define DELAYTIME     80
 
 
 /*电流功能*/
