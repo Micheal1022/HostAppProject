@@ -176,23 +176,23 @@ bool MySQLite::setRestorePwd(QSqlDatabase db)
 
 bool MySQLite::setNetWorkIP(QSqlDatabase db, int netNum, int able, QString desIP, QString hostIP, QStringList portList)
 {
-    QString string;
-    for (int ind = 0; ind < portList.count(); ind++) {
-        string = QString("PORT_")+QString::number(ind+1)+QString(" = ")
-    }
+//    QString string;
+//    for (int ind = 0; ind < portList.count(); ind++) {
+//        string = QString("PORT_")+QString::number(ind+1)+QString(" = ");
+//    }
 
 
-    QString sqlQuery = "update CONFNET set DESIP = '"+desIP+"',LOCALIP = '"+hostIP+"',PORT = '"+portList+"', ABLE = "+QString::number(able)+" where NETNUM = "+QString::number(netNum)+";";
-    //qDebug()<<"sqlQuery : "<<sqlQuery;
-    QSqlQuery query(db);
-    if(query.exec(sqlQuery)) {
-        query.finish();
-        query.clear();
-        return true;
-    }
-    query.finish();
-    query.clear();
-    return false;
+//    QString sqlQuery = "update CONFNET set DESIP = '"+desIP+"',LOCALIP = '"+hostIP+"',PORT = '"+portList+"', ABLE = "+QString::number(able)+" where NETNUM = "+QString::number(netNum)+";";
+//    //qDebug()<<"sqlQuery : "<<sqlQuery;
+//    QSqlQuery query(db);
+//    if(query.exec(sqlQuery)) {
+//        query.finish();
+//        query.clear();
+//        return true;
+//    }
+//    query.finish();
+//    query.clear();
+//    return false;
 }
 
 QStringList MySQLite::getNetWorkIP(QSqlDatabase db,int netNum)

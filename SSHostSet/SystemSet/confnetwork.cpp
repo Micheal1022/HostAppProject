@@ -184,16 +184,16 @@ void ConfNetWork::setNetWorkIP(QList<QLineEdit *> lineEditList, int netNum)
     QString desIP = desIP_1 +"."+desIP_2 +"."+ desIP_3 +"."+ desIP_4;
     QString hostIP = hostIP_1 +"."+hostIP_2 +"."+ hostIP_3 +"."+ hostIP_4;
 
-    QSqlDatabase db = MySQLite::openConnection();
-    if(MySQLite::setNetWorkIP(db,netNum,able,desIP,hostIP,port)) {
-        MySQLite::closeConnection(db);
-        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置成功，重启后生效！"),tr("关闭"));
-        return;
-    } else {
-        MySQLite::closeConnection(db);
-        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置失败！"),tr("关闭"));
-        return;
-    }
+//    QSqlDatabase db = MySQLite::openConnection();
+//    if(MySQLite::setNetWorkIP(db,netNum,able,desIP,hostIP,port)) {
+//        MySQLite::closeConnection(db);
+//        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置成功，重启后生效！"),tr("关闭"));
+//        return;
+//    } else {
+//        MySQLite::closeConnection(db);
+//        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置失败！"),tr("关闭"));
+//        return;
+//    }
 }
 /*
 * @项目   TBus_SSEF

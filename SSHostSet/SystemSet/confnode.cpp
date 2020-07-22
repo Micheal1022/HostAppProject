@@ -209,8 +209,8 @@ void ConfNode::slotTBtnIndex(int index)
 {
     uint loop  = ui->lineEditLoop->text().toUInt();
     uint canId = ui->lineEditCanId->text().toUInt();
-    if (ui->lineEditLoop->text().isEmpty() || ui->lineEditCanId->text().isEmpty()) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("回路或ID不能为空"),tr("关闭"));
+    if (ui->lineEditLoop->text().isEmpty() || ui->lineEditCanId->text().isEmpty() || ui->lineEditPass->text().isEmpty()) {
+        MsgBox::showInformation(NULL,tr("错误提示"),tr("回路、ID、通道不能为空"),tr("关闭"));
         return;
     }
     switch (index) {
@@ -231,10 +231,6 @@ void ConfNode::slotTBtnIndex(int index)
         break;
     case 3:
         //发送查询变比值命令
-        qDebug()<<"****************";
-        qDebug()<<"loop : "<<loop;
-        qDebug()<<"cmd  : "<<SCMD_QRATIO;
-        qDebug()<<"canId: "<<canId;
         InitCanPort::sendCmdDate(loop,canId,SCMD_QRATIO,N_ACI3,0);
         MsgBox::showInformation(NULL,tr("操作提示"),tr("查询电流变比值命令已发送!"),tr("关闭"));
         break;
@@ -248,7 +244,7 @@ void ConfNode::slotTBtnIndex(int index)
             MsgBox::showInformation(NULL,tr("错误提示"),tr("漏电阈值不能超过1500!"),tr("关闭"));
             return;
         }
-        InitCanPort::sendCmdDate(loop,canId,SCMD_SALARM,N_LEAK,0,ui->lineEditSetLeak->text().toUInt());
+        InitCanPort::sendCmdDate(loop,canId,SCMD_SALARM,N_LEAK,0,ui->lineEditPass->text().toUInt(),ui->lineEditSetLeak->text().toUInt());
         break;
     case 5:
         //发送设置温度阈值命令
@@ -260,7 +256,7 @@ void ConfNode::slotTBtnIndex(int index)
             MsgBox::showInformation(NULL,tr("错误提示"),tr("温度阈值不能超过150!"),tr("关闭"));
             return;
         }
-        InitCanPort::sendCmdDate(loop,canId,SCMD_SALARM,N_TEMP,0,ui->lineEditSetTemp->text().toUInt());
+        InitCanPort::sendCmdDate(loop,canId,SCMD_SALARM,N_TEMP,0,ui->lineEditPass->text().toUInt(),ui->lineEditSetTemp->text().toUInt());
         break;
     case 6:
         //发送设置固有值命令
@@ -272,7 +268,8 @@ void ConfNode::slotTBtnIndex(int index)
             MsgBox::showInformation(NULL,tr("错误提示"),tr("漏电固有值不能超过1500!"),tr("关闭"));
             return;
         }
-        InitCanPort::sendCmdDate(loop,canId,SCMD_SHAVE,N_LEAK,0,ui->lineEditSetBase->text().toUInt());
+        InitCanPort::sendCmdDate(loop,canId,SCMD_SHAVE,N_LEAK,0,ui->lineEditPass->text().toUInt(),ui->lineEditSetBase->text().toUInt());
+
         break;
     case 7:
         //发送设置变比值命令
@@ -284,7 +281,7 @@ void ConfNode::slotTBtnIndex(int index)
             MsgBox::showInformation(NULL,tr("错误提示"),tr("电流变比值不能为0!"),tr("关闭"));
             return;
         }
-        InitCanPort::sendCmdDate(loop,canId,SCMD_SRATIO,N_ACI3,0,ui->lineEditSetRatio->text().toUInt());
+        InitCanPort::sendCmdDate(loop,canId,SCMD_SRATIO,N_ACI3,0,ui->lineEditPass->text().toUInt(),ui->lineEditSetRatio->text().toUInt());
         break;
     case 8:
         if (m_btnSelect[0] == true) {

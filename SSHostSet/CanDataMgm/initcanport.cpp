@@ -76,6 +76,7 @@ can_frame InitCanPort::confCanFrame(uint loop, uint canId, uint cmd, uint type, 
         canFrame.can_dlc = 2;
         canFrame.data[0] = valueSet >> 8;   //值高
         canFrame.data[1] = valueSet & 0xFF; //值低
+        canFrame.data[6] = pass << 4;
 
         break;
     case SCMD_UPDATE://数据更新
