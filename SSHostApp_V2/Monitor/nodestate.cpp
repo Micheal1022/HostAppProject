@@ -67,7 +67,7 @@ void NodeState::showNodeInfo(int loop, int canId, int nodeType, QString area)
         ui->tableWidget->horizontalHeaderItem(3)->setText(tr("最高温度"));
         ui->tableWidget->horizontalHeaderItem(4)->setText(tr("最低温度"));
         ui->tableWidget->horizontalHeaderItem(5)->setText(tr("平均温度"));
-    } else if (m_nodeType == MOD_L1T4 || m_nodeType == MOD_L8T4) {
+    } else if (m_nodeType == MOD_L1T4 || m_nodeType == MOD_L12T4) {
         m_rowCount = 12;
         ui->tableWidget->horizontalHeaderItem(3)->setText(tr("实时值"));
         ui->tableWidget->horizontalHeaderItem(4)->setText(tr("报警值"));
@@ -151,48 +151,95 @@ QString NodeState::getStateStr(int state)
 QString NodeState::getNodeTypeStr(int nodeType)
 {
     QString nodeTypeStr;
+//    switch (nodeType) {
+//    case MOD_L1T4:
+//        nodeTypeStr = tr("一体式探测器");
+//        break;
+//    case MOD_L8T4:
+//        nodeTypeStr = tr("组合式探测器");
+//        break;
+//    case MOD_EARC:
+//        nodeTypeStr = tr("电弧探测器");
+//        break;
+//    case MOD_PYRO:
+//        nodeTypeStr = tr("热解探测器");
+//        break;
+//    case MOD_THER:
+//        nodeTypeStr = tr("热成像探测器");
+//        break;
+//    case MOD_2VA:
+//        nodeTypeStr = tr("三相电压电流");
+//        break;
+//    case MOD_VA:
+//        nodeTypeStr = tr("三相电压电流");
+//        break;
+//    case MOD_A:
+//        nodeTypeStr = tr("三相电流");
+//        break;
+//    case MOD_3V:
+//        nodeTypeStr = tr("三相电压");
+//        break;
+//    case MOD_2V:
+//        nodeTypeStr = tr("三相电压");
+//        break;
+//    case MOD_V:
+//        nodeTypeStr = tr("三相电压");
+//        break;
+//    case MOD_6V3A:
+//        nodeTypeStr = tr("单相电压电流");
+//        break;
+//    case MOD_6V:
+//        nodeTypeStr = tr("单相电压");
+//        break;
+//    case MOD_3A:
+//        nodeTypeStr = tr("单相电流");
+//        break;
+//    default:
+//        nodeTypeStr = tr("--");
+//        break;
+//    }
     switch (nodeType) {
     case MOD_L1T4:
-        nodeTypeStr = tr("一体式探测器");
+        nodeTypeStr = tr("L1T4");
         break;
-    case MOD_L8T4:
-        nodeTypeStr = tr("组合式探测器");
+    case MOD_L12T4:
+        nodeTypeStr = tr("L12T4");
         break;
     case MOD_EARC:
-        nodeTypeStr = tr("电弧探测器");
+        nodeTypeStr = tr("EARC");
         break;
     case MOD_PYRO:
-        nodeTypeStr = tr("热解探测器");
+        nodeTypeStr = tr("PYRO");
         break;
     case MOD_THER:
-        nodeTypeStr = tr("热成像探测器");
+        nodeTypeStr = tr("THER");
         break;
     case MOD_2VA:
-        nodeTypeStr = tr("三相电压电流");
+        nodeTypeStr = tr("2VA");
         break;
     case MOD_VA:
-        nodeTypeStr = tr("三相电压电流");
+        nodeTypeStr = tr("VA");
         break;
     case MOD_A:
-        nodeTypeStr = tr("三相电流");
+        nodeTypeStr = tr("A");
         break;
     case MOD_3V:
-        nodeTypeStr = tr("三相电压");
+        nodeTypeStr = tr("3V");
         break;
     case MOD_2V:
-        nodeTypeStr = tr("三相电压");
+        nodeTypeStr = tr("2V");
         break;
     case MOD_V:
-        nodeTypeStr = tr("三相电压");
+        nodeTypeStr = tr("V");
         break;
     case MOD_6V3A:
-        nodeTypeStr = tr("单相电压电流");
+        nodeTypeStr = tr("6V3A");
         break;
     case MOD_6V:
-        nodeTypeStr = tr("单相电压");
+        nodeTypeStr = tr("6V");
         break;
     case MOD_3A:
-        nodeTypeStr = tr("单相电流");
+        nodeTypeStr = tr("3A");
         break;
     default:
         nodeTypeStr = tr("--");

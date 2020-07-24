@@ -84,38 +84,59 @@ void StateInfo::currentIndexInfo(QStringList infoList)
     QString timeStr = infoList.value(INFO_TIME);
     QString areaStr = infoList.value(INFO_AREA);
 
+    ui->lbAlarmValue->setText(valueStr);
     ui->lbNodeAddr->setText(loopStr+"-"+idStr);/*节点类型*/
-    int type = typeStr.toInt();
-    switch (type) {
-    case N_LEAK:
-        ui->lbUnit->setText(tr("mA"));
-        ui->lbType->setText(tr("漏电"));
-        ui->lbAlarmValue->setText(valueStr);
+    int nodeType = typeStr.toInt();
+    QString nodeTypeStr;
+    switch (nodeType) {
+    case MOD_L1T4:
+        nodeTypeStr = tr("L1T4");
         break;
-    case N_TEMP:
-        ui->lbUnit->setText(tr("℃"));
-        ui->lbType->setText(tr("温度"));
-        ui->lbAlarmValue->setText(valueStr);
+    case MOD_L12T4:
+        nodeTypeStr = tr("L12T4");
         break;
-    case N_ACV3:
-        ui->lbType->setText(tr("三相电压"));
+    case MOD_EARC:
+        nodeTypeStr = tr("EARC");
         break;
-    case N_ACI3:
-        ui->lbType->setText(tr("三相电流"));
+    case MOD_PYRO:
+        nodeTypeStr = tr("PYRO");
         break;
-    case N_ACV:
-        ui->lbType->setText(tr("单相电压"));
+    case MOD_THER:
+        nodeTypeStr = tr("THER");
         break;
-    case N_ACI:
-        ui->lbType->setText(tr("单相电流"));
+    case MOD_2VA:
+        nodeTypeStr = tr("2VA");
         break;
-    case N_DCV:
-        ui->lbType->setText(tr("直流电压"));
+    case MOD_VA:
+        nodeTypeStr = tr("VA");
         break;
-    case N_DCI:
-        ui->lbType->setText(tr("直流电流"));
+    case MOD_A:
+        nodeTypeStr = tr("A");
+        break;
+    case MOD_3V:
+        nodeTypeStr = tr("3V");
+        break;
+    case MOD_2V:
+        nodeTypeStr = tr("2V");
+        break;
+    case MOD_V:
+        nodeTypeStr = tr("V");
+        break;
+    case MOD_6V3A:
+        nodeTypeStr = tr("6V3A");
+        break;
+    case MOD_6V:
+        nodeTypeStr = tr("6V");
+        break;
+    case MOD_3A:
+        nodeTypeStr = tr("3A");
+        break;
+    default:
+        nodeTypeStr = tr("--");
         break;
     }
+    ui->lbType->setText(nodeTypeStr);
+
     int state = stateStr.toInt();/*节点状态*/
     switch (state) {
     case N_POWERLOST:
@@ -124,27 +145,27 @@ void StateInfo::currentIndexInfo(QStringList infoList)
         break;
     case N_OVERVOL:
         ui->lbState->setText(tr("节点过压"));
-        ui->lbState->setStyleSheet("color: rgb(255, 255, 0);");
+        ui->lbState->setStyleSheet("color: rgb(227, 151, 0);");
         break;
     case N_OVERCUR:
         ui->lbState->setText(tr("过流故障"));
-        ui->lbState->setStyleSheet("color: rgb(255, 255, 0);");
+        ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
     case N_UNDERVOL:
         ui->lbState->setText(tr("欠压故障"));
-        ui->lbState->setStyleSheet("color: rgb(255, 255, 0);");
+        ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
     case N_LOSTPHASE:
         ui->lbState->setText(tr("缺相故障"));
-        ui->lbState->setStyleSheet("color: rgb(255, 255, 0);");
+        ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
     case N_ERRORPHASE:
         ui->lbState->setText(tr("错相故障"));
-        ui->lbState->setStyleSheet("color: rgb(255, 255, 0);");
+        ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
     case N_ERROR:
         ui->lbState->setText(tr("传感器故障"));
-        ui->lbState->setStyleSheet("color: rgb(255, 255, 0);");
+        ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
     case N_ALARM:
         ui->lbState->setText(tr("通道报警"));
@@ -152,7 +173,7 @@ void StateInfo::currentIndexInfo(QStringList infoList)
         break;
     case N_OFFLINE:
         ui->lbState->setText(tr("通讯故障"));
-        ui->lbState->setStyleSheet("color: rgb(255, 255, 0);");
+        ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
     }
     ui->lbArea->setText(areaStr);/*安装位置*/

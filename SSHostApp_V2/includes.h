@@ -96,7 +96,7 @@
 /*探测器型号*/
 #define MOD_UREG        0x00
 #define MOD_L1T4        0x01//组合式
-#define MOD_L8T4        0x02//一体式
+#define MOD_L12T4       0x02//一体式
 #define MOD_EARC        0x03//电弧
 #define MOD_PYRO        0x04//热解
 #define MOD_THER        0x09//热成像

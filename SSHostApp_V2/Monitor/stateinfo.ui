@@ -462,7 +462,7 @@ border-radius:5px;
     </rect>
    </property>
    <property name="text">
-    <string>mA</string>
+    <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

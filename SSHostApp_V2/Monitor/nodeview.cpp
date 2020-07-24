@@ -732,8 +732,8 @@ QString NodeView::getTypeStr(int type)
     case MOD_L1T4:
         typeStr = tr("L1T4");
         break;
-    case MOD_L8T4:
-        typeStr = tr("L8T4");
+    case MOD_L12T4:
+        typeStr = tr("L12T4");
         break;
     case MOD_THER:
         typeStr = tr("热成像");
