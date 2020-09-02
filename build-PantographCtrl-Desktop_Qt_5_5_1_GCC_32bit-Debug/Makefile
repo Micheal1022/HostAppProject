@@ -49,9 +49,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../PantographCtrl/main.cpp \
-		../PantographCtrl/mainwindow.cpp moc_mainwindow.cpp
+		../PantographCtrl/mainwindow.cpp qrc_image.cpp \
+		moc_mainwindow.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
+		qrc_image.o \
 		moc_mainwindow.o
 DIST          = /opt/Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.5.1/5.5/gcc/mkspecs/common/unix.conf \
@@ -354,6 +356,7 @@ Makefile: ../PantographCtrl/PantographCtrl.pro /opt/Qt5.5.1/5.5/gcc/mkspecs/linu
 		/opt/Qt5.5.1/5.5/gcc/mkspecs/features/yacc.prf \
 		/opt/Qt5.5.1/5.5/gcc/mkspecs/features/lex.prf \
 		../PantographCtrl/PantographCtrl.pro \
+		../PantographCtrl/image.qrc \
 		/opt/Qt5.5.1/5.5/gcc/lib/libQt5Widgets.prl \
 		/opt/Qt5.5.1/5.5/gcc/lib/libQt5Gui.prl \
 		/opt/Qt5.5.1/5.5/gcc/lib/libQt5Core.prl
@@ -493,6 +496,7 @@ Makefile: ../PantographCtrl/PantographCtrl.pro /opt/Qt5.5.1/5.5/gcc/mkspecs/linu
 /opt/Qt5.5.1/5.5/gcc/mkspecs/features/yacc.prf:
 /opt/Qt5.5.1/5.5/gcc/mkspecs/features/lex.prf:
 ../PantographCtrl/PantographCtrl.pro:
+../PantographCtrl/image.qrc:
 /opt/Qt5.5.1/5.5/gcc/lib/libQt5Widgets.prl:
 /opt/Qt5.5.1/5.5/gcc/lib/libQt5Gui.prl:
 /opt/Qt5.5.1/5.5/gcc/lib/libQt5Core.prl:
@@ -510,6 +514,7 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
+	$(COPY_FILE) --parents ../PantographCtrl/image.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../PantographCtrl/mainwindow.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../PantographCtrl/main.cpp ../PantographCtrl/mainwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PantographCtrl/mainwindow.ui $(DISTDIR)/
@@ -533,8 +538,48 @@ mocables: compiler_moc_header_make_all compiler_moc_source_make_all
 
 check: first
 
-compiler_rcc_make_all:
+compiler_rcc_make_all: qrc_image.cpp
 compiler_rcc_clean:
+	-$(DEL_FILE) qrc_image.cpp
+qrc_image.cpp: ../PantographCtrl/image.qrc \
+		../PantographCtrl/Image/node.png \
+		../PantographCtrl/Image/focus.png \
+		../PantographCtrl/Image/Sensor.png \
+		../PantographCtrl/Image/dataDel.png \
+		../PantographCtrl/Image/close.png \
+		../PantographCtrl/Image/quit.png \
+		../PantographCtrl/Image/selfCheck.png \
+		../PantographCtrl/Image/key.png \
+		../PantographCtrl/Image/Bevone.png \
+		../PantographCtrl/Image/ok.png \
+		../PantographCtrl/Image/tools.png \
+		../PantographCtrl/Image/print.png \
+		../PantographCtrl/Image/errorInfo.png \
+		../PantographCtrl/Image/pwd.png \
+		../PantographCtrl/Image/alarmInfo.png \
+		../PantographCtrl/Image/login.png \
+		../PantographCtrl/Image/datafilter.png \
+		../PantographCtrl/Image/volume.png \
+		../PantographCtrl/Image/enable.png \
+		../PantographCtrl/Image/offLineInfo.png \
+		../PantographCtrl/Image/checked.png \
+		../PantographCtrl/Image/arrow-up.png \
+		../PantographCtrl/Image/reset.png \
+		../PantographCtrl/Image/time.png \
+		../PantographCtrl/Image/dataSearch.png \
+		../PantographCtrl/Image/arrow-down.png \
+		../PantographCtrl/Image/run.png \
+		../PantographCtrl/Image/connect.png \
+		../PantographCtrl/Image/dataRubish.png \
+		../PantographCtrl/Image/title.png \
+		../PantographCtrl/Image/dataExport.png \
+		../PantographCtrl/Image/disenable.png \
+		../PantographCtrl/Image/speaker.png \
+		../PantographCtrl/Image/back.png \
+		../PantographCtrl/Image/logo.png \
+		../PantographCtrl/Image/uncheck.png
+	/opt/Qt5.5.1/5.5/gcc/bin/rcc -name image ../PantographCtrl/image.qrc -o qrc_image.cpp
+
 compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
@@ -660,7 +705,7 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_rcc_clean compiler_moc_header_clean compiler_uic_clean 
 
 ####### Compile
 
@@ -887,6 +932,9 @@ mainwindow.o: ../PantographCtrl/mainwindow.cpp ../PantographCtrl/mainwindow.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../PantographCtrl/mainwindow.cpp
+
+qrc_image.o: qrc_image.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_image.o qrc_image.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

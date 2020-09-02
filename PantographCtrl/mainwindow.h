@@ -6,7 +6,7 @@
 namespace Ui {
 class MainWindow;
 }
-
+class QTimer;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -17,6 +17,10 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QTimer *m_timeTimer;
+    void initWidget();
+private slots:
+    void slotTimeTimerOut();
 };
 
 #endif // MAINWINDOW_H
