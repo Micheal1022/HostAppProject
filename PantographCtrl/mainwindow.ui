@@ -39,17 +39,40 @@ margin-top:22px;
 QGroupBox:title{
 subcontrol-origin: margin;
 left: 5px;
+}
+QRadioButton{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color:rgb(0, 122, 165);
+border-radius:10px;
+border:2px solid rgb(0, 122, 165);
+background-color: rgb(255, 255, 255);
+}
+QRadioButton:disabled{
+font: 20pt &quot;文泉驿等宽微米黑&quot;;
+color: rgb(180, 180, 180);
+border-color: rgb(180, 180, 180);
+}
+QRadioButton::indicator{
+width:45px;
+height:45px;
+margin-left:0px;
+}
+QRadioButton::indicator::unchecked {
+image: url(:/Image/disenable.png);
+}
+QRadioButton::indicator::checked {
+image: url(:/Image/enable.png);
 }</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QToolButton" name="tBtnMonitor">
+   <widget class="QToolButton" name="tBtnManualMode">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>265</x>
-      <y>495</y>
+      <x>270</x>
+      <y>615</y>
       <width>120</width>
       <height>100</height>
      </rect>
@@ -80,14 +103,14 @@ left: 5px;
      <enum>Qt::ToolButtonTextUnderIcon</enum>
     </property>
    </widget>
-   <widget class="QToolButton" name="tBtnMonitor_2">
+   <widget class="QToolButton" name="tBtnAutoMode">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>390</x>
-      <y>495</y>
+      <x>395</x>
+      <y>615</y>
       <width>120</width>
       <height>100</height>
      </rect>
@@ -118,14 +141,14 @@ left: 5px;
      <enum>Qt::ToolButtonTextUnderIcon</enum>
     </property>
    </widget>
-   <widget class="QToolButton" name="tBtnMonitor_3">
+   <widget class="QToolButton" name="tBtnRepairMode">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>515</x>
-      <y>495</y>
+      <x>520</x>
+      <y>615</y>
       <width>120</width>
       <height>100</height>
      </rect>
@@ -156,13 +179,13 @@ left: 5px;
      <enum>Qt::ToolButtonTextUnderIcon</enum>
     </property>
    </widget>
-   <widget class="QToolButton" name="tBtnMonitor_4">
+   <widget class="QToolButton" name="tBtnSystemConf">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>640</x>
+      <x>765</x>
       <y>495</y>
       <width>120</width>
       <height>100</height>
@@ -194,7 +217,7 @@ left: 5px;
      <enum>Qt::ToolButtonTextUnderIcon</enum>
     </property>
    </widget>
-   <widget class="QToolButton" name="tBtnMonitor_5">
+   <widget class="QToolButton" name="tBtnUserLogin">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -253,7 +276,7 @@ background-color:rgb(0, 122, 165);</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QToolButton" name="tBtnMonitor_6">
+   <widget class="QToolButton" name="tBtnUserLogout">
     <property name="enabled">
      <bool>true</bool>
     </property>
@@ -347,13 +370,13 @@ color: rgb(255, 255, 255);</string>
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <widget class="QToolButton" name="tBtnMonitor_7">
+   <widget class="QToolButton" name="tBtnDrop">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>15</x>
+      <x>390</x>
       <y>495</y>
       <width>120</width>
       <height>100</height>
@@ -385,13 +408,13 @@ color: rgb(255, 255, 255);</string>
      <enum>Qt::ToolButtonTextUnderIcon</enum>
     </property>
    </widget>
-   <widget class="QToolButton" name="tBtnMonitor_8">
+   <widget class="QToolButton" name="tBtnRise">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>515</x>
       <y>495</y>
       <width>120</width>
       <height>100</height>
@@ -439,13 +462,13 @@ color: rgb(255, 255, 255);</string>
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QToolButton" name="tBtnMonitor_9">
+   <widget class="QToolButton" name="tBtnSystemReset">
     <property name="enabled">
      <bool>true</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>765</x>
+      <x>640</x>
       <y>495</y>
       <width>120</width>
       <height>100</height>
@@ -492,7 +515,7 @@ color: rgb(255, 255, 255);</string>
     <property name="title">
      <string>弓故障</string>
     </property>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="lbPressureError_1">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -510,7 +533,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="lb_7">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -527,7 +550,7 @@ color: rgb(0, 0, 0);</string>
       <string>压力传感器1故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_5">
+    <widget class="QLabel" name="lb_8">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -544,7 +567,7 @@ color: rgb(0, 0, 0);</string>
       <string>压力传感器2故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="lbPressureError_2">
      <property name="geometry">
       <rect>
        <x>255</x>
@@ -562,7 +585,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_7">
+    <widget class="QLabel" name="lb_1">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -576,10 +599,10 @@ background-color: rgb(0, 180, 0);</string>
 color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">
-      <string>上止点故障</string>
+      <string>上限故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_16">
+    <widget class="QLabel" name="lbUpperLimitError">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -597,7 +620,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_17">
+    <widget class="QLabel" name="lb_2">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -611,10 +634,10 @@ background-color: rgb(0, 180, 0);</string>
 color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">
-      <string>下止点故障</string>
+      <string>下限故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_18">
+    <widget class="QLabel" name="lbLowerLimitError">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -632,7 +655,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_19">
+    <widget class="QLabel" name="lb_3">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -646,10 +669,10 @@ background-color: rgb(0, 180, 0);</string>
 color: rgb(0, 0, 0);</string>
      </property>
      <property name="text">
-      <string>私服故障</string>
+      <string>伺服故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_20">
+    <widget class="QLabel" name="lbServoError">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -667,7 +690,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_21">
+    <widget class="QLabel" name="lb_4">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -684,7 +707,7 @@ color: rgb(0, 0, 0);</string>
       <string>急停故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_22">
+    <widget class="QLabel" name="lbSuddenStopError">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -703,7 +726,7 @@ background-color: rgb(244, 0, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_23">
+    <widget class="QLabel" name="lb_12">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -720,7 +743,7 @@ color: rgb(0, 0, 0);</string>
       <string>温度传感器3故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_24">
+    <widget class="QLabel" name="lbTempError_4">
      <property name="geometry">
       <rect>
        <x>255</x>
@@ -738,7 +761,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_25">
+    <widget class="QLabel" name="lb_10">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -755,7 +778,7 @@ color: rgb(0, 0, 0);</string>
       <string>温度传感器5故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_26">
+    <widget class="QLabel" name="lbTempError_5">
      <property name="geometry">
       <rect>
        <x>255</x>
@@ -773,7 +796,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_27">
+    <widget class="QLabel" name="lbTempError_2">
      <property name="geometry">
       <rect>
        <x>255</x>
@@ -791,7 +814,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_28">
+    <widget class="QLabel" name="lbTempError_3">
      <property name="geometry">
       <rect>
        <x>255</x>
@@ -809,7 +832,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_29">
+    <widget class="QLabel" name="lbTempError_1">
      <property name="geometry">
       <rect>
        <x>255</x>
@@ -827,7 +850,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_30">
+    <widget class="QLabel" name="lb_9">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -844,7 +867,7 @@ color: rgb(0, 0, 0);</string>
       <string>温度传感器6故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_31">
+    <widget class="QLabel" name="lb_14">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -861,7 +884,7 @@ color: rgb(0, 0, 0);</string>
       <string>温度传感器1故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_32">
+    <widget class="QLabel" name="lbTempError_6">
      <property name="geometry">
       <rect>
        <x>255</x>
@@ -879,7 +902,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_33">
+    <widget class="QLabel" name="lb_11">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -896,7 +919,7 @@ color: rgb(0, 0, 0);</string>
       <string>温度传感器4故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_34">
+    <widget class="QLabel" name="lb_13">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -913,7 +936,7 @@ color: rgb(0, 0, 0);</string>
       <string>温度传感器2故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_35">
+    <widget class="QLabel" name="lb_5">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -930,7 +953,7 @@ color: rgb(0, 0, 0);</string>
       <string>超时故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_36">
+    <widget class="QLabel" name="lbTimeOutError">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -948,7 +971,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_37">
+    <widget class="QLabel" name="lb_6">
      <property name="geometry">
       <rect>
        <x>80</x>
@@ -965,7 +988,7 @@ color: rgb(0, 0, 0);</string>
       <string>断电故障</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_38">
+    <widget class="QLabel" name="lbPowerLostError">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -990,7 +1013,7 @@ background-color: rgb(0, 180, 0);</string>
       <x>5</x>
       <y>70</y>
       <width>266</width>
-      <height>412</height>
+      <height>413</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -1155,7 +1178,7 @@ color: rgb(0, 0, 0);</string>
       <string>温度-3:</string>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber">
+    <widget class="QLCDNumber" name="lcdNbP_1">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1168,7 +1191,7 @@ color: rgb(0, 0, 0);</string>
       <number>1000</number>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_2">
+    <widget class="QLCDNumber" name="lcdNbP_2">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1178,7 +1201,7 @@ color: rgb(0, 0, 0);</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_3">
+    <widget class="QLCDNumber" name="lcdNbCP">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1188,7 +1211,7 @@ color: rgb(0, 0, 0);</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_4">
+    <widget class="QLCDNumber" name="lcdNbT_1">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1198,7 +1221,7 @@ color: rgb(0, 0, 0);</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_5">
+    <widget class="QLCDNumber" name="lcdNbT_2">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1208,7 +1231,7 @@ color: rgb(0, 0, 0);</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_6">
+    <widget class="QLCDNumber" name="lcdNbT_6">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1218,7 +1241,7 @@ color: rgb(0, 0, 0);</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_9">
+    <widget class="QLCDNumber" name="lcdNbT_5">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1228,7 +1251,7 @@ color: rgb(0, 0, 0);</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_10">
+    <widget class="QLCDNumber" name="lcdNbT_3">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1238,7 +1261,7 @@ color: rgb(0, 0, 0);</string>
       </rect>
      </property>
     </widget>
-    <widget class="QLCDNumber" name="lcdNumber_11">
+    <widget class="QLCDNumber" name="lcdNbT_4">
      <property name="geometry">
       <rect>
        <x>105</x>
@@ -1372,13 +1395,13 @@ color: rgb(0, 0, 0);</string>
       <x>275</x>
       <y>70</y>
       <width>241</width>
-      <height>412</height>
+      <height>413</height>
      </rect>
     </property>
     <property name="title">
      <string>弓状态</string>
     </property>
-    <widget class="QLabel" name="label_58">
+    <widget class="QLabel" name="lbInit">
      <property name="geometry">
       <rect>
        <x>25</x>
@@ -1396,7 +1419,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_59">
+    <widget class="QLabel" name="lbDropping">
      <property name="geometry">
       <rect>
        <x>25</x>
@@ -1414,7 +1437,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_60">
+    <widget class="QLabel" name="lbDropped">
      <property name="geometry">
       <rect>
        <x>25</x>
@@ -1432,7 +1455,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_61">
+    <widget class="QLabel" name="lbRised">
      <property name="geometry">
       <rect>
        <x>25</x>
@@ -1450,7 +1473,7 @@ background-color: rgb(0, 180, 0);</string>
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_62">
+    <widget class="QLabel" name="lbRising">
      <property name="geometry">
       <rect>
        <x>25</x>
@@ -1473,7 +1496,7 @@ background-color: rgb(0, 180, 0);</string>
       <rect>
        <x>115</x>
        <y>55</y>
-       <width>110</width>
+       <width>90</width>
        <height>40</height>
       </rect>
      </property>
@@ -1490,7 +1513,7 @@ color: rgb(0, 0, 0);</string>
       <rect>
        <x>120</x>
        <y>120</y>
-       <width>110</width>
+       <width>90</width>
        <height>40</height>
       </rect>
      </property>
@@ -1507,7 +1530,7 @@ color: rgb(0, 0, 0);</string>
       <rect>
        <x>120</x>
        <y>195</y>
-       <width>110</width>
+       <width>90</width>
        <height>40</height>
       </rect>
      </property>
@@ -1524,7 +1547,7 @@ color: rgb(0, 0, 0);</string>
       <rect>
        <x>120</x>
        <y>265</y>
-       <width>110</width>
+       <width>90</width>
        <height>40</height>
       </rect>
      </property>
@@ -1541,7 +1564,7 @@ color: rgb(0, 0, 0);</string>
       <rect>
        <x>120</x>
        <y>335</y>
-       <width>110</width>
+       <width>90</width>
        <height>40</height>
       </rect>
      </property>
@@ -1554,23 +1577,77 @@ color: rgb(0, 0, 0);</string>
      </property>
     </widget>
    </widget>
-   <zorder>tBtnMonitor_6</zorder>
-   <zorder>tBtnMonitor</zorder>
-   <zorder>tBtnMonitor_2</zorder>
-   <zorder>tBtnMonitor_3</zorder>
-   <zorder>tBtnMonitor_4</zorder>
-   <zorder>tBtnMonitor_5</zorder>
+   <widget class="QRadioButton" name="rBtnManualMode">
+    <property name="geometry">
+     <rect>
+      <x>265</x>
+      <y>495</y>
+      <width>120</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>手动
+模式</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rBtnAutoMode">
+    <property name="geometry">
+     <rect>
+      <x>15</x>
+      <y>495</y>
+      <width>120</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>自动
+模式</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rBtnRepairMode">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>495</y>
+      <width>120</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>检修
+模式</string>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <zorder>tBtnUserLogout</zorder>
+   <zorder>tBtnManualMode</zorder>
+   <zorder>tBtnAutoMode</zorder>
+   <zorder>tBtnRepairMode</zorder>
+   <zorder>tBtnSystemConf</zorder>
+   <zorder>tBtnUserLogin</zorder>
    <zorder>lbBack</zorder>
    <zorder>label</zorder>
    <zorder>lbCompany</zorder>
    <zorder>lbTime</zorder>
-   <zorder>tBtnMonitor_7</zorder>
-   <zorder>tBtnMonitor_8</zorder>
+   <zorder>tBtnDrop</zorder>
+   <zorder>tBtnRise</zorder>
    <zorder>line</zorder>
-   <zorder>tBtnMonitor_9</zorder>
+   <zorder>tBtnSystemReset</zorder>
    <zorder>gBox_1</zorder>
    <zorder>gBox_2</zorder>
    <zorder>gBox_3</zorder>
+   <zorder>rBtnManualMode</zorder>
+   <zorder>rBtnAutoMode</zorder>
+   <zorder>rBtnRepairMode</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
