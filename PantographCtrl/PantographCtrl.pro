@@ -28,7 +28,8 @@ HEADERS  += mainwindow.h \
     MsgBox/msgbox.h \
     MsgBox/questbox.h \
     SQLite/mysqlite.h \
-    SQLite/nodesqlite.h
+    SQLite/nodesqlite.h \
+    includes.h
 
 FORMS    += mainwindow.ui \
     SystemConf/systemconf.ui \

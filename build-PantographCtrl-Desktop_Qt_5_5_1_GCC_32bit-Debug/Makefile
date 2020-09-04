@@ -216,7 +216,8 @@ DIST          = /opt/Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../PantographCtrl/MsgBox/msgbox.h \
 		../PantographCtrl/MsgBox/questbox.h \
 		../PantographCtrl/SQLite/mysqlite.h \
-		../PantographCtrl/SQLite/nodesqlite.h ../PantographCtrl/main.cpp \
+		../PantographCtrl/SQLite/nodesqlite.h \
+		../PantographCtrl/includes.h ../PantographCtrl/main.cpp \
 		../PantographCtrl/mainwindow.cpp \
 		../PantographCtrl/SystemConf/systemconf.cpp \
 		../PantographCtrl/UserLogin/userlogin.cpp \
@@ -550,7 +551,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../PantographCtrl/image.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../PantographCtrl/mainwindow.h ../PantographCtrl/SystemConf/systemconf.h ../PantographCtrl/UserLogin/userlogin.h ../PantographCtrl/MsgBox/infobox.h ../PantographCtrl/MsgBox/msgbox.h ../PantographCtrl/MsgBox/questbox.h ../PantographCtrl/SQLite/mysqlite.h ../PantographCtrl/SQLite/nodesqlite.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../PantographCtrl/mainwindow.h ../PantographCtrl/SystemConf/systemconf.h ../PantographCtrl/UserLogin/userlogin.h ../PantographCtrl/MsgBox/infobox.h ../PantographCtrl/MsgBox/msgbox.h ../PantographCtrl/MsgBox/questbox.h ../PantographCtrl/SQLite/mysqlite.h ../PantographCtrl/SQLite/nodesqlite.h ../PantographCtrl/includes.h $(DISTDIR)/
 	$(COPY_FILE) --parents ../PantographCtrl/main.cpp ../PantographCtrl/mainwindow.cpp ../PantographCtrl/SystemConf/systemconf.cpp ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/MsgBox/infobox.cpp ../PantographCtrl/MsgBox/msgbox.cpp ../PantographCtrl/MsgBox/questbox.cpp ../PantographCtrl/SQLite/mysqlite.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../PantographCtrl/mainwindow.ui ../PantographCtrl/SystemConf/systemconf.ui ../PantographCtrl/UserLogin/userlogin.ui ../PantographCtrl/MsgBox/infobox.ui ../PantographCtrl/MsgBox/questbox.ui $(DISTDIR)/
 
@@ -1402,52 +1403,14 @@ mainwindow.o: ../PantographCtrl/mainwindow.cpp ../PantographCtrl/mainwindow.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
 		ui_mainwindow.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QFrame \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGroupBox \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgroupbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLCDNumber \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlcdnumber.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDateTime \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qdatetime.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QTimer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtimer.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		../PantographCtrl/UserLogin/userlogin.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
+		../PantographCtrl/SystemConf/systemconf.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../PantographCtrl/mainwindow.cpp
 
 systemconf.o: ../PantographCtrl/SystemConf/systemconf.cpp ../PantographCtrl/SystemConf/systemconf.h \
@@ -1553,39 +1516,7 @@ systemconf.o: ../PantographCtrl/SystemConf/systemconf.cpp ../PantographCtrl/Syst
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfiledevice.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
-		ui_systemconf.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h
+		ui_systemconf.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o systemconf.o ../PantographCtrl/SystemConf/systemconf.cpp
 
 userlogin.o: ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/UserLogin/userlogin.h \
@@ -1692,49 +1623,6 @@ userlogin.o: ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/UserLog
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_userlogin.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLineEdit \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlineedit.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextcursor.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextformat.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		../PantographCtrl/SQLite/mysqlite.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSql \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSqlDepends \
@@ -1771,8 +1659,10 @@ userlogin.o: ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/UserLog
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporarydir.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QScopedPointer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporaryfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsortfilterproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonarray.h \
@@ -1780,8 +1670,10 @@ userlogin.o: ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/UserLog
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsondocument.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractnativeeventfilter.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmath.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetaobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmimedata.h \
@@ -1835,6 +1727,7 @@ userlogin.o: ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/UserLog
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlinkedlist.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmessageauthenticationcode.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qqueue.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedvaluerollback.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstack.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextboundaryfinder.h \
@@ -1855,7 +1748,21 @@ userlogin.o: ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/UserLog
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlquerymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaldelegate.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcombobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaltablemodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqltablemodel.h \
@@ -1864,6 +1771,7 @@ userlogin.o: ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/UserLog
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutex \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QQueue \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QString \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDateTime \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutexLocker \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlQueryModel \
@@ -1877,6 +1785,8 @@ userlogin.o: ../PantographCtrl/UserLogin/userlogin.cpp ../PantographCtrl/UserLog
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
 		../PantographCtrl/MsgBox/questbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGraphicsDropShadowEffect \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgraphicseffect.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMessageBox \
@@ -1988,43 +1898,6 @@ infobox.o: ../PantographCtrl/MsgBox/infobox.cpp ../PantographCtrl/MsgBox/infobox
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_infobox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QBitmap \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qbitmap.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QPainter \
@@ -2252,41 +2125,6 @@ questbox.o: ../PantographCtrl/MsgBox/questbox.cpp ../PantographCtrl/MsgBox/quest
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		ui_questbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QBitmap \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qbitmap.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QPainter \
