@@ -27,6 +27,7 @@ UserLogin::UserLogin(QWidget *parent) :
                     "border-radius:10px;color:rgb(255, 255, 255);background-color: rgb(0, 122, 165);}";
     m_adminSelect = true;
     m_superSelect = false;
+    m_passwd = QString("111111");
 
 }
 
@@ -80,11 +81,6 @@ void UserLogin::confShow()
     show();
     ui->lineEditPwd->clear();
     ui->lineEditPwd->setFocus();
-    QSqlDatabase db = MySQLite::openConnection();
-    m_passwd = MySQLite::getUserPwd(db,QString("ADMIN"));
-//    qDebug("**************************");
-//    qDebug()<<"m_passwd :" <<m_passwd;
-    MySQLite::closeConnection(db);
 }
 /*
 * @项目   TBus_SSEF

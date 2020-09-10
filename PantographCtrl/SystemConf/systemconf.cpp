@@ -92,7 +92,7 @@ void SystemConf::slotBtnKey(int index)
 void SystemConf::slotSystemConfData(QByteArray byteArray)
 {
     uint cmd = byteArray.at(G_CMD);
-    if (0x03 != cmd) {
+    if (GETCONF != cmd) {
         MsgBox::showInformation(NULL,tr("错误提示"),tr("数据命令错误！！！"),tr("关闭"));
         return;
     }
@@ -103,16 +103,34 @@ void SystemConf::slotSystemConfData(QByteArray byteArray)
         return;
     }
 
-    uint p_1 = byteArray.at(G_P1_H);
-    p_1 = (p_1 << 8) | byteArray.at(G_P1_L);
+    uint mode = byteArray.at(G_MODE);
+    switch (mode) {
+    case AUTOMODE:
+        ui->rBtnAutoMode->setChecked(true);
+        break;
+    case MANUALMODE:
+        ui->rBtnManualMode->setChecked(true);
+        break;
+    case REPAIRMODE:
+        ui->rBtnRepairMode->setChecked(true);
+        break;
+    }
+
+    uint p_1 = byteArray.at(G_PH);
+    p_1 = (p_1 << 8) | byteArray.at(G_PL);
     ui->lineEditP_1->setText(QString::number(p_1));
-
-    uint p_2 = byteArray.at(G_P2_H);
-    p_2 = (p_2 << 8) | byteArray.at(G_P2_L);
-    ui->lineEditP_2->setText(QString::number(p_2));
-
-    uint rs_1 = byteArray.at(G_RS_1);
-
+    uint ls = byteArray.at(G_LS);
+    ui->lineEditLS->setText(QString::number(ls));
+    uint ms = byteArray.at(G_MS);
+    ui->lineEditMS->setText(QString::number(ms));
+    uint hs = byteArray.at(G_HS);
+    ui->lineEditHS->setText(QString::number(hs));
+    uint mt = byteArray.at(G_MT);
+    ui->lineEditMT->setText(QString::number(mt));
+    uint st = byteArray.at(G_ST);
+    ui->lineEditST->setText(QString::number(st));
+    uint rt = byteArray.at(G_RT);
+    ui->lineEditRT->setText(QString::number(rt));
 
 }
 
@@ -129,121 +147,63 @@ void SystemConf::SystemConfData(QByteArray &byteArray)
         byteArray.append(data_H);
         byteArray.append(data_L);
     }
-    uint p_2 = ui->lineEditP_2->text().toUInt();
-    if (1000 < p_2) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("最大压力2参数错误！！！"),tr("关闭"));
+    //低速档位
+    uchar ls_1 = ui->lineEditLS->text().toUInt();
+    if (0 == ls_1 || 3 < ls_1) {
+        MsgBox::showInformation(NULL,tr("错误提示"),tr("低速档位参数错误！！！"),tr("关闭"));
         return;
     } else {
-        uchar data_H = (p_2 >> 8) & 0xFF;
-        uchar data_L = p_2 & 0xFF;
+        byteArray.append(ls_1);
+    }
+    //中速档位
+    uchar ms_2 = ui->lineEditMS->text().toUInt();
+    if (3 > ms_2 || 5 < ms_2) {
+        MsgBox::showInformation(NULL,tr("错误提示"),tr("中速档位参数错误！！！"),tr("关闭"));
+        return;
+    } else {
+        byteArray.append(ms_2);
+    }
+    //高速档位
+    uchar hs_3 = ui->lineEditHS->text().toUInt();
+    if (5 > hs_3 || 7 < hs_3) {
+        MsgBox::showInformation(NULL,tr("错误提示"),tr("高速档位参数错误！！！"),tr("关闭"));
+        return;
+    } else {
+        byteArray.append(hs_3);
+    }
+    //手动时间2-6
+    uint mt = ui->lineEditMT->text().toUInt();
+    if (2 > mt || 6 < mt) {
+        MsgBox::showInformation(NULL,tr("错误提示"),tr("手动时间参数错误！！！"),tr("关闭"));
+        return;
+    } else {
+        uchar data_H = (mt >> 8) & 0xFF;
+        uchar data_L = mt & 0xFF;
         byteArray.append(data_H);
         byteArray.append(data_L);
     }
-    //上升速度
-    uchar rs_1 = ui->lineEditRS_1->text().toUInt();
-    if (0 == rs_1 || 8 < rs_1) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("上升速度-1参数错误！！！"),tr("关闭"));
+    //起停时间1-5
+    uint st = ui->lineEditST->text().toUInt();
+    if (1 > mt || 5 < mt) {
+        MsgBox::showInformation(NULL,tr("错误提示"),tr("起停时间参数错误！！！"),tr("关闭"));
         return;
     } else {
-        byteArray.append(rs_1);
-    }
-    uchar rs_2 = ui->lineEditRS_2->text().toUInt();
-    if (0 == rs_2 || 8 < rs_2) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("上升速度-2参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        byteArray.append(rs_2);
-    }
-    uchar rs_3 = ui->lineEditRS_3->text().toUInt();
-    if (0 == rs_3 || 8 < rs_3) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("上升速度-3参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        byteArray.append(rs_3);
-    }
-    //上升时间
-    uint rt_1 = ui->lineEditRT_1->text().toUInt();
-    if (30000 < rt_1) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("上升时间-1参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        uchar data_H = (rt_1 >> 8) & 0xFF;
-        uchar data_L = rt_1 & 0xFF;
+        uchar data_H = (st >> 8) & 0xFF;
+        uchar data_L = st & 0xFF;
         byteArray.append(data_H);
         byteArray.append(data_L);
     }
-    uint rt_2 = ui->lineEditRT_2->text().toUInt();
-    if (3000 < rt_2) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("上升时间-2参数错误！！！"),tr("关闭"));
+    //运行时间5-8
+    uint rt = ui->lineEditRT->text().toUInt();
+    if (5 > mt || 8 < mt) {
+        MsgBox::showInformation(NULL,tr("错误提示"),tr("运行时间参数错误！！！"),tr("关闭"));
         return;
     } else {
-        uchar data_H = (rt_2 >> 8) & 0xFF;
-        uchar data_L = rt_2 & 0xFF;
+        uchar data_H = (rt >> 8) & 0xFF;
+        uchar data_L = rt & 0xFF;
         byteArray.append(data_H);
         byteArray.append(data_L);
     }
-    uint rt_3 = ui->lineEditRT_2->text().toUInt();
-    if (3000 < rt_3) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("上升时间-3参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        uchar data_H = (rt_3 >> 8) & 0xFF;
-        uchar data_L = rt_3 & 0xFF;
-        byteArray.append(data_H);
-        byteArray.append(data_L);
-    }
-    //下降速度
-    uchar ds_1 = ui->lineEditDS_1->text().toUInt();
-    if (0 == ds_1 || 8 < ds_1) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("下降速度-1参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        byteArray.append(ds_1);
-    }
-    uchar ds_2 = ui->lineEditRS_2->text().toUInt();
-    if (0 == ds_2 || 8 < ds_2) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("下降速度-2参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        byteArray.append((uchar)ds_2);
-    }
-    uchar ds_3 = ui->lineEditRS_3->text().toUInt();
-    if (0 == ds_3 || 8 < ds_3) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("下降速度-3参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        byteArray.append((uchar)ds_3);
-    }
-    //下降时间
-    uint dt_1 = ui->lineEditRT_1->text().toUInt();
-    if (30000 < dt_1) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("下降时间-1参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        uchar data_H = (dt_1 >> 8) & 0xFF;
-        uchar data_L = dt_1 & 0xFF;
-        byteArray.append(data_H);
-        byteArray.append(data_L);
-    }
-    uint dt_2 = ui->lineEditRT_2->text().toUInt();
-    if (3000 < dt_2) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("下降时间-2参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        uchar data_H = (dt_2 >> 8) & 0xFF;
-        uchar data_L = dt_2 & 0xFF;
-        byteArray.append(data_H);
-        byteArray.append(data_L);
-    }
-    uint dt_3 = ui->lineEditRT_2->text().toUInt();
-    if (3000 < dt_3) {
-        MsgBox::showInformation(NULL,tr("错误提示"),tr("下降时间-3参数错误！！！"),tr("关闭"));
-        return;
-    } else {
-        uchar data_H = (dt_3 >> 8) & 0xFF;
-        uchar data_L = dt_3 & 0xFF;
-        byteArray.append(data_H);
-        byteArray.append(data_L);
-    }
+
 }
 

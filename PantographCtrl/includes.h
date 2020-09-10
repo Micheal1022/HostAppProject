@@ -3,6 +3,7 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDateTime>
+#include <QSerialPort>
 #include <QGraphicsDropShadowEffect>
 #include "SQLite/mysqlite.h"
 #include "MsgBox/msgbox.h"
@@ -35,9 +36,6 @@
 #define DATA_ERROR  0X11
 #define DATA_CRC_L  0X12
 #define DATA_CRC_H  0X13
-
-
-
 
 #define AUTOMODE    0x00
 #define MANUALMODE  0x01
@@ -77,31 +75,19 @@
 #define TEMPERROR_6         0x0D
 
 
-#define G_CMD     2
-#define G_LEN     3
-#define G_MODE    4
-#define G_P1_H    5
-#define G_P1_L    6
-#define G_P2_H    7
-#define G_P2_L    8
-#define G_RS_1    9
-#define G_RS_2    10
-#define G_RS_3    11
-#define G_RT1_H   12
-#define G_RT1_L   13
-#define G_RT2_H   14
-#define G_RT2_L   15
-#define G_RT3_H   16
-#define G_RT3_L   17
-#define G_DS_1    18
-#define G_DS_2    19
-#define G_DS_3    20
-#define G_DT1_H   21
-#define G_DT1_L   22
-#define G_DT2_H   23
-#define G_DT2_L   24
-#define G_DT3_H   25
-#define G_DT3_L   26
+#define G_CMD   2
+#define G_LEN   3
+#define G_MODE  4
+#define G_PH    5
+#define G_PL    6
+#define G_LS    7
+#define G_MS    8
+#define G_HS    9
+#define G_MT    10
+#define G_ST    11
+#define G_RT    12
+
+
 
 
 #endif // INCLUDES
