@@ -3,8 +3,9 @@
 #include <QTimer>
 #include <QDebug>
 #include <QDateTime>
-#include "UserLogin/userlogin.h"
-#include "SystemConf/systemconf.h"
+#include <QGraphicsDropShadowEffect>
+#include "SQLite/mysqlite.h"
+#include "MsgBox/msgbox.h"
 
 #define TIMEOUT     1000
 
@@ -74,6 +75,34 @@
 #define TEMPERROR_4         0x0B
 #define TEMPERROR_5         0x0C
 #define TEMPERROR_6         0x0D
+
+
+#define G_CMD     2
+#define G_LEN     3
+#define G_MODE    4
+#define G_P1_H    5
+#define G_P1_L    6
+#define G_P2_H    7
+#define G_P2_L    8
+#define G_RS_1    9
+#define G_RS_2    10
+#define G_RS_3    11
+#define G_RT1_H   12
+#define G_RT1_L   13
+#define G_RT2_H   14
+#define G_RT2_L   15
+#define G_RT3_H   16
+#define G_RT3_L   17
+#define G_DS_1    18
+#define G_DS_2    19
+#define G_DS_3    20
+#define G_DT1_H   21
+#define G_DT1_L   22
+#define G_DT2_H   23
+#define G_DT2_L   24
+#define G_DT3_H   25
+#define G_DT3_L   26
+
 
 #endif // INCLUDES
 

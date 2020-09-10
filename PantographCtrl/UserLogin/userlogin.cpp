@@ -1,7 +1,7 @@
 #include "userlogin.h"
 #include "ui_userlogin.h"
-#include "SQLite/mysqlite.h"
-#include "MsgBox/msgbox.h"
+
+#include "includes.h"
 #include <QButtonGroup>
 #include <QGraphicsDropShadowEffect>
 #include <QMessageBox>

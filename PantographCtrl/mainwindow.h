@@ -43,6 +43,7 @@ private slots:
     void slotUserLogin();
     void slotUserLoginOk();
     void slotUserLogout();
+    void slotSystemConf();
 
     void slotAutoMode();
     void slotManualMode();

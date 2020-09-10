@@ -55,7 +55,7 @@ border-color: rgb(180, 180, 180);
 QRadioButton::indicator{
 width:45px;
 height:45px;
-margin-left:0px;
+margin-left:5px;
 }
 QRadioButton::indicator::unchecked {
 image: url(:/Image/disenable.png);

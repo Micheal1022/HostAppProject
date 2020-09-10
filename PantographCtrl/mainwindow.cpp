@@ -2,7 +2,8 @@
 #include "ui_mainwindow.h"
 
 #include "includes.h"
-
+#include "UserLogin/userlogin.h"
+#include "SystemConf/systemconf.h"
 
 
 
@@ -73,6 +74,7 @@ void MainWindow::initConnect()
 {
 
     connect(ui->rBtnAutoMode,SIGNAL(clicked(bool)),this,SLOT(slotAutoMode()));
+    connect(ui->tBtnSystemConf,SIGNAL(clicked(bool)),this,SLOT(slotSystemConf()));
     connect(ui->rBtnManualMode,SIGNAL(clicked(bool)),this,SLOT(slotManualMode()));
     connect(ui->rBtnRepairMode,SIGNAL(clicked(bool)),this,SLOT(slotRepairMode()));
     connect(ui->tBtnUserLogin,SIGNAL(clicked(bool)),this,SLOT(slotUserLogin()));
@@ -207,6 +209,11 @@ void MainWindow::slotUserLogout()
     ui->tBtnUserLogin->setVisible(true);
     ui->tBtnUserLogout->setVisible(false);
     ui->tBtnSystemConf->setEnabled(false);
+}
+
+void MainWindow::slotSystemConf()
+{
+    m_systemConf->show();
 }
 
 void MainWindow::slotAutoMode()
