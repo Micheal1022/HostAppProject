@@ -22,10 +22,6 @@ private:
     Ui::UserLogin *ui;
 
     QString m_passwd;//超级密码
-    QString m_selectStr;
-    QString m_unSelectStr;
-    bool m_adminSelect;
-    bool m_superSelect;
 
     void initKey();
     QButtonGroup *m_btnKeyGroup;

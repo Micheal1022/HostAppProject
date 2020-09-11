@@ -21,12 +21,7 @@ UserLogin::UserLogin(QWidget *parent) :
 
     setGraphicsEffect(new QGraphicsDropShadowEffect,ui->tBtnOk);
     setGraphicsEffect(new QGraphicsDropShadowEffect,ui->tBtnBack);
-    m_unSelectStr = "QToolButton{font: 20pt '文泉驿等宽微米黑';border:2px solid rgb(0, 122, 165);"
-                    "border-radius:10px;color:rgb(0, 122, 165);background-color: rgb(255, 255, 255);}";
-    m_selectStr   = "QToolButton{font: 20pt '文泉驿等宽微米黑';border:2px solid rgb(0, 122, 165);"
-                    "border-radius:10px;color:rgb(255, 255, 255);background-color: rgb(0, 122, 165);}";
-    m_adminSelect = true;
-    m_superSelect = false;
+
     m_passwd = QString("111111");
 
 }

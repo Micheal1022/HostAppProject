@@ -6,11 +6,16 @@
 
 QT       += core gui sql serialport
 
+DEFINES += RUN_ON_ARM
+
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = PantographCtrl
+DESTDIR = ./APP/
+TARGET = app
 TEMPLATE = app
 
+CONFIG += serialport
 
 SOURCES += main.cpp\
         mainwindow.cpp \

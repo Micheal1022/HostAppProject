@@ -67,31 +67,82 @@ UartCom::UartCom(QObject *parent) : QObject(parent)
     connect(m_timer,SIGNAL(timeout()),this,SLOT(slotReadTimeout()));
 }
 
+UartCom::~UartCom()
+{
+    m_port->close();
+}
+
 void UartCom::initPort(QString port)
 {
     m_port = new QSerialPort(port);
-    m_port->setBaudRate(QSerialPort::Baud9600);         //设置波特率9600
+    m_port->setBaudRate(QSerialPort::Baud115200);         //设置波特率9600
     m_port->setDataBits(QSerialPort::Data8);            //设置为8位数据位
     m_port->setParity(QSerialPort::NoParity);           //设置为无校验
     m_port->setStopBits(QSerialPort::OneStop);          //设置为1位停止位
     m_port->setFlowControl(QSerialPort::NoFlowControl); //设置为无数据流控制
     if (m_port->open(QIODevice::ReadWrite)) {
         qDebug()<<"Open UartCom Success !";
+        m_port->clear();
         m_timer->start(100);
     } else {
         qDebug()<<"Open UartCom Failure !";
     }
-    connect(m_port,SIGNAL(readyRead()),this,SLOT(slotReadAllDate()));
 }
 
 void UartCom::analysisData(QByteArray buffer)
 {
-    int head_aa = buffer.at(DATA_AA);
-    int head_00 = buffer.at(DATA_00);
-    uchar crc_l = (uchar)buffer.at(DATA_CRC_L);
-    uchar crc_h = (uchar)buffer.at(DATA_CRC_H);
+    uchar data_aa = buffer.at(DATA_AA);
+    uchar data_00 = buffer.at(DATA_00);
+    uchar data_len= buffer.at(DATA_LEN);
+    //检测帧头，尾，校验位
+    if (0xAA == data_aa && 0x00 == data_00 && true == CRC16_OK(buffer)) {
+        quint8 cmd = buffer.at(DATA_CMD);
+        if (GETDATA == cmd && 14 == data_len){
+            QList<int> dataList;
+            dataList.append(buffer.at(DATA_MODE));
+            int p1_h = buffer.at(DATA_P1_H);
+            int p1_l = buffer.at(DATA_P1_L);
+            dataList.append((p1_h << 8) | p1_l);
+            int p2_h = buffer.at(DATA_P2_H);
+            int p2_l = buffer.at(DATA_P2_L);
 
-    if (DATA_AA == head_aa && DATA_00 == head_00) {
+            dataList.append((p2_h << 8)| p2_l);
+            int t_1 = buffer.at(DATA_T_1);
+            dataList.append(t_1);
+            int t_2 = buffer.at(DATA_T_2);
+            dataList.append(t_2);
+            int t_3 = buffer.at(DATA_T_3);
+            dataList.append(t_3);
+            int t_4 = buffer.at(DATA_T_4);
+            dataList.append(t_4);
+            int t_5 = buffer.at(DATA_T_5);
+            dataList.append(t_5);
+            int t_6 = buffer.at(DATA_T_6);
+            dataList.append(t_6);
+            int c_p = buffer.at(DATA_V_CP);
+            dataList.append(c_p);
+            int state = buffer.at(DATA_STATE);
+            dataList.append(state);
+            int error = buffer.at(DATA_ERROR);
+            dataList.append(error);
+            qDebug()<<"GETDATA <-----> dataList ("<<dataList.size()<<")--->>>"<<dataList;
+            emit sigRecvUartData(dataList);
+        } else if (GETCONF == cmd && 9 == data_len) {
+            QList<int> dataList;
+            dataList.append(buffer.at(DATA_MODE));
+            dataList.append(buffer.at(DATA_PH));
+            dataList.append(buffer.at(DATA_PL));
+            dataList.append(buffer.at(DATA_LS));
+            dataList.append(buffer.at(DATA_MS));
+            dataList.append(buffer.at(DATA_HS));
+            dataList.append(buffer.at(DATA_MT));
+            dataList.append(buffer.at(DATA_ST));
+            dataList.append(buffer.at(DATA_RT));
+            qDebug()<<"GETCONF <-----> dataList ("<<dataList.size()<<")--->>>"<<dataList;
+            emit sigRecvConfData(dataList);
+        } else if (REPLAY == cmd && 1 == data_len) {
+            emit sigReplay();
+        }
 
     }
 }
@@ -102,25 +153,90 @@ quint16 UartCom::CRC16(uchar *data, int len)
     uchar uchCRCLo = 0xFF;
     quint16  uindex;
     while (len--) {
-        uindex  = uchCRCHi ^ *data++;
+        uindex   = uchCRCHi ^ *data++;
         uchCRCHi = uchCRCLo ^ CRC_High[uindex];
         uchCRCLo = CRC_Low[uindex];
     }
-    return (uchCRCHi<<8|uchCRCLo);
+    return (uchCRCLo<<8|uchCRCHi);
+}
+
+bool UartCom::CRC16_OK(QByteArray buffer)
+{
+    uchar dcrc_low,dcrc_hih;
+    uchar data_len = buffer.at(DATA_LEN);
+    if (GETDATA == buffer.at(DATA_CMD)) {
+        dcrc_low = buffer.at(DATA_CRC_L);
+        dcrc_hih = buffer.at(DATA_CRC_H);
+    } else if (GETCONF == buffer.at(DATA_CMD)) {
+        dcrc_low = buffer.at(DATA_CRC_L - 5);
+        dcrc_hih = buffer.at(DATA_CRC_H - 5);
+    } else if (REPLAY == buffer.at(DATA_CMD)) {
+        dcrc_low = buffer.at(5);
+        dcrc_hih = buffer.at(6);
+    }
+
+
+    buffer = buffer.left(data_len + 4);
+    char *data = buffer.data();
+    qint16 crcNum = CRC16((uchar*)data,buffer.size());
+    uchar crc_lo = crcNum & 0xFF;
+    uchar crc_hi = crcNum >> 8;
+    //qDebug()<<dcrc_low<<"<<<--->>>"<<crc_lo;
+    //qDebug()<<dcrc_hih<<"<<<--->>>"<<crc_hi;
+    if (dcrc_low == crc_lo && dcrc_hih == crc_hi) {
+        return true;
+    }
+    return false;
+}
+
+void UartCom::replayDataConf(int cmd)
+{
+    uchar data_aa = 0xAA;
+    uchar data_00 = 0x00;
+    QByteArray byteArray;
+    byteArray.append(data_aa);
+    byteArray.append(data_00);
+    byteArray.append(REPLAY);
+    byteArray.append(0x01);
+    byteArray.append(cmd);
+
+    char *data = byteArray.data();
+    qint16 crcNum = CRC16((uchar*)data,byteArray.size());
+    uchar crc_lo = crcNum & 0xFF;
+    uchar crc_hi = crcNum >> 8;
+    byteArray.append(crc_lo);
+    byteArray.append(crc_hi);
+    m_port->write(byteArray);
 }
 
 void UartCom::slotReadTimeout()
 {
-    m_timer->stop();
-    m_buffer.clear();
+    m_buffer = m_port->readAll();
+    //qDebug()<<"m_buffer("<<m_buffer.size()<<") --->>>"<<m_buffer;
+    if (m_buffer.size() == 15 || m_buffer.size() == 20 || m_buffer.size() == 7) {
+        analysisData(m_buffer);
+    }
 }
 
 void UartCom::slotReadAllDate()
 {
-    if (m_buffer.isEmpty()){
-        m_buffer = m_port->readAll();
-        analysisData(m_buffer);
-    }
-    m_timer->start(100);
+
+}
+
+void UartCom::slotReplayData(int cmd)
+{
+    replayDataConf(cmd);
+}
+
+void UartCom::sendUartData(QByteArray byteArray)
+{
+    char *data = byteArray.data();
+    qint16 crcNum = CRC16((uchar*)data,byteArray.size());
+    uchar crc_lo = crcNum & 0xFF;
+    uchar crc_hi = crcNum >> 8;
+    byteArray.append(crc_lo);
+    byteArray.append(crc_hi);
+    qDebug()<<"byteArray ("<<byteArray.size()<<")--->>>"<<byteArray;
+    m_port->write(byteArray);
 }
 

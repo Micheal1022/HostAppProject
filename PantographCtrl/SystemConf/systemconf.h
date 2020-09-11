@@ -15,7 +15,7 @@ class SystemConf : public QWidget
 public:
     explicit SystemConf(QWidget *parent = 0);
     ~SystemConf();
-
+    void systemConfData(QList<int> dataList);
 private:
     Ui::SystemConf *ui;
     void initKey();
@@ -25,11 +25,16 @@ private:
     void setGraphicsEffect(QGraphicsDropShadowEffect *effect, QWidget *widget);
 signals:
     void sigSystemConfData(QByteArray data);
+    void sigReplayData(int cmd);
 private slots:
     void slotBtnOk();
     void slotBtnBack();
     void slotBtnKey(int index);
-    void slotSystemConfData(QByteArray byteArray);
+    void slotSetSystemTime();
+    void slotCalibration();
+    void slotSystemConfData(QList<int> dataList);
+public slots:
+    void slotReplay();
 };
 
 #endif // SYSTEMCONF_H

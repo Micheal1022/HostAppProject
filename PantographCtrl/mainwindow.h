@@ -2,14 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "includes.h"
+#include "UserLogin/userlogin.h"
+#include "SystemConf/systemconf.h"
+#include "UartCom/uartcom.h"
 namespace Ui {
 class MainWindow;
 }
-class QTimer;
-class QLabel;
-class UserLogin;
-class SystemConf;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -21,15 +21,20 @@ public:
 private:
     Ui::MainWindow *ui;
     QTimer *m_timeTimer;
-    UserLogin *m_userLogin;
+    UartCom    *m_uartCom;
+    UserLogin  *m_userLogin;
     SystemConf *m_systemConf;
+    QString m_select;
+    QString m_unselect;
     QString m_redColorState;
     QString m_greenColorState;
     QString m_redColorError;
     QString m_greenColorError;
+    QButtonGroup *m_btnGroup;
     QList<QLabel *> m_stateLabelList;
     QList<QLabel *> m_errorLabelList;
     int m_error;
+    uchar m_mode;
     void initObject();
     void initWidget();
     void initConnect();
@@ -38,6 +43,8 @@ private:
     void analysisRealData(QList<int> dataList);
     void analysisBowError(int error);
     void analysisBowState(int state);
+signals:
+    void sigSportMode(QByteArray byteArray);
 private slots:
     void slotTimeTimerOut();
     void slotUserLogin();
@@ -45,10 +52,10 @@ private slots:
     void slotUserLogout();
     void slotSystemConf();
 
-    void slotAutoMode();
-    void slotManualMode();
-    void slotRepairMode();
+    void slotSportMode(int btn);
+    void slotSystemConfData(QByteArray byteArray);
 
+    void slotRecvSystemConfData(QList<int> dataList);
     void slotRecvData(QList<int> dataList);
 };
 

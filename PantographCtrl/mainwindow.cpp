@@ -1,12 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "includes.h"
-#include "UserLogin/userlogin.h"
-#include "SystemConf/systemconf.h"
-
-
-
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,7 +20,9 @@ MainWindow::~MainWindow()
 void MainWindow::initObject()
 {
     m_error = 0;
+    m_mode  = 0;
     m_timeTimer = new QTimer;
+    m_uartCom   = new UartCom;
     m_userLogin = new UserLogin;
     m_systemConf= new SystemConf;
 }
@@ -63,25 +59,41 @@ void MainWindow::initWidget()
     initLabelList(m_stateLabelList,m_greenColorState);
 
 
-
     ui->tBtnUserLogin->setVisible(true);
     ui->tBtnUserLogout->setVisible(false);
     ui->tBtnSystemConf->setEnabled(false);
+
+    m_select = QString("image: url(:/Image/enable.png);");
+    m_unselect = QString("image: url(:/Image/disenable.png);");
+    m_btnGroup = new QButtonGroup;
+    m_btnGroup->addButton(ui->tBtnDrop,0);
+    m_btnGroup->addButton(ui->tBtnRise,1);
+    m_btnGroup->addButton(ui->tBtnStop,2);
+
+
+#ifdef RUN_ON_ARM
+    m_uartCom->initPort(QString("/dev/ttymxc1"));
+#else
+    m_uartCom->initPort(QString("/dev/ttyUSB0"));
+#endif
 
 }
 
 void MainWindow::initConnect()
 {
-
-    connect(ui->rBtnAutoMode,SIGNAL(clicked(bool)),this,SLOT(slotAutoMode()));
-    connect(ui->tBtnSystemConf,SIGNAL(clicked(bool)),this,SLOT(slotSystemConf()));
-    connect(ui->rBtnManualMode,SIGNAL(clicked(bool)),this,SLOT(slotManualMode()));
-    connect(ui->rBtnRepairMode,SIGNAL(clicked(bool)),this,SLOT(slotRepairMode()));
     connect(ui->tBtnUserLogin,SIGNAL(clicked(bool)),this,SLOT(slotUserLogin()));
     connect(ui->tBtnUserLogout,SIGNAL(clicked(bool)),this,SLOT(slotUserLogout()));
     connect(m_userLogin,SIGNAL(sigUserLoginOk()),this,SLOT(slotUserLoginOk()));
     connect(m_timeTimer,SIGNAL(timeout()),this,SLOT(slotTimeTimerOut()));
     m_timeTimer->start(TIMEOUT);
+    connect(ui->tBtnSystemConf,SIGNAL(clicked(bool)),this,SLOT(slotSystemConf()));
+    connect(m_btnGroup,SIGNAL(buttonClicked(int)),this,SLOT(slotSportMode(int)));
+    connect(m_uartCom,SIGNAL(sigRecvUartData(QList<int>)),this,SLOT(slotRecvData(QList<int>)));
+    connect(m_uartCom,SIGNAL(sigReplay()),m_systemConf,SLOT(slotReplay()));
+    connect(m_uartCom,SIGNAL(sigRecvConfData(QList<int>)),this,SLOT(slotRecvSystemConfData(QList<int>)));
+    connect(m_systemConf,SIGNAL(sigReplayData(int)),m_uartCom,SLOT(slotReplayData(int)));
+    connect(m_systemConf,SIGNAL(sigSystemConfData(QByteArray)),this,SLOT(slotSystemConfData(QByteArray)));
+
 }
 
 void MainWindow::initLabelList(QList<QLabel *> labelList,QString string)
@@ -98,95 +110,51 @@ void MainWindow::setLabelListValue(QList<QLabel *> labelList, int index, QString
 
 void MainWindow::analysisRealData(QList<int> dataList)
 {
+    int mode = dataList.value(0);
+    switch (mode) {
+    case MANUALMODE:
+        ui->lbManualMode->setStyleSheet(m_select);
+        ui->lbAutoMode->setStyleSheet(m_unselect);
+        ui->lbRepairMode->setStyleSheet(m_unselect);
+        break;
+    case AUTOMODE:
+        ui->lbManualMode->setStyleSheet(m_unselect);
+        ui->lbAutoMode->setStyleSheet(m_select);
+        ui->lbRepairMode->setStyleSheet(m_unselect);
+        break;
+    case REPAIRMODE:
+        ui->lbAutoMode->setStyleSheet(m_unselect);
+        ui->lbManualMode->setStyleSheet(m_unselect);
+        ui->lbRepairMode->setStyleSheet(m_select);
+        break;
+    }
     ui->lcdNbP_1->display(dataList.value(P_1));
     ui->lcdNbP_2->display(dataList.value(P_2));
-    ui->lcdNbCP1->display(dataList.value(CP1));
     ui->lcdNbT_1->display(dataList.value(T_1));
     ui->lcdNbT_2->display(dataList.value(T_2));
     ui->lcdNbT_3->display(dataList.value(T_3));
     ui->lcdNbT_4->display(dataList.value(T_4));
     ui->lcdNbT_5->display(dataList.value(T_5));
     ui->lcdNbT_6->display(dataList.value(T_6));
+    ui->lcdNbCP1->display(dataList.value(CPV));
 }
 
 void MainWindow::analysisBowError(int error)
 {
     initLabelList(m_errorLabelList,m_greenColorError);
     setLabelListValue(m_errorLabelList,error,m_redColorError);
-    switch (error) {
-    case INIT:
 
-        break;
-    case DROPPING:
-
-        break;
-    case DROPPED:
-
-        break;
-    case RISING:
-
-        break;
-    case RISED:
-
-        break;
-    }
 }
 
 void MainWindow::analysisBowState(int state)
 {
     initLabelList(m_stateLabelList,m_greenColorState);
     setLabelListValue(m_stateLabelList,state,m_redColorState);
-    switch (state) {
-    case UPPERLIMITERROR:
-
-        break;
-    case LOWERLIMITERROR:
-
-        break;
-    case SERVOERROR:
-
-        break;
-    case SUDDENSTOPERROR:
-
-        break;
-    case TIMEOUTERROR:
-
-        break;
-    case POWERLOSERROR:
-
-        break;
-    case PRESSOURERROR_1:
-
-        break;
-    case PRESSOURERROR_2:
-
-        break;
-    case TEMPERROR_1:
-
-        break;
-    case TEMPERROR_2:
-
-        break;
-    case TEMPERROR_3:
-
-        break;
-    case TEMPERROR_4:
-
-        break;
-    case TEMPERROR_5:
-
-        break;
-    case TEMPERROR_6:
-
-        break;
-    }
 }
 
 void MainWindow::slotTimeTimerOut()
 {
     ui->lbTime->setText(QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss"));
-    analysisBowError((m_error++) % 14);
-    analysisBowState((m_error) % 5);
 }
 
 void MainWindow::slotUserLogin()
@@ -199,9 +167,10 @@ void MainWindow::slotUserLoginOk()
     ui->tBtnUserLogin->setVisible(false);
     ui->tBtnUserLogout->setVisible(true);
     ui->tBtnSystemConf->setEnabled(true);
-    ui->rBtnAutoMode->setEnabled(true);
-    ui->rBtnManualMode->setEnabled(true);
-    ui->tBtnSystemReset->setEnabled(true);
+
+    ui->tBtnDrop->setEnabled(true);
+    ui->tBtnRise->setEnabled(true);
+    ui->tBtnStop->setEnabled(true);
 }
 
 void MainWindow::slotUserLogout()
@@ -216,33 +185,59 @@ void MainWindow::slotSystemConf()
     m_systemConf->show();
 }
 
-void MainWindow::slotAutoMode()
+void MainWindow::slotSportMode(int btn)
 {
-    ui->tBtnDrop->setEnabled(false);
-    ui->tBtnRise->setEnabled(false);
+    uchar data_aa = 0xAA;
+    uchar data_00 = 0x00;
+    QByteArray byteArray;
+    byteArray.append(data_aa);
+    byteArray.append(data_00);
+    byteArray.append(SETDATA);
+    byteArray.append(0x01);
+    byteArray.append(m_mode);
+    byteArray.append(btn);
+    m_uartCom->sendUartData(byteArray);
 }
 
-void MainWindow::slotManualMode()
+void MainWindow::slotSystemConfData(QByteArray byteArray)
 {
-    ui->tBtnDrop->setEnabled(true);
-    ui->tBtnRise->setEnabled(true);
+    uchar data_aa = 0xAA;
+    uchar data_00 = 0x00;
+    QByteArray buffer;
+    buffer.append(data_aa);
+    buffer.append(data_00);
+    buffer.append(SETDATA);
+    buffer.append(0x09);
+    buffer.append(byteArray);
+    m_uartCom->sendUartData(buffer);
 }
 
-void MainWindow::slotRepairMode()
+void MainWindow::slotRecvSystemConfData(QList<int> dataList)
 {
-    ui->tBtnUserLogin->setVisible(true);
-    ui->tBtnUserLogout->setVisible(false);
-    ui->tBtnDrop->setEnabled(false);
-    ui->tBtnRise->setEnabled(false);
-    ui->rBtnAutoMode->setEnabled(false);
-    ui->rBtnManualMode->setEnabled(false);
-    ui->tBtnSystemReset->setEnabled(false);
-    ui->tBtnSystemConf->setEnabled(false);
+    m_mode = dataList.value(0);
+    switch (m_mode) {
+    case MANUALMODE:
+        ui->lbManualMode->setStyleSheet(m_select);
+        ui->lbAutoMode->setStyleSheet(m_unselect);
+        ui->lbRepairMode->setStyleSheet(m_unselect);
+        break;
+    case AUTOMODE:
+        ui->lbManualMode->setStyleSheet(m_unselect);
+        ui->lbAutoMode->setStyleSheet(m_select);
+        ui->lbRepairMode->setStyleSheet(m_unselect);
+        break;
+    case REPAIRMODE:
+        ui->lbAutoMode->setStyleSheet(m_unselect);
+        ui->lbManualMode->setStyleSheet(m_unselect);
+        ui->lbRepairMode->setStyleSheet(m_select);
+        break;
+    }
+    m_systemConf->systemConfData(dataList);
 }
 
 void MainWindow::slotRecvData(QList<int> dataList)
 {
     analysisRealData(dataList);
-    analysisBowError(dataList.value(1));
-    analysisBowState(dataList.value(2));
+    analysisBowState(dataList.value(10));
+    analysisBowError(dataList.value(11));
 }
