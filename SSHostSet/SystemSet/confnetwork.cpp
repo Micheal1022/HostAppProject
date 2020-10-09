@@ -72,10 +72,10 @@ void ConfNetWork::initConf()
     QString port1   = stringList_1.value(2);
     QString able1   = stringList_1.value(3);
     ui->checkBox_1->setChecked(able1.toUInt());
-    QString ipCmdStr_1 = QString("ifconfig eth0 ")+hostIP1;
+    QString ipCmdStr_1 = QString("ifconfig eth0 %1").arg(hostIP1);
     QProcess procss_1;
     procss_1.execute(ipCmdStr_1);
-    qDebug("******IP_1**********");
+    qDebug("******IFCONFIG ETH0**********");
     qDebug()<<"port1   : "<<port1;
     qDebug()<<"desIP1  : "<<desIP1;
     qDebug()<<"hostIP1 : "<<hostIP1;
@@ -101,11 +101,11 @@ void ConfNetWork::initConf()
     QString port2   = stringList_2.value(2);
     QString able2   = stringList_2.value(3);
     ui->checkBox_2->setChecked(able2.toUInt());
-    QString ipCmdStr_2 = QString("ifconfig eth1 ")+hostIP2;
+    QString ipCmdStr_2 = QString("ifconfig eth1 %1").arg(hostIP2);
     QProcess procss_2;
     procss_2.execute(ipCmdStr_2);
-    qDebug("******IP_2**********");
-    qDebug()<<"por21   : "<<port2;
+    qDebug("******IFCONFIG ETH1**********");
+    qDebug()<<"port2   : "<<port2;
     qDebug()<<"desIP2  : "<<desIP2;
     qDebug()<<"hostIP2 : "<<hostIP2;
     qDebug()<<"CmdStr_2: "<<ipCmdStr_2;
@@ -120,8 +120,6 @@ void ConfNetWork::initConf()
     ui->lineEditHostIP_6->setText(hostIP_2);
     ui->lineEditHostIP_7->setText(hostIP_3);
     ui->lineEditHostIP_8->setText(hostIP_4);
-
-
 
     m_btnKeyGroup = new QButtonGroup;
     m_btnKeyGroup->addButton(ui->tBtn_0,0);
@@ -184,16 +182,16 @@ void ConfNetWork::setNetWorkIP(QList<QLineEdit *> lineEditList, int netNum)
     QString desIP = desIP_1 +"."+desIP_2 +"."+ desIP_3 +"."+ desIP_4;
     QString hostIP = hostIP_1 +"."+hostIP_2 +"."+ hostIP_3 +"."+ hostIP_4;
 
-//    QSqlDatabase db = MySQLite::openConnection();
-//    if(MySQLite::setNetWorkIP(db,netNum,able,desIP,hostIP,port)) {
-//        MySQLite::closeConnection(db);
-//        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置成功，重启后生效！"),tr("关闭"));
-//        return;
-//    } else {
-//        MySQLite::closeConnection(db);
-//        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置失败！"),tr("关闭"));
-//        return;
-//    }
+    QSqlDatabase db = MySQLite::openConnection();
+    if(MySQLite::setNetWorkIP(db,netNum,able,desIP,hostIP,port)) {
+        MySQLite::closeConnection(db);
+        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置成功，重启后生效！"),tr("关闭"));
+        return;
+    } else {
+        MySQLite::closeConnection(db);
+        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置失败！"),tr("关闭"));
+        return;
+    }
 }
 /*
 * @项目   TBus_SSEF

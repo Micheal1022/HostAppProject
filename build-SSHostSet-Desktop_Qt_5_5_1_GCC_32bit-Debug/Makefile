@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DRUN_ON_ARM -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -m32 -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -m32 -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I../SSHostSet -I. -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. -I. -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32
@@ -33,7 +33,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = ssSet1.0.0
-DISTDIR = /root/HostCode/BZ_PROJECT/HostAppProject/build-SSHostSet-Desktop_Qt_5_5_1_GCC_32bit-Debug/.tmp/ssSet1.0.0
+DISTDIR = /root/HostAppProject/build-SSHostSet-Desktop_Qt_5_5_1_GCC_32bit-Debug/.tmp/ssSet1.0.0
 LINK          = g++
 LFLAGS        = -m32 -Wl,-rpath,/opt/Qt5.5.1/5.5/gcc -Wl,-rpath,/opt/Qt5.5.1/5.5/gcc/lib
 LIBS          = $(SUBLIBS) -L/opt/Qt5.5.1/5.5/gcc/lib -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Network -lQt5Core -lGL -lpthread 
@@ -65,7 +65,8 @@ SOURCES       = ../SSHostSet/main.cpp \
 		../SSHostSet/CanDataMgm/canrecvthread.cpp \
 		../SSHostSet/CanDataMgm/initcanport.cpp \
 		../SSHostSet/UserLogin/userlogin.cpp \
-		../SSHostSet/SystemSet/infodlg.cpp qrc_image.cpp \
+		../SSHostSet/SystemSet/infodlg.cpp \
+		../SSHostSet/MsgBox/recvfile.cpp qrc_image.cpp \
 		qrc_language.cpp \
 		moc_mainwindow.cpp \
 		moc_confdevice.cpp \
@@ -80,7 +81,8 @@ SOURCES       = ../SSHostSet/main.cpp \
 		moc_candatamgm.cpp \
 		moc_canrecvthread.cpp \
 		moc_userlogin.cpp \
-		moc_infodlg.cpp
+		moc_infodlg.cpp \
+		moc_recvfile.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		confdevice.o \
@@ -99,6 +101,7 @@ OBJECTS       = main.o \
 		initcanport.o \
 		userlogin.o \
 		infodlg.o \
+		recvfile.o \
 		qrc_image.o \
 		qrc_language.o \
 		moc_mainwindow.o \
@@ -114,7 +117,8 @@ OBJECTS       = main.o \
 		moc_candatamgm.o \
 		moc_canrecvthread.o \
 		moc_userlogin.o \
-		moc_infodlg.o
+		moc_infodlg.o \
+		moc_recvfile.o
 DIST          = /opt/Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.5.1/5.5/gcc/mkspecs/common/unix.conf \
 		/opt/Qt5.5.1/5.5/gcc/mkspecs/common/linux.conf \
@@ -266,7 +270,8 @@ DIST          = /opt/Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../SSHostSet/CanDataMgm/canrecvthread.h \
 		../SSHostSet/CanDataMgm/initcanport.h \
 		../SSHostSet/UserLogin/userlogin.h \
-		../SSHostSet/SystemSet/infodlg.h ../SSHostSet/main.cpp \
+		../SSHostSet/SystemSet/infodlg.h \
+		../SSHostSet/MsgBox/recvfile.h ../SSHostSet/main.cpp \
 		../SSHostSet/mainwindow.cpp \
 		../SSHostSet/SystemSet/confdevice.cpp \
 		../SSHostSet/SystemSet/confloop.cpp \
@@ -283,7 +288,8 @@ DIST          = /opt/Qt5.5.1/5.5/gcc/mkspecs/features/spec_pre.prf \
 		../SSHostSet/CanDataMgm/canrecvthread.cpp \
 		../SSHostSet/CanDataMgm/initcanport.cpp \
 		../SSHostSet/UserLogin/userlogin.cpp \
-		../SSHostSet/SystemSet/infodlg.cpp
+		../SSHostSet/SystemSet/infodlg.cpp \
+		../SSHostSet/MsgBox/recvfile.cpp
 QMAKE_TARGET  = ssSet
 DESTDIR       = SSApp/#avoid trailing-slash linebreak
 TARGET        = SSApp/ssSet
@@ -311,7 +317,7 @@ first: all
 
 ####### Build rules
 
-$(TARGET): ui_mainwindow.h ui_confdevice.h ui_confloop.h ui_confnetwork.h ui_confnode.h ui_confpwd.h ui_conftime.h ui_infobox.h ui_questbox.h ui_confaddr.h ui_userlogin.h ui_infodlg.h $(OBJECTS)  
+$(TARGET): ui_mainwindow.h ui_confdevice.h ui_confloop.h ui_confnetwork.h ui_confnode.h ui_confpwd.h ui_conftime.h ui_infobox.h ui_questbox.h ui_confaddr.h ui_userlogin.h ui_infodlg.h ui_recvfile.h $(OBJECTS)  
 	@test -d SSApp/ || mkdir -p SSApp/
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
@@ -615,9 +621,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../SSHostSet/image.qrc ../SSHostSet/language.qrc $(DISTDIR)/
-	$(COPY_FILE) --parents ../SSHostSet/mainwindow.h ../SSHostSet/SystemSet/confdevice.h ../SSHostSet/SystemSet/confloop.h ../SSHostSet/SystemSet/confnetwork.h ../SSHostSet/SystemSet/confnode.h ../SSHostSet/SystemSet/confpwd.h ../SSHostSet/SystemSet/conftime.h ../SSHostSet/MsgBox/infobox.h ../SSHostSet/MsgBox/msgbox.h ../SSHostSet/MsgBox/questbox.h ../SSHostSet/SQLite/mysqlite.h ../SSHostSet/SQLite/nodesqlite.h ../SSHostSet/SystemSet/confaddr.h ../SSHostSet/CanDataMgm/candatamgm.h ../SSHostSet/CanDataMgm/canrecvthread.h ../SSHostSet/CanDataMgm/initcanport.h ../SSHostSet/UserLogin/userlogin.h ../SSHostSet/SystemSet/infodlg.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../SSHostSet/main.cpp ../SSHostSet/mainwindow.cpp ../SSHostSet/SystemSet/confdevice.cpp ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/conftime.cpp ../SSHostSet/MsgBox/infobox.cpp ../SSHostSet/MsgBox/msgbox.cpp ../SSHostSet/MsgBox/questbox.cpp ../SSHostSet/SQLite/mysqlite.cpp ../SSHostSet/SystemSet/confaddr.cpp ../SSHostSet/CanDataMgm/candatamgm.cpp ../SSHostSet/CanDataMgm/canrecvthread.cpp ../SSHostSet/CanDataMgm/initcanport.cpp ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/SystemSet/infodlg.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../SSHostSet/mainwindow.ui ../SSHostSet/SystemSet/confdevice.ui ../SSHostSet/SystemSet/confloop.ui ../SSHostSet/SystemSet/confnetwork.ui ../SSHostSet/SystemSet/confnode.ui ../SSHostSet/SystemSet/confpwd.ui ../SSHostSet/SystemSet/conftime.ui ../SSHostSet/MsgBox/infobox.ui ../SSHostSet/MsgBox/questbox.ui ../SSHostSet/SystemSet/confaddr.ui ../SSHostSet/UserLogin/userlogin.ui ../SSHostSet/SystemSet/infodlg.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../SSHostSet/mainwindow.h ../SSHostSet/SystemSet/confdevice.h ../SSHostSet/SystemSet/confloop.h ../SSHostSet/SystemSet/confnetwork.h ../SSHostSet/SystemSet/confnode.h ../SSHostSet/SystemSet/confpwd.h ../SSHostSet/SystemSet/conftime.h ../SSHostSet/MsgBox/infobox.h ../SSHostSet/MsgBox/msgbox.h ../SSHostSet/MsgBox/questbox.h ../SSHostSet/SQLite/mysqlite.h ../SSHostSet/SQLite/nodesqlite.h ../SSHostSet/SystemSet/confaddr.h ../SSHostSet/CanDataMgm/candatamgm.h ../SSHostSet/CanDataMgm/canrecvthread.h ../SSHostSet/CanDataMgm/initcanport.h ../SSHostSet/UserLogin/userlogin.h ../SSHostSet/SystemSet/infodlg.h ../SSHostSet/MsgBox/recvfile.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../SSHostSet/main.cpp ../SSHostSet/mainwindow.cpp ../SSHostSet/SystemSet/confdevice.cpp ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/conftime.cpp ../SSHostSet/MsgBox/infobox.cpp ../SSHostSet/MsgBox/msgbox.cpp ../SSHostSet/MsgBox/questbox.cpp ../SSHostSet/SQLite/mysqlite.cpp ../SSHostSet/SystemSet/confaddr.cpp ../SSHostSet/CanDataMgm/candatamgm.cpp ../SSHostSet/CanDataMgm/canrecvthread.cpp ../SSHostSet/CanDataMgm/initcanport.cpp ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/SystemSet/infodlg.cpp ../SSHostSet/MsgBox/recvfile.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../SSHostSet/mainwindow.ui ../SSHostSet/SystemSet/confdevice.ui ../SSHostSet/SystemSet/confloop.ui ../SSHostSet/SystemSet/confnetwork.ui ../SSHostSet/SystemSet/confnode.ui ../SSHostSet/SystemSet/confpwd.ui ../SSHostSet/SystemSet/conftime.ui ../SSHostSet/MsgBox/infobox.ui ../SSHostSet/MsgBox/questbox.ui ../SSHostSet/SystemSet/confaddr.ui ../SSHostSet/UserLogin/userlogin.ui ../SSHostSet/SystemSet/infodlg.ui ../SSHostSet/MsgBox/recvfile.ui $(DISTDIR)/
 	$(COPY_FILE) --parents TS/SET_ZH_US.ts $(DISTDIR)/
 
 
@@ -684,9 +690,9 @@ qrc_language.cpp: ../SSHostSet/language.qrc \
 		../SSHostSet/TS/SET_ZH_US.ts
 	/opt/Qt5.5.1/5.5/gcc/bin/rcc -name language ../SSHostSet/language.qrc -o qrc_language.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_confdevice.cpp moc_confloop.cpp moc_confnetwork.cpp moc_confnode.cpp moc_confpwd.cpp moc_conftime.cpp moc_infobox.cpp moc_questbox.cpp moc_confaddr.cpp moc_candatamgm.cpp moc_canrecvthread.cpp moc_userlogin.cpp moc_infodlg.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_confdevice.cpp moc_confloop.cpp moc_confnetwork.cpp moc_confnode.cpp moc_confpwd.cpp moc_conftime.cpp moc_infobox.cpp moc_questbox.cpp moc_confaddr.cpp moc_candatamgm.cpp moc_canrecvthread.cpp moc_userlogin.cpp moc_infodlg.cpp moc_recvfile.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_confdevice.cpp moc_confloop.cpp moc_confnetwork.cpp moc_confnode.cpp moc_confpwd.cpp moc_conftime.cpp moc_infobox.cpp moc_questbox.cpp moc_confaddr.cpp moc_candatamgm.cpp moc_canrecvthread.cpp moc_userlogin.cpp moc_infodlg.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_confdevice.cpp moc_confloop.cpp moc_confnetwork.cpp moc_confnode.cpp moc_confpwd.cpp moc_conftime.cpp moc_infobox.cpp moc_questbox.cpp moc_confaddr.cpp moc_candatamgm.cpp moc_canrecvthread.cpp moc_userlogin.cpp moc_infodlg.cpp moc_recvfile.cpp
 moc_mainwindow.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -793,7 +799,7 @@ moc_mainwindow.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMainWindow \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
 		../SSHostSet/mainwindow.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/mainwindow.h -o moc_mainwindow.cpp
 
 moc_confdevice.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -898,7 +904,7 @@ moc_confdevice.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/SystemSet/confdevice.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confdevice.h -o moc_confdevice.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confdevice.h -o moc_confdevice.cpp
 
 moc_confloop.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -1003,7 +1009,7 @@ moc_confloop.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/SystemSet/confloop.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confloop.h -o moc_confloop.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confloop.h -o moc_confloop.cpp
 
 moc_confnetwork.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -1108,7 +1114,7 @@ moc_confnetwork.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/SystemSet/confnetwork.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confnetwork.h -o moc_confnetwork.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confnetwork.h -o moc_confnetwork.cpp
 
 moc_confnode.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -1213,7 +1219,7 @@ moc_confnode.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/SystemSet/confnode.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confnode.h -o moc_confnode.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confnode.h -o moc_confnode.cpp
 
 moc_confpwd.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -1318,7 +1324,7 @@ moc_confpwd.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/SystemSet/confpwd.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confpwd.h -o moc_confpwd.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confpwd.h -o moc_confpwd.cpp
 
 moc_conftime.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -1423,7 +1429,7 @@ moc_conftime.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/SystemSet/conftime.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/conftime.h -o moc_conftime.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/conftime.h -o moc_conftime.cpp
 
 moc_infobox.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
@@ -1529,7 +1535,7 @@ moc_infobox.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/MsgBox/infobox.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/MsgBox/infobox.h -o moc_infobox.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/MsgBox/infobox.h -o moc_infobox.cpp
 
 moc_questbox.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
@@ -1637,7 +1643,7 @@ moc_questbox.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		../SSHostSet/MsgBox/questbox.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/MsgBox/questbox.h -o moc_questbox.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/MsgBox/questbox.h -o moc_questbox.cpp
 
 moc_confaddr.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QTableWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtablewidget.h \
@@ -1765,7 +1771,7 @@ moc_confaddr.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QTableWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qscrollbar.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAbstractScrollArea \
 		../SSHostSet/SystemSet/confaddr.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confaddr.h -o moc_confaddr.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/confaddr.h -o moc_confaddr.cpp
 
 moc_candatamgm.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
@@ -1840,7 +1846,7 @@ moc_candatamgm.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QObject \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QThread \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qthread.h \
 		../SSHostSet/CanDataMgm/candatamgm.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/CanDataMgm/candatamgm.h -o moc_candatamgm.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/CanDataMgm/candatamgm.h -o moc_candatamgm.cpp
 
 moc_canrecvthread.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QList \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlist.h \
@@ -1914,7 +1920,7 @@ moc_canrecvthread.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtCore/QList \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qset.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontiguouscache.h \
 		../SSHostSet/CanDataMgm/canrecvthread.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/CanDataMgm/canrecvthread.h -o moc_canrecvthread.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/CanDataMgm/canrecvthread.h -o moc_canrecvthread.cpp
 
 moc_userlogin.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
@@ -2019,7 +2025,7 @@ moc_userlogin.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/UserLogin/userlogin.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/UserLogin/userlogin.h -o moc_userlogin.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/UserLogin/userlogin.h -o moc_userlogin.cpp
 
 moc_infodlg.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
@@ -2125,13 +2131,127 @@ moc_infodlg.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		../SSHostSet/SystemSet/infodlg.h
-	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostCode/BZ_PROJECT/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/infodlg.h -o moc_infodlg.cpp
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/SystemSet/infodlg.h -o moc_infodlg.cpp
+
+moc_recvfile.cpp: /opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qwindowdefs.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qglobal.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qconfig.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfeatures.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtypetraits.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsysinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlogging.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qflags.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_gcc.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv7.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv6.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv5.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_ia64.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_mips.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_x86.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_unix.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmutex.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qnumeric.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qnamespace.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstring.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qchar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbytearray.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qrefcount.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qarraydata.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qalgorithms.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qiterator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregexp.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreevent.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetatype.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qisenum.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmargins.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpaintdevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qrect.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsize.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qpoint.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpalette.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qcolor.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qrgb.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qbrush.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qpair.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvector.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qmatrix.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpolygon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qregion.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qdatastream.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qiodevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qline.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtransform.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpainterpath.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qimage.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpixelformat.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpixmap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qshareddata.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qhash.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qfont.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qfontmetrics.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qfontinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qcursor.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qkeysequence.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qevent.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvariant.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qdebug.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextstream.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlocale.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qset.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qurl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qurlquery.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfiledevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QFile \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/QTcpServer \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qtcpserver.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qhostaddress.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/QTcpSocket \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qtcpsocket.h \
+		../SSHostSet/MsgBox/recvfile.h
+	/opt/Qt5.5.1/5.5/gcc/bin/moc $(DEFINES) -I/opt/Qt5.5.1/5.5/gcc/mkspecs/linux-g++-32 -I/root/HostAppProject/SSHostSet -I/opt/Qt5.5.1/5.5/gcc/include -I/opt/Qt5.5.1/5.5/gcc/include/QtWidgets -I/opt/Qt5.5.1/5.5/gcc/include/QtGui -I/opt/Qt5.5.1/5.5/gcc/include/QtSql -I/opt/Qt5.5.1/5.5/gcc/include/QtNetwork -I/opt/Qt5.5.1/5.5/gcc/include/QtCore -I. ../SSHostSet/MsgBox/recvfile.h -o moc_recvfile.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_mainwindow.h ui_confdevice.h ui_confloop.h ui_confnetwork.h ui_confnode.h ui_confpwd.h ui_conftime.h ui_infobox.h ui_questbox.h ui_confaddr.h ui_userlogin.h ui_infodlg.h
+compiler_uic_make_all: ui_mainwindow.h ui_confdevice.h ui_confloop.h ui_confnetwork.h ui_confnode.h ui_confpwd.h ui_conftime.h ui_infobox.h ui_questbox.h ui_confaddr.h ui_userlogin.h ui_infodlg.h ui_recvfile.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_mainwindow.h ui_confdevice.h ui_confloop.h ui_confnetwork.h ui_confnode.h ui_confpwd.h ui_conftime.h ui_infobox.h ui_questbox.h ui_confaddr.h ui_userlogin.h ui_infodlg.h
+	-$(DEL_FILE) ui_mainwindow.h ui_confdevice.h ui_confloop.h ui_confnetwork.h ui_confnode.h ui_confpwd.h ui_conftime.h ui_infobox.h ui_questbox.h ui_confaddr.h ui_userlogin.h ui_infodlg.h ui_recvfile.h
 ui_mainwindow.h: ../SSHostSet/mainwindow.ui
 	/opt/Qt5.5.1/5.5/gcc/bin/uic ../SSHostSet/mainwindow.ui -o ui_mainwindow.h
 
@@ -2167,6 +2287,9 @@ ui_userlogin.h: ../SSHostSet/UserLogin/userlogin.ui
 
 ui_infodlg.h: ../SSHostSet/SystemSet/infodlg.ui
 	/opt/Qt5.5.1/5.5/gcc/bin/uic ../SSHostSet/SystemSet/infodlg.ui -o ui_infodlg.h
+
+ui_recvfile.h: ../SSHostSet/MsgBox/recvfile.ui
+	/opt/Qt5.5.1/5.5/gcc/bin/uic ../SSHostSet/MsgBox/recvfile.ui -o ui_recvfile.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -2555,21 +2678,42 @@ mainwindow.o: ../SSHostSet/mainwindow.cpp ../SSHostSet/mainwindow.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
 		ui_mainwindow.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
+		../SSHostSet/UserLogin/userlogin.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
+		../SSHostSet/SystemSet/systemset.h \
+		../SSHostSet/SystemSet/confloop.h \
+		../SSHostSet/SystemSet/confnetwork.h \
+		../SSHostSet/SystemSet/confnode.h \
+		../SSHostSet/SystemSet/confpwd.h \
+		../SSHostSet/SystemSet/conftime.h \
+		../SSHostSet/SystemSet/confdevice.h \
+		../SSHostSet/CanDataMgm/initcanport.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
+		../SSHostSet/MsgBox/recvfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QFile \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/QTcpServer \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qtcpserver.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qhostaddress.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/QTcpSocket \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMessageBox \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qmessagebox.h \
+		../SSHostSet/MsgBox/msgbox.h \
+		../SSHostSet/MsgBox/infobox.h \
+		../SSHostSet/MsgBox/questbox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGraphicsDropShadowEffect \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgraphicseffect.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QProcess \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qprocess.h \
+		../SSHostSet/SystemSet/confaddr.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QTableWidget \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtablewidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtableview.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
@@ -2585,39 +2729,6 @@ mainwindow.o: ../SSHostSet/mainwindow.cpp ../SSHostSet/mainwindow.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QStackedWidget \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstackedwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QWidget \
-		../SSHostSet/UserLogin/userlogin.h \
-		../SSHostSet/SystemSet/systemset.h \
-		../SSHostSet/SystemSet/confloop.h \
-		../SSHostSet/SystemSet/confnetwork.h \
-		../SSHostSet/SystemSet/confnode.h \
-		../SSHostSet/SystemSet/confpwd.h \
-		../SSHostSet/SystemSet/conftime.h \
-		../SSHostSet/SystemSet/confdevice.h \
-		../SSHostSet/CanDataMgm/initcanport.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMessageBox \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qmessagebox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
-		../SSHostSet/MsgBox/msgbox.h \
-		../SSHostSet/MsgBox/infobox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
-		../SSHostSet/MsgBox/questbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGraphicsDropShadowEffect \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgraphicseffect.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QProcess \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qprocess.h \
-		../SSHostSet/SystemSet/confaddr.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QTableWidget \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtablewidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtableview.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QScrollBar \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qscrollbar.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAbstractScrollArea \
@@ -2733,45 +2844,8 @@ confdevice.o: ../SSHostSet/SystemSet/confdevice.cpp ../SSHostSet/SystemSet/confd
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_confdevice.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGroupBox \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgroupbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGraphicsDropShadowEffect \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgraphicseffect.h \
 		../SSHostSet/SQLite/mysqlite.h \
@@ -2810,8 +2884,10 @@ confdevice.o: ../SSHostSet/SystemSet/confdevice.cpp ../SSHostSet/SystemSet/confd
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporarydir.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QScopedPointer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporaryfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsortfilterproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonarray.h \
@@ -2819,8 +2895,10 @@ confdevice.o: ../SSHostSet/SystemSet/confdevice.cpp ../SSHostSet/SystemSet/confd
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsondocument.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractnativeeventfilter.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmath.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetaobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmimedata.h \
@@ -2874,6 +2952,7 @@ confdevice.o: ../SSHostSet/SystemSet/confdevice.cpp ../SSHostSet/SystemSet/confd
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlinkedlist.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmessageauthenticationcode.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qqueue.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedvaluerollback.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstack.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextboundaryfinder.h \
@@ -2894,7 +2973,21 @@ confdevice.o: ../SSHostSet/SystemSet/confdevice.cpp ../SSHostSet/SystemSet/confd
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlquerymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaldelegate.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcombobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaltablemodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqltablemodel.h \
@@ -2903,6 +2996,7 @@ confdevice.o: ../SSHostSet/SystemSet/confdevice.cpp ../SSHostSet/SystemSet/confd
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutex \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QQueue \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QString \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDateTime \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutexLocker \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlQueryModel \
@@ -3023,43 +3117,6 @@ confloop.o: ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confloop.
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_confloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		../SSHostSet/SQLite/mysqlite.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSql \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSqlDepends \
@@ -3096,8 +3153,10 @@ confloop.o: ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confloop.
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporarydir.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QScopedPointer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporaryfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsortfilterproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonarray.h \
@@ -3105,8 +3164,10 @@ confloop.o: ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confloop.
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsondocument.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractnativeeventfilter.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmath.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetaobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmimedata.h \
@@ -3160,6 +3221,7 @@ confloop.o: ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confloop.
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlinkedlist.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmessageauthenticationcode.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qqueue.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedvaluerollback.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstack.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextboundaryfinder.h \
@@ -3180,7 +3242,21 @@ confloop.o: ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confloop.
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlquerymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaldelegate.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcombobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaltablemodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqltablemodel.h \
@@ -3189,6 +3265,7 @@ confloop.o: ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confloop.
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutex \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QQueue \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QString \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDateTime \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutexLocker \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlQueryModel \
@@ -3205,7 +3282,9 @@ confloop.o: ../SSHostSet/SystemSet/confloop.cpp ../SSHostSet/SystemSet/confloop.
 		../SSHostSet/MsgBox/msgbox.h \
 		../SSHostSet/MsgBox/infobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
-		../SSHostSet/MsgBox/questbox.h
+		../SSHostSet/MsgBox/questbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o confloop.o ../SSHostSet/SystemSet/confloop.cpp
 
 confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/confnetwork.h \
@@ -3312,53 +3391,6 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_confnetwork.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QCheckBox \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcheckbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGroupBox \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgroupbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLineEdit \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlineedit.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextcursor.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextformat.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
 		../SSHostSet/SQLite/mysqlite.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSql \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSqlDepends \
@@ -3395,8 +3427,10 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporarydir.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QScopedPointer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporaryfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsortfilterproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonarray.h \
@@ -3404,8 +3438,10 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsondocument.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractnativeeventfilter.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmath.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetaobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmimedata.h \
@@ -3459,6 +3495,7 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlinkedlist.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmessageauthenticationcode.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qqueue.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedvaluerollback.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstack.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextboundaryfinder.h \
@@ -3479,7 +3516,21 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlquerymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaldelegate.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcombobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaltablemodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqltablemodel.h \
@@ -3488,6 +3539,7 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutex \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QQueue \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QString \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDateTime \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutexLocker \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlQueryModel \
@@ -3497,6 +3549,12 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlDatabase \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QCryptographicHash \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QProcess \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLineEdit \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlineedit.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextcursor.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextformat.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMessageBox \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qmessagebox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h
@@ -3606,54 +3664,10 @@ confnode.o: ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confnode.
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_confnode.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLineEdit \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlineedit.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextcursor.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextformat.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QStackedWidget \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstackedwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QTabWidget \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		../SSHostSet/CanDataMgm/initcanport.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGraphicsDropShadowEffect \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgraphicseffect.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMessageBox \
@@ -3699,8 +3713,10 @@ confnode.o: ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confnode.
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporarydir.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QScopedPointer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporaryfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsortfilterproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonarray.h \
@@ -3708,8 +3724,10 @@ confnode.o: ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confnode.
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsondocument.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractnativeeventfilter.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmath.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetaobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmimedata.h \
@@ -3763,6 +3781,7 @@ confnode.o: ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confnode.
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlinkedlist.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmessageauthenticationcode.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qqueue.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedvaluerollback.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstack.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextboundaryfinder.h \
@@ -3783,7 +3802,21 @@ confnode.o: ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confnode.
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlquerymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaldelegate.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcombobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaltablemodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqltablemodel.h \
@@ -3791,6 +3824,7 @@ confnode.o: ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confnode.
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutex \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QQueue \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QString \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDateTime \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutexLocker \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlQueryModel \
@@ -3905,49 +3939,6 @@ confpwd.o: ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/confpwd.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_confpwd.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLineEdit \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlineedit.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextcursor.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextformat.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		../SSHostSet/SQLite/mysqlite.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSql \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSqlDepends \
@@ -3984,8 +3975,10 @@ confpwd.o: ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/confpwd.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporarydir.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QScopedPointer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporaryfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsortfilterproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonarray.h \
@@ -3993,8 +3986,10 @@ confpwd.o: ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/confpwd.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsondocument.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractnativeeventfilter.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmath.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetaobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmimedata.h \
@@ -4048,6 +4043,7 @@ confpwd.o: ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/confpwd.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlinkedlist.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmessageauthenticationcode.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qqueue.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedvaluerollback.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstack.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextboundaryfinder.h \
@@ -4068,7 +4064,21 @@ confpwd.o: ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/confpwd.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlquerymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaldelegate.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcombobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaltablemodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqltablemodel.h \
@@ -4077,6 +4087,7 @@ confpwd.o: ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/confpwd.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutex \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QQueue \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QString \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDateTime \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutexLocker \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlQueryModel \
@@ -4093,7 +4104,9 @@ confpwd.o: ../SSHostSet/SystemSet/confpwd.cpp ../SSHostSet/SystemSet/confpwd.h \
 		../SSHostSet/MsgBox/msgbox.h \
 		../SSHostSet/MsgBox/infobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
-		../SSHostSet/MsgBox/questbox.h
+		../SSHostSet/MsgBox/questbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o confpwd.o ../SSHostSet/SystemSet/confpwd.cpp
 
 conftime.o: ../SSHostSet/SystemSet/conftime.cpp ../SSHostSet/SystemSet/conftime.h \
@@ -4200,51 +4213,6 @@ conftime.o: ../SSHostSet/SystemSet/conftime.cpp ../SSHostSet/SystemSet/conftime.
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_conftime.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGroupBox \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgroupbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLineEdit \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlineedit.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextcursor.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextformat.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QTimer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtimer.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
@@ -4363,43 +4331,6 @@ infobox.o: ../SSHostSet/MsgBox/infobox.cpp ../SSHostSet/MsgBox/infobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_infobox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QBitmap \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qbitmap.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QPainter \
@@ -4627,41 +4558,6 @@ questbox.o: ../SSHostSet/MsgBox/questbox.cpp ../SSHostSet/MsgBox/questbox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		ui_questbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QBitmap \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qbitmap.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QPainter \
@@ -5057,29 +4953,10 @@ confaddr.o: ../SSHostSet/SystemSet/confaddr.cpp ../SSHostSet/SystemSet/confaddr.
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qscrollbar.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAbstractScrollArea \
 		ui_confaddr.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QComboBox \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcombobox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QCheckBox \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcheckbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHBoxLayout \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qboxlayout.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlayout.h \
@@ -5095,6 +4972,8 @@ confaddr.o: ../SSHostSet/SystemSet/confaddr.cpp ../SSHostSet/SystemSet/confaddr.
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
 		../SSHostSet/MsgBox/questbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		../SSHostSet/SystemSet/infodlg.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o confaddr.o ../SSHostSet/SystemSet/confaddr.cpp
 
@@ -5420,49 +5299,6 @@ userlogin.o: ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/UserLogin/userlog
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
 		ui_userlogin.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLineEdit \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlineedit.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextcursor.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextformat.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QToolButton \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtoolbutton.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractbutton.h \
 		../SSHostSet/SQLite/mysqlite.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSql \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QtSqlDepends \
@@ -5499,8 +5335,10 @@ userlogin.o: ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/UserLogin/userlog
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporarydir.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QScopedPointer \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtemporaryfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qidentityproxymodel.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsortfilterproxymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlistmodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonarray.h \
@@ -5508,8 +5346,10 @@ userlogin.o: ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/UserLogin/userlog
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsondocument.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qjsonobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstracteventdispatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractnativeeventfilter.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasictimer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmath.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetaobject.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmimedata.h \
@@ -5563,6 +5403,7 @@ userlogin.o: ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/UserLogin/userlog
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlinkedlist.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmessageauthenticationcode.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qqueue.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedvaluerollback.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstack.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextboundaryfinder.h \
@@ -5583,7 +5424,21 @@ userlogin.o: ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/UserLogin/userlog
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlquerymodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaldelegate.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlistview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qcombobox.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqlrelationaltablemodel.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/qsqltablemodel.h \
@@ -5592,6 +5447,7 @@ userlogin.o: ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/UserLogin/userlog
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutex \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QQueue \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QString \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDateTime \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QMutexLocker \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlQueryModel \
@@ -5605,6 +5461,8 @@ userlogin.o: ../SSHostSet/UserLogin/userlogin.cpp ../SSHostSet/UserLogin/userlog
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
 		../SSHostSet/MsgBox/questbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QGraphicsDropShadowEffect \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qgraphicseffect.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMessageBox \
@@ -5715,42 +5573,129 @@ infodlg.o: ../SSHostSet/SystemSet/infodlg.cpp ../SSHostSet/SystemSet/infodlg.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfiledevice.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
-		ui_infodlg.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QVariant \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QAction \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qaction.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qicon.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QApplication \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qeventloop.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qguiapplication.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qinputmethod.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QHeaderView \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qheaderview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qframe.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyleoption.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvalidator.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregularexpression.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qabstractslider.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qstyle.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabbar.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qrubberband.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLabel \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlabel.h
+		ui_infodlg.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o infodlg.o ../SSHostSet/SystemSet/infodlg.cpp
+
+recvfile.o: ../SSHostSet/MsgBox/recvfile.cpp ../SSHostSet/MsgBox/recvfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qwidget.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qwindowdefs.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qglobal.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qconfig.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfeatures.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtypetraits.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsysinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlogging.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qflags.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_gcc.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv7.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv6.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_armv5.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_ia64.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_mips.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_x86.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qatomic_unix.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmutex.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qnumeric.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qnamespace.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstring.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qchar.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbytearray.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qrefcount.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qarraydata.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qalgorithms.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qiterator.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringlist.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qregexp.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcoreevent.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmetatype.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qisenum.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qobject_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmargins.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpaintdevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qrect.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsize.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qpoint.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpalette.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qcolor.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qrgb.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qbrush.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qpair.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvector.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qmatrix.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpolygon.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qregion.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qdatastream.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qiodevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qline.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtransform.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpainterpath.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qimage.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpixelformat.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpixmap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qshareddata.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qhash.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qfont.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qfontmetrics.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qfontinfo.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qcursor.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qkeysequence.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qevent.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qvariant.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qmap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qdebug.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qtextstream.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qlocale.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qset.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qurl.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qurlquery.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/qfiledevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qvector2d.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QDebug \
+		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QFile \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/QTcpServer \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qtcpserver.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qhostaddress.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/QTcpSocket \
+		/opt/Qt5.5.1/5.5/gcc/include/QtNetwork/qtcpsocket.h \
+		ui_recvfile.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QBitmap \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qbitmap.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/QPainter \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpainter.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o recvfile.o ../SSHostSet/MsgBox/recvfile.cpp
 
 qrc_image.o: qrc_image.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_image.o qrc_image.cpp
@@ -5799,6 +5744,9 @@ moc_userlogin.o: moc_userlogin.cpp
 
 moc_infodlg.o: moc_infodlg.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_infodlg.o moc_infodlg.cpp
+
+moc_recvfile.o: moc_recvfile.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_recvfile.o moc_recvfile.cpp
 
 ####### Install
 

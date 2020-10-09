@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     CanDataMgm/canrecvthread.cpp \
     CanDataMgm/initcanport.cpp \
     UserLogin/userlogin.cpp \
-    SystemSet/infodlg.cpp
+    SystemSet/infodlg.cpp \
+    MsgBox/recvfile.cpp
 
 HEADERS  += mainwindow.h \
     SystemSet/confdevice.h \
@@ -54,7 +55,8 @@ HEADERS  += mainwindow.h \
     CanDataMgm/canrecvthread.h \
     CanDataMgm/initcanport.h \
     UserLogin/userlogin.h \
-    SystemSet/infodlg.h
+    SystemSet/infodlg.h \
+    MsgBox/recvfile.h
 
 
 FORMS    += mainwindow.ui \
@@ -68,7 +70,8 @@ FORMS    += mainwindow.ui \
     MsgBox/questbox.ui \
     SystemSet/confaddr.ui \
     UserLogin/userlogin.ui \
-    SystemSet/infodlg.ui
+    SystemSet/infodlg.ui \
+    MsgBox/recvfile.ui
 
 RESOURCES += \
     image.qrc \

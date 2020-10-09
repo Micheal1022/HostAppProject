@@ -11,7 +11,7 @@
 #include "SystemSet/confdevice.h"
 #include "CanDataMgm/initcanport.h"
 #include <time.h>
-#include <QDebug>
+#include "MsgBox/recvfile.h"
 #include <QMessageBox>
 #include <MsgBox/msgbox.h>
 #include <QGraphicsDropShadowEffect>
@@ -70,6 +70,7 @@ MainWindow::~MainWindow()
 void MainWindow::initWidget()
 {
     m_confPwd     = new ConfPwd;
+    m_recvFile    = new RecvFile;
     m_confLoop    = new ConfLoop;
     m_confNode    = new ConfNode;
     m_confTime    = new ConfTime;
@@ -132,7 +133,11 @@ void MainWindow::initConnect()
     connect(m_btnGroup,SIGNAL(buttonClicked(int)),this,SLOT(slotBtnGroup(int)));
     connect(m_userLoign,SIGNAL(sigUserLogin(int)),this,SLOT(slotSystemShow(int)));
     connect(m_canDataMgm,SIGNAL(sigSendSetValue(int,int,int)),this,SLOT(slotSendSetValue(int,int,int)));
+
 }
+
+
+
 void MainWindow::slotBtnGroup(int index)
 {
     switch (index) {
