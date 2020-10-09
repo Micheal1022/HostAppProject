@@ -50,7 +50,9 @@ public:
     //恢复出厂密码
     static bool setRestorePwd(QSqlDatabase db);
     //设置网络参数
-    static bool setNetWorkIP(QSqlDatabase db, int netNum, int able, QString desIP, QString hostIP, QStringList portList);
+    static bool setNetWorkIP(QSqlDatabase db, QString netNum, QString able, QString desIP, QString hostIP,
+                             QString port_1, QString port_2, QString port_3, QString port_4,
+                             QString port_5, QString port_6, QString port_7, QString port_8);
     //获取网络参数
     static QStringList getNetWorkIP(QSqlDatabase db, int netNum);
     //获取网络状态

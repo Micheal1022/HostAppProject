@@ -30,9 +30,9 @@ NodeState::NodeState(QWidget *parent) :
     m_hostType = MySQLite::getDevType(devdb);
     MySQLite::closeConnection(devdb);
     if (DEV_EFMQ == m_hostType) {
-        m_rowCount = 21;//实时数据显示列
+        m_rowCount = ROW_THER;//实时数据显示列
     } else if (DEV_PMFE == m_hostType) {
-        m_rowCount = 9; //实时数据显示列
+        m_rowCount = ROW_PMFE;//实时数据显示列
     }
     initNodeTable(ui->tableWidget,m_hostType);
 

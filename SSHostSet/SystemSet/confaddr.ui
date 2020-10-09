@@ -19,7 +19,7 @@ background-color: rgb(255, 255, 255);
 }
 QToolButton{
 font: 18pt &quot;文泉驿等宽微米黑&quot;;
-font: 12pt &quot;DejaVu Sans&quot;;
+font: 18pt &quot;微软雅黑&quot;;
 color:rgb(0, 122, 165);
 border:2px solid rgb(0, 122, 165);
 border-radius:10px;

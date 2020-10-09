@@ -5,13 +5,13 @@
 UDPServer::UDPServer(QObject *parent) : QObject(parent)
 {
 
-    m_udpSocket = new QUdpSocket(this);
+    m_udpSocket_1 = new QUdpSocket(this);
 
 }
 
 UDPServer::~UDPServer()
 {
-    delete m_udpSocket;
+    delete m_udpSocket_1;
 }
 
 void UDPServer::initConf(int loop)
@@ -30,11 +30,11 @@ void UDPServer::initConf(int loop)
 
 
     QSqlDatabase db1 = MySQLite::openConnection();
-    QStringList stringList_1 = MySQLite::getNetWorkIP(db1,1);
+    QStringList stringList_1 = MySQLite::getNetWorkIP(db1,loop,1);
     MySQLite::closeConnection(db1);
     QString desIP1  = stringList_1.value(0);
     QString hostIP1 = stringList_1.value(1);
-    uint port1   = stringList_1.value(2).toUInt();
+    uint port1      = stringList_1.value(2).toUInt();
     QString able1   = stringList_1.value(3);
 
     m_targetIP_1   = desIP1;
@@ -43,26 +43,28 @@ void UDPServer::initConf(int loop)
         QString ipCmdStr_1 = QString("ifconfig eth0 ")+hostIP1;
         QProcess procss_1;
         procss_1.execute(ipCmdStr_1);
+        m_udpSocket_1->bind(m_targetIP_1,m_targetPort_1);//监听端口和地址
+        connect(m_udpSocket_1, SIGNAL(readyRead()), this, SLOT(slotReadReady()));
     }
 
-    QSqlDatabase db2 = MySQLite::openConnection();
-    QStringList stringList_2 = MySQLite::getNetWorkIP(db2,2);
-    MySQLite::closeConnection(db2);
-    QString desIP2  = stringList_2.value(0);
-    QString hostIP2 = stringList_2.value(1);
-    uint port2   = stringList_2.value(2).toUInt();
-    QString able2   = stringList_2.value(3);
+//    QSqlDatabase db2 = MySQLite::openConnection();
+//    QStringList stringList_2 = MySQLite::getNetWorkIP(db2,loop,2);
+//    MySQLite::closeConnection(db2);
+//    QString desIP2  = stringList_2.value(0);
+//    QString hostIP2 = stringList_2.value(1);
+//    uint port2      = stringList_2.value(2).toUInt();
+//    QString able2   = stringList_2.value(3);
 
-    m_targetIP_2   = desIP2;
-    m_targetPort_2 = port2;
-    if (able2.toUInt() == 2) {
-        QString ipCmdStr_2 = QString("ifconfig eth1 ")+hostIP2;
-        QProcess procss_2;
-        procss_2.execute(ipCmdStr_2);
-    }
+//    m_targetIP_2   = desIP2;
+//    m_targetPort_2 = port2;
+//    if (able2.toUInt() == 2) {
+//        QString ipCmdStr_2 = QString("ifconfig eth1 ")+hostIP2;
+//        QProcess procss_2;
+//        procss_2.execute(ipCmdStr_2);
+//        m_udpSocket_2->bind(m_targetIP_2,m_targetPort_2);//监听端口和地址
+//        connect(m_udpSocket_2, SIGNAL(readyRead()), this, SLOT(slotReadReady()));
+//    }
 
-    m_udpSocket->bind(m_targetIP_1,m_targetPort_1);//监听端口和地址
-    connect(m_udpSocket, SIGNAL(readyRead()), this, SLOT(slotReadReady()));
 }
 
 QString UDPServer::getHostIPAddr()
@@ -94,26 +96,26 @@ void UDPServer::sendDate(QByteArray byteArray)
     qDebug()<<"byteArray[STAT]-----> "<<(uchar)byteArray.at(4);
     qDebug()<<"byteArray[TAIL]-----> "<<(uchar)byteArray.at(5);
     */
-    m_udpSocket->writeDatagram(byteArray,m_targetIP_1,m_targetPort_1);
+    m_udpSocket_1->writeDatagram(byteArray,m_targetIP_1,m_targetPort_1);
 }
 
 void UDPServer::slotReadReady()
 {
-    while (m_udpSocket->hasPendingDatagrams()) {
-        QByteArray datagram;
-        datagram.resize(m_udpSocket->pendingDatagramSize());
-        m_udpSocket->readDatagram(datagram.data(), datagram.size());
-        switch (datagram.at(0)) {
-        case 1://mute
-            emit sigMute();
-            break;
-        case 2://reset
-            emit sigReset();
-            break;
-        default:
-            break;
-        }
-    }
+//    while (m_udpSocket->hasPendingDatagrams()) {
+//        QByteArray datagram;
+//        datagram.resize(m_udpSocket->pendingDatagramSize());
+//        m_udpSocket->readDatagram(datagram.data(), datagram.size());
+//        switch (datagram.at(0)) {
+//        case 1://mute
+//            emit sigMute();
+//            break;
+//        case 2://reset
+//            emit sigReset();
+//            break;
+//        default:
+//            break;
+//        }
+//    }
 }
 
 void UDPServer::slotSendDataTimeOut()

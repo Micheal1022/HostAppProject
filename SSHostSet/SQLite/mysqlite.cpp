@@ -174,25 +174,26 @@ bool MySQLite::setRestorePwd(QSqlDatabase db)
     return false;
 }
 
-bool MySQLite::setNetWorkIP(QSqlDatabase db, int netNum, int able, QString desIP, QString hostIP, QStringList portList)
+bool MySQLite::setNetWorkIP(QSqlDatabase db, QString netNum, QString able, QString desIP, QString hostIP,
+                            QString port_1, QString port_2, QString port_3, QString port_4,
+                            QString port_5, QString port_6, QString port_7, QString port_8)
 {
-//    QString string;
-//    for (int ind = 0; ind < portList.count(); ind++) {
-//        string = QString("PORT_")+QString::number(ind+1)+QString(" = ");
-//    }
 
-
-//    QString sqlQuery = "update CONFNET set DESIP = '"+desIP+"',LOCALIP = '"+hostIP+"',PORT = '"+portList+"', ABLE = "+QString::number(able)+" where NETNUM = "+QString::number(netNum)+";";
-//    //qDebug()<<"sqlQuery : "<<sqlQuery;
-//    QSqlQuery query(db);
-//    if(query.exec(sqlQuery)) {
-//        query.finish();
-//        query.clear();
-//        return true;
-//    }
-//    query.finish();
-//    query.clear();
-//    return false;
+    QString sqlQuery = QString("update CONFNET set DESIP='%1',LOCALIP='%2',PORT_1=%3,PORT_2=%4,PORT_3=%5,"
+                               "PORT_4=%6,PORT_5=%7,PORT_6=%8,PORT_7=%9,PORT_8=%10,"
+                               "ABLE=%11 where NETNUM=%12;").arg(desIP).arg(hostIP).\
+            arg(port_1).arg(port_2).arg(port_3).arg(port_4).arg(port_5).arg(port_6).\
+            arg(port_7).arg(port_8).arg(able).arg(netNum);
+    qDebug()<<"sqlQuery : "<<sqlQuery;
+    QSqlQuery query(db);
+    if(query.exec(sqlQuery)) {
+        query.finish();
+        query.clear();
+        return true;
+    }
+    query.finish();
+    query.clear();
+    return false;
 }
 
 QStringList MySQLite::getNetWorkIP(QSqlDatabase db,int netNum)
@@ -224,10 +225,8 @@ void MySQLite::getNetWorkState(QSqlDatabase db, int &able1, int &able2)
 {
     QString sqlQuery = "select ABLE from CONFNET where NETNUM >= 1;";
     QSqlQuery query(db);
-    if(query.exec(sqlQuery))
-    {
-        if(query.next())
-        {
+    if (query.exec(sqlQuery)) {
+        if (query.next()) {
             able1 = query.value(0).toUInt();
             able2 = query.value(1).toUInt();
         }

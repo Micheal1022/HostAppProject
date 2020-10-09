@@ -191,10 +191,12 @@ bool MySQLite::setNetWorkIP(QSqlDatabase db, int netNum, int able, QString desIP
     return false;
 }
 
-QStringList MySQLite::getNetWorkIP(QSqlDatabase db,int netNum)
+QStringList MySQLite::getNetWorkIP(QSqlDatabase db,int loop, int netNum)
 {
     QStringList stringList;
-    QString sqlQuery = "select DESIP,LOCALIP,PORT,ABLE from CONFNET where NETNUM = "+QString::number(netNum)+";";
+    QString loopStr   = QString::number(loop);
+    QString netNumStr = QString::number(netNum);
+    QString sqlQuery  = QString("select DESIP,LOCALIP,PORT_%1,ABLE from CONFNET where NETNUM = %2;").arg(loopStr).arg(netNumStr);
     QSqlQuery query(db);
     if (query.exec(sqlQuery)) {
         if (query.next()) {

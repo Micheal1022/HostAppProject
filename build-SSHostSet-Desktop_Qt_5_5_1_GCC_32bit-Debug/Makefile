@@ -3548,6 +3548,13 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlQuery \
 		/opt/Qt5.5.1/5.5/gcc/include/QtSql/QSqlDatabase \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QCryptographicHash \
+		../SSHostSet/MsgBox/msgbox.h \
+		../SSHostSet/MsgBox/infobox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QDialog \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h \
+		../SSHostSet/MsgBox/questbox.h \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QButtonGroup \
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qbuttongroup.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtCore/QProcess \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QLineEdit \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qlineedit.h \
@@ -3556,8 +3563,7 @@ confnetwork.o: ../SSHostSet/SystemSet/confnetwork.cpp ../SSHostSet/SystemSet/con
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qpen.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtGui/qtextoption.h \
 		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/QMessageBox \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qmessagebox.h \
-		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qdialog.h
+		/opt/Qt5.5.1/5.5/gcc/include/QtWidgets/qmessagebox.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o confnetwork.o ../SSHostSet/SystemSet/confnetwork.cpp
 
 confnode.o: ../SSHostSet/SystemSet/confnode.cpp ../SSHostSet/SystemSet/confnode.h \

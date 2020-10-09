@@ -20,7 +20,8 @@ private:
     quint16 m_targetPort_2;
     QHostAddress m_targetIP_1;
     QHostAddress m_targetIP_2;
-    QUdpSocket *m_udpSocket;
+    QUdpSocket *m_udpSocket_1;
+    //QUdpSocket *m_udpSocket_2;
     QTimer *m_sendDataTimer;
     QString getHostIPAddr();
     void sendDate(QByteArray byteArray);

@@ -43,8 +43,8 @@ void ConfAddr::getUseLoopList()
         database = QSqlDatabase::database("qt_sql_default_connection");
     else {
         database = QSqlDatabase::addDatabase("QSQLITE");
-        database.setDatabaseName("SYSTEM.db");
     }
+    database.setDatabaseName("SYSTEM.db");
 
     if (!database.open()) {
         MsgBox::showInformation(NULL,tr("错误提示"),tr("数据库文件打开失败!!!"),tr("关闭"));
@@ -76,8 +76,8 @@ bool ConfAddr::updateNodeInfo(QString loop, QString canId, QString enable)
         database = QSqlDatabase::database("qt_sql_default_connection");
     else {
         database = QSqlDatabase::addDatabase("QSQLITE");
-            database.setDatabaseName("NODEINFO.db");
     }
+    database.setDatabaseName("NODEINFO.db");
 
     if (!database.open()) {
         MsgBox::showInformation(NULL,tr("错误提示"),tr("数据库文件打开失败!!!"),tr("关闭"));
@@ -142,18 +142,12 @@ void ConfAddr::initTableWidget(QTableWidget *tableWidget)
 QList<QStringList> ConfAddr::getNodeInfoList(int loop)
 {
     QSqlDatabase database;
-    database = QSqlDatabase::addDatabase("QSQLITE");
+    if (QSqlDatabase::contains("qt_sql_default_connection"))
+        database = QSqlDatabase::database("qt_sql_default_connection");
+    else {
+        database = QSqlDatabase::addDatabase("QSQLITE");
+    }
     database.setDatabaseName("NODEINFO.db");
-
-//    QSqlDatabase database;
-//    if (QSqlDatabase::contains("qt_sql_default_connection"))
-//        database = QSqlDatabase::database("qt_sql_default_connection");
-//    else {
-//        database = QSqlDatabase::addDatabase("QSQLITE");
-//        database.setDatabaseName("NODEINFO.db");
-//    }
-
-
     if (!database.open()) {
         MsgBox::showInformation(NULL,tr("错误提示"),tr("数据库文件打开失败!!!"),tr("关闭"));
     }
@@ -177,7 +171,7 @@ QList<QStringList> ConfAddr::getNodeInfoList(int loop)
     query.clear();
     database.close();
     //QT数据库移除
-    //QSqlDatabase::removeDatabase("QSQLITE");
+    QSqlDatabase::removeDatabase("QSQLITE");
     return nodeInfoStringList;
 }
 

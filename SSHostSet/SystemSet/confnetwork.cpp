@@ -1,6 +1,7 @@
 #include "confnetwork.h"
 #include "ui_confnetwork.h"
 #include "SQLite/mysqlite.h"
+#include "MsgBox/msgbox.h"
 #include <QProcess>
 #include <QDebug>
 #include <QLineEdit>
@@ -38,9 +39,23 @@ void ConfNetWork::initConf()
         lineEdit->setValidator(new QRegExpValidator(regExpIP, this));
     }
     //5000-9999
-    QRegExp regExpPort("^[5-9][0-9][0-9][0-9]$");
-    ui->lineEditPort_1->setValidator(new QRegExpValidator(regExpPort, this));
-    ui->lineEditPort_2->setValidator(new QRegExpValidator(regExpPort, this));
+    //QRegExp regExpPort("^[5-9][0-9][0-9][0-9]$");
+    //ui->lineEditPort_11->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_12->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_13->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_14->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_15->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_16->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_17->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_18->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_21->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_22->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_23->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_24->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_25->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_26->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_27->setValidator(new QRegExpValidator(regExpPort, this));
+    //ui->lineEditPort_28->setValidator(new QRegExpValidator(regExpPort, this));
     QString desIP_1,desIP_2,desIP_3,desIP_4,hostIP_1,hostIP_2,hostIP_3,hostIP_4;
 
     m_lineEditList_1.append(ui->lineEditDesIP_1);
@@ -51,7 +66,16 @@ void ConfNetWork::initConf()
     m_lineEditList_1.append(ui->lineEditHostIP_2);
     m_lineEditList_1.append(ui->lineEditHostIP_3);
     m_lineEditList_1.append(ui->lineEditHostIP_4);
-    m_lineEditList_1.append(ui->lineEditPort_1);
+    m_lineEditList_1.append(ui->lineEditPort_11);
+    m_lineEditList_1.append(ui->lineEditPort_12);
+    m_lineEditList_1.append(ui->lineEditPort_13);
+    m_lineEditList_1.append(ui->lineEditPort_14);
+    m_lineEditList_1.append(ui->lineEditPort_15);
+    m_lineEditList_1.append(ui->lineEditPort_15);
+    m_lineEditList_1.append(ui->lineEditPort_16);
+    m_lineEditList_1.append(ui->lineEditPort_17);
+    m_lineEditList_1.append(ui->lineEditPort_18);
+
 
     m_lineEditList_2.append(ui->lineEditDesIP_5);
     m_lineEditList_2.append(ui->lineEditDesIP_6);
@@ -61,7 +85,15 @@ void ConfNetWork::initConf()
     m_lineEditList_2.append(ui->lineEditHostIP_6);
     m_lineEditList_2.append(ui->lineEditHostIP_7);
     m_lineEditList_2.append(ui->lineEditHostIP_8);
-    m_lineEditList_2.append(ui->lineEditPort_2);
+    m_lineEditList_2.append(ui->lineEditPort_21);
+    m_lineEditList_2.append(ui->lineEditPort_22);
+    m_lineEditList_2.append(ui->lineEditPort_23);
+    m_lineEditList_2.append(ui->lineEditPort_24);
+    m_lineEditList_2.append(ui->lineEditPort_25);
+    m_lineEditList_2.append(ui->lineEditPort_25);
+    m_lineEditList_2.append(ui->lineEditPort_26);
+    m_lineEditList_2.append(ui->lineEditPort_27);
+    m_lineEditList_2.append(ui->lineEditPort_28);
 
     //获取数据库IP地址
     QSqlDatabase db1 = MySQLite::openConnection();
@@ -69,21 +101,42 @@ void ConfNetWork::initConf()
     MySQLite::closeConnection(db1);
     QString desIP1  = stringList_1.value(0);
     QString hostIP1 = stringList_1.value(1);
-    QString port1   = stringList_1.value(2);
-    QString able1   = stringList_1.value(3);
+    QString port_11 = stringList_1.value(2);
+    QString port_12 = stringList_1.value(3);
+    QString port_13 = stringList_1.value(4);
+    QString port_14 = stringList_1.value(5);
+    QString port_15 = stringList_1.value(6);
+    QString port_16 = stringList_1.value(7);
+    QString port_17 = stringList_1.value(8);
+    QString port_18 = stringList_1.value(9);
+    QString able1   = stringList_1.value(10);
     ui->checkBox_1->setChecked(able1.toUInt());
     QString ipCmdStr_1 = QString("ifconfig eth0 %1").arg(hostIP1);
     QProcess procss_1;
     procss_1.execute(ipCmdStr_1);
     qDebug("******IFCONFIG ETH0**********");
-    qDebug()<<"port1   : "<<port1;
+    qDebug()<<"port_11 : "<<port_11;
+    qDebug()<<"port_12 : "<<port_12;
+    qDebug()<<"port_13 : "<<port_13;
+    qDebug()<<"port_14 : "<<port_14;
+    qDebug()<<"port_15 : "<<port_15;
+    qDebug()<<"port_16 : "<<port_16;
+    qDebug()<<"port_17 : "<<port_17;
+    qDebug()<<"port_18 : "<<port_18;
     qDebug()<<"desIP1  : "<<desIP1;
     qDebug()<<"hostIP1 : "<<hostIP1;
     qDebug()<<"CmdStr_1: "<<ipCmdStr_1;
-    parseStringIP( desIP1, desIP_1, desIP_2, desIP_3, desIP_4);
+    parseStringIP(desIP1, desIP_1, desIP_2, desIP_3, desIP_4);
     parseStringIP(hostIP1,hostIP_1,hostIP_2,hostIP_3,hostIP_4);
 
-    ui->lineEditPort_1->setText(port1);
+    ui->lineEditPort_11->setText(port_11);
+    ui->lineEditPort_12->setText(port_12);
+    ui->lineEditPort_13->setText(port_13);
+    ui->lineEditPort_14->setText(port_14);
+    ui->lineEditPort_15->setText(port_15);
+    ui->lineEditPort_16->setText(port_16);
+    ui->lineEditPort_17->setText(port_17);
+    ui->lineEditPort_18->setText(port_18);
     ui->lineEditDesIP_1->setText(desIP_1);
     ui->lineEditDesIP_2->setText(desIP_2);
     ui->lineEditDesIP_3->setText(desIP_3);
@@ -98,20 +151,41 @@ void ConfNetWork::initConf()
     MySQLite::closeConnection(db2);
     QString desIP2  = stringList_2.value(0);
     QString hostIP2 = stringList_2.value(1);
-    QString port2   = stringList_2.value(2);
-    QString able2   = stringList_2.value(3);
+    QString port_21 = stringList_1.value(2);
+    QString port_22 = stringList_1.value(3);
+    QString port_23 = stringList_1.value(4);
+    QString port_24 = stringList_1.value(5);
+    QString port_25 = stringList_1.value(6);
+    QString port_26 = stringList_1.value(7);
+    QString port_27 = stringList_1.value(8);
+    QString port_28 = stringList_1.value(9);
+    QString able2   = stringList_2.value(10);
     ui->checkBox_2->setChecked(able2.toUInt());
     QString ipCmdStr_2 = QString("ifconfig eth1 %1").arg(hostIP2);
     QProcess procss_2;
     procss_2.execute(ipCmdStr_2);
     qDebug("******IFCONFIG ETH1**********");
-    qDebug()<<"port2   : "<<port2;
+    qDebug()<<"port_21 : "<<port_21;
+    qDebug()<<"port_22 : "<<port_22;
+    qDebug()<<"port_23 : "<<port_23;
+    qDebug()<<"port_24 : "<<port_24;
+    qDebug()<<"port_25 : "<<port_25;
+    qDebug()<<"port_26 : "<<port_26;
+    qDebug()<<"port_27 : "<<port_27;
+    qDebug()<<"port_28 : "<<port_28;
     qDebug()<<"desIP2  : "<<desIP2;
     qDebug()<<"hostIP2 : "<<hostIP2;
     qDebug()<<"CmdStr_2: "<<ipCmdStr_2;
     parseStringIP( desIP2, desIP_1, desIP_2, desIP_3, desIP_4);
     parseStringIP(hostIP2,hostIP_1,hostIP_2,hostIP_3,hostIP_4);
-    ui->lineEditPort_2->setText(port2);
+    ui->lineEditPort_21->setText(port_21);
+    ui->lineEditPort_22->setText(port_22);
+    ui->lineEditPort_23->setText(port_23);
+    ui->lineEditPort_24->setText(port_24);
+    ui->lineEditPort_25->setText(port_25);
+    ui->lineEditPort_26->setText(port_26);
+    ui->lineEditPort_27->setText(port_27);
+    ui->lineEditPort_28->setText(port_28);
     ui->lineEditDesIP_5->setText(desIP_1);
     ui->lineEditDesIP_6->setText(desIP_2);
     ui->lineEditDesIP_7->setText(desIP_3);
@@ -162,34 +236,45 @@ void ConfNetWork::setNetWorkIP(QList<QLineEdit *> lineEditList, int netNum)
     QString hostIP_2 = lineEditList.value(5)->text();
     QString hostIP_3 = lineEditList.value(6)->text();
     QString hostIP_4 = lineEditList.value(7)->text();
-    QString port     = lineEditList.value(8)->text();
 
-    if(port.isEmpty()) {
-        QMessageBox::information(this,tr("操作提示"), tr("端口不能为空！"),tr("关闭"));
+    QString portStr_1= lineEditList.value(8)->text();
+    QString portStr_2= lineEditList.value(9)->text();
+    QString portStr_3= lineEditList.value(10)->text();
+    QString portStr_4= lineEditList.value(11)->text();
+    QString portStr_5= lineEditList.value(12)->text();
+    QString portStr_6= lineEditList.value(13)->text();
+    QString portStr_7= lineEditList.value(14)->text();
+    QString portStr_8= lineEditList.value(15)->text();
+
+    if(portStr_1.isEmpty() || portStr_2.isEmpty() || portStr_3.isEmpty() || portStr_4.isEmpty() ||
+            portStr_5.isEmpty() || portStr_6.isEmpty() || portStr_7.isEmpty() || portStr_8.isEmpty()) {
+        MsgBox::showInformation(this,tr("操作提示"), tr("端口不能为空！"),tr("关闭"));
         return;
     }
 
     if(desIP_1.isEmpty() || desIP_2.isEmpty() || desIP_3.isEmpty() || desIP_4.isEmpty()) {
-        QMessageBox::information(this,tr("操作提示"), tr("目标IP地址不能为空！"),tr("关闭"));
+        MsgBox::showInformation(this,tr("操作提示"), tr("目标IP地址不能为空！"),tr("关闭"));
         return;
     }
 
     if(hostIP_1.isEmpty() || hostIP_2.isEmpty() || hostIP_3.isEmpty() || hostIP_4.isEmpty()) {
-        QMessageBox::information(this,tr("操作提示"), tr("IP地址不能为空！"),tr("关闭"));
+        MsgBox::showInformation(this,tr("操作提示"), tr("IP地址不能为空！"),tr("关闭"));
         return;
     }
 
     QString desIP = desIP_1 +"."+desIP_2 +"."+ desIP_3 +"."+ desIP_4;
     QString hostIP = hostIP_1 +"."+hostIP_2 +"."+ hostIP_3 +"."+ hostIP_4;
-
+    QString ableStr = QString::number(able);
+    QString netNumStr = QString::number(netNum);
     QSqlDatabase db = MySQLite::openConnection();
-    if(MySQLite::setNetWorkIP(db,netNum,able,desIP,hostIP,port)) {
+    if(MySQLite::setNetWorkIP(db,netNumStr,ableStr,desIP,hostIP,portStr_1,portStr_2,portStr_3,
+                              portStr_4,portStr_5,portStr_6,portStr_7,portStr_8)) {
         MySQLite::closeConnection(db);
-        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置成功，重启后生效！"),tr("关闭"));
+        MsgBox::showInformation(this,tr("操作提示"), tr("IP地址配置成功，重启后生效！"),tr("关闭"));
         return;
     } else {
         MySQLite::closeConnection(db);
-        QMessageBox::information(this,tr("操作提示"), tr("IP地址配置失败！"),tr("关闭"));
+        MsgBox::showInformation(this,tr("操作提示"), tr("IP地址配置失败！"),tr("关闭"));
         return;
     }
 }

@@ -52,7 +52,7 @@ public:
     //设置网络参数
     static bool setNetWorkIP(QSqlDatabase db, int netNum, int able, QString desIP, QString hostIP, QString port);
     //获取网络参数
-    static QStringList getNetWorkIP(QSqlDatabase db, int netNum);
+    static QStringList getNetWorkIP(QSqlDatabase db, int loop, int netNum);
     //获取网络状态
     static void getNetWorkState(QSqlDatabase db, int &able1,int &able2);
     //获取记录的条数
