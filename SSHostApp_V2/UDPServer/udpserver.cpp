@@ -4,7 +4,9 @@
 #include <QNetworkInterface>
 UDPServer::UDPServer(QObject *parent) : QObject(parent)
 {
+
     m_udpSocket = new QUdpSocket(this);
+
 }
 
 UDPServer::~UDPServer()
@@ -12,13 +14,20 @@ UDPServer::~UDPServer()
     delete m_udpSocket;
 }
 
-void UDPServer::initConf()
+void UDPServer::initConf(int loop)
 {
-    //QList<QPair<QString,int> > addList;
-    //addList.append(qMakePair(QString("192.168.126.35"),9990));
-    //addList.append(qMakePair(QString("192.168.126.35"),9991));
-    //addList.append(qMakePair(QString("192.168.126.35"),9992));
-    //addList.append(qMakePair(QString("192.168.126.35"),9993));
+    for (int i = 1; i <= DATASIZE; i++) {
+        m_nodeData[i].m_nodeUsed = true;
+        m_nodeData[i].m_nodeLoop = loop;
+        m_nodeData[i].m_nodeID   = i;
+        m_nodeData[i].m_nodeType = MOD_L12T4;
+        m_nodeData[i].m_nodeState= N_NORMAL;
+    }
+    m_currentID = 1;
+    m_sendDataTimer = new QTimer;
+    connect(m_sendDataTimer,SIGNAL(timeout()),this,SLOT(slotSendDataTimeOut()));
+    m_sendDataTimer->start(TIMER);
+
 
     QSqlDatabase db1 = MySQLite::openConnection();
     QStringList stringList_1 = MySQLite::getNetWorkIP(db1,1);
@@ -56,11 +65,6 @@ void UDPServer::initConf()
     connect(m_udpSocket, SIGNAL(readyRead()), this, SLOT(slotReadReady()));
 }
 
-void UDPServer::sendCanData(int index, int loop, int canId, int type, int state, QList<int> valueList, QString area)
-{
-    slotSendCanData(index,loop,canId,type,state,valueList,area);
-}
-
 QString UDPServer::getHostIPAddr()
 {
     QString strIpAddress;
@@ -80,6 +84,16 @@ QString UDPServer::getHostIPAddr()
 
 void UDPServer::sendDate(QByteArray byteArray)
 {
+    /*
+    qDebug()<<"<---------------------------------------->";
+    qDebug()<<"m_currentID    -----> "<<m_currentID;
+    qDebug()<<"byteArray[HEAD]-----> "<<(uchar)byteArray.at(0);
+    qDebug()<<"byteArray[LOOP]-----> "<<(uchar)byteArray.at(1);
+    qDebug()<<"byteArray[NOID]-----> "<<(uchar)byteArray.at(2);
+    qDebug()<<"byteArray[TYPE]-----> "<<(uchar)byteArray.at(3);
+    qDebug()<<"byteArray[STAT]-----> "<<(uchar)byteArray.at(4);
+    qDebug()<<"byteArray[TAIL]-----> "<<(uchar)byteArray.at(5);
+    */
     m_udpSocket->writeDatagram(byteArray,m_targetIP_1,m_targetPort_1);
 }
 
@@ -102,132 +116,20 @@ void UDPServer::slotReadReady()
     }
 }
 
-void UDPServer::slotSendCanData(int index, int pass, int canId, int type, int state, QList<int> voltageList, QList<qreal> currentList,QString area)
+void UDPServer::slotSendDataTimeOut()
 {
-    QByteArray byteArray;
-    byteArray.append((uint)(index)>>8);
-    byteArray.append((uint)(index) & 0xFF);
-    byteArray.append((uint)(pass));
-    byteArray.append((uint)(canId)>>8);
-    byteArray.append((uint)(canId) & 0xFF);
-    byteArray.append((uint)(type));
-    byteArray.append((uint)(state));
-
-    uint av1_h = (uint)voltageList.value(0) >> 8;
-    uint av1_l = (uint)voltageList.value(0) & 0xFF;
-    uint bv1_h = (uint)voltageList.value(1) >> 8;
-    uint bv1_l = (uint)voltageList.value(1) & 0xFF;
-    uint cv1_h = (uint)voltageList.value(2) >> 8;
-    uint cv1_l = (uint)voltageList.value(2) & 0xFF;
-    uint av2_h = (uint)voltageList.value(3) >> 8;
-    uint av2_l = (uint)voltageList.value(3) & 0xFF;
-    uint bv2_h = (uint)voltageList.value(4) >> 8;
-    uint bv2_l = (uint)voltageList.value(4) & 0xFF;
-    uint cv2_h = (uint)voltageList.value(5) >> 8;;
-    uint cv2_l = (uint)voltageList.value(5) & 0xFF;
-
-    byteArray.append(av1_h);
-    byteArray.append(av1_l);
-    byteArray.append(bv1_h);
-    byteArray.append(bv1_l);
-    byteArray.append(cv1_h);
-    byteArray.append(cv1_l);
-
-    byteArray.append(av2_h);
-    byteArray.append(av2_l);
-    byteArray.append(bv2_h);
-    byteArray.append(bv2_l);
-    byteArray.append(cv2_h);
-    byteArray.append(cv2_l);
-
-    QString aiStr = QString::number(currentList.value(0));
-    QString biStr = QString::number(currentList.value(1));
-    QString ciStr = QString::number(currentList.value(2));
-
-    byteArray.append(aiStr.left(aiStr.indexOf(".")).toUInt());
-    byteArray.append(aiStr.right(1).toUInt());
-    byteArray.append(biStr.left(biStr.indexOf(".")).toUInt());
-    byteArray.append(biStr.right(1).toUInt());
-    byteArray.append(ciStr.left(ciStr.indexOf(".")).toUInt());
-    byteArray.append(ciStr.right(1).toUInt());
-
-    QByteArray nodeAddrBy = area.toUtf8().data();
-    byteArray.append(nodeAddrBy);
-    sendDate(byteArray);
+    QByteArray pByteArray;pByteArray.clear();
+    if (m_nodeData[m_currentID].m_nodeUsed) {
+        pByteArray.append(HEAD_AA);
+        pByteArray.append(m_nodeData[m_currentID].m_nodeLoop);
+        pByteArray.append(m_nodeData[m_currentID].m_nodeID);
+        pByteArray.append(m_nodeData[m_currentID].m_nodeType);
+        pByteArray.append(m_nodeData[m_currentID].m_nodeState);
+        pByteArray.append(TAIL_FF);
+        sendDate(pByteArray);
+    }
+    m_currentID++;
+    if (m_currentID == DATASIZE) {
+        m_currentID = 1;
+    }
 }
-
-
-void UDPServer::slotSendCanData(int index, int loop, int canId, int type, int state, QList<int> valueList,QString area)
-{
-
-    QByteArray byteArray;
-    byteArray.append(index >>8);
-    byteArray.append(index & 0xFF);
-    byteArray.append(loop);
-    byteArray.append(canId >>8);
-    byteArray.append(canId & 0xFF);
-    byteArray.append(type);
-    byteArray.append(state);
-
-    switch (type) {
-    case N_LEAK:    {
-        uint leak_h  = (uint)valueList.value(0) >> 8;
-        uint leak_l  = (uint)valueList.value(0) & 0xFF;
-        uint alarm_h = (uint)valueList.value(1) >> 8;
-        uint alarm_l = (uint)valueList.value(1) & 0xFF;
-        uint base_h  = (uint)valueList.value(2) >> 8;
-        uint base_l  = (uint)valueList.value(2) & 0xFF;
-
-        byteArray.append(leak_h);byteArray.append(alarm_h);byteArray.append(base_h);
-        byteArray.append(leak_l);byteArray.append(alarm_l);byteArray.append(base_l);
-    }
-        break;
-    case N_TEMP: {
-        uint temp_h  = (uint)valueList.value(0) >> 8;
-        uint temp_l  = (uint)valueList.value(0) & 0xFF;
-        uint alarm_h = (uint)valueList.value(1) >> 8;
-        uint alarm_l = (uint)valueList.value(1) & 0xFF;
-        uint null_h  = (uint)valueList.value(2) >> 8;
-        uint null_l  = (uint)valueList.value(2) & 0xFF;
-
-        byteArray.append(temp_h);byteArray.append(alarm_h);byteArray.append(null_h);
-        byteArray.append(temp_l);byteArray.append(alarm_l);byteArray.append(null_l);
-    }
-        break;
-    case N_ACV3:
-    case N_ACV:
-    case N_DCV: {
-        uint av_h = (uint)valueList.value(0) >> 8;
-        uint av_l = (uint)valueList.value(0) & 0xFF;
-        uint bv_h = (uint)valueList.value(1) >> 8;
-        uint bv_l = (uint)valueList.value(1) & 0xFF;
-        uint cv_h = (uint)valueList.value(2) >> 8;
-        uint cv_l = (uint)valueList.value(2) & 0xFF;
-
-        byteArray.append(av_h);byteArray.append(bv_h);byteArray.append(cv_h);
-        byteArray.append(av_l);byteArray.append(bv_l);byteArray.append(cv_l);
-    }
-        break;
-    case N_ACI3:
-    case N_ACI:
-    case N_DCI:
-    {
-        QString aiStr = QString::number(valueList.value(0));
-        QString biStr = QString::number(valueList.value(1));
-        QString ciStr = QString::number(valueList.value(2));
-
-        byteArray.append(aiStr.left(aiStr.indexOf(".")).toUInt());  byteArray.append(aiStr.right(1).toUInt());
-        byteArray.append(biStr.left(biStr.indexOf(".")).toUInt());  byteArray.append(biStr.right(1).toUInt());
-        byteArray.append(ciStr.left(ciStr.indexOf(".")).toUInt());  byteArray.append(ciStr.right(1).toUInt());
-
-    }
-        break;
-    }
-
-    QByteArray nodeAddrBy = area.toUtf8().data();
-    byteArray.append(nodeAddrBy);
-    sendDate(byteArray);
-}
-
-
-

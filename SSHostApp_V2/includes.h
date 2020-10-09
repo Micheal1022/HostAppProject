@@ -28,52 +28,55 @@
 #define MAXNUM      100000   //数据库最大记录
 
 /*设备类型*/
-#define DEV_EFMQ      0//电气火灾
-#define DEV_PMFE      1//电源监控
-#define CANDINUM      255//最大ID地址255
+#define ROW_THER    21
+#define ROW_EFMQ    12
+#define ROW_PMFE    9
+#define DEV_EFMQ    0//电气火灾
+#define DEV_PMFE    1//电源监控
+#define CANDINUM    128//最大ID地址255
 
 
-#define N_LOOP        0//节点回路地址
-#define N_NODEID      1//节点ID地址
-#define N_AREA        3//节点安装区域
+#define N_LOOP      0//节点回路地址
+#define N_NODEID    1//节点ID地址
+#define N_AREA      3//节点安装区域
 /*上传数据链表位置类型*/
-#define LOOP          0
-#define CMD           1
-#define TYPE          2
-#define STATE         3
-#define CANID         4
-#define VALUE_1       5
-#define VALUE_2       6
-#define VALUE_3       7
-#define PASS          8
-#define PSTATE        9
-#define PTYPE         10
-#define L_STATE       2//报警/故障链表状态
-#define L_CANID       3//报警/故障链表ID
+#define LOOP        0
+#define CMD         1
+#define TYPE        2
+#define STATE       3
+#define CANID       4
+#define VALUE_1     5
+#define VALUE_2     6
+#define VALUE_3     7
+#define PASS        8
+#define PSTATE      9
+#define PTYPE       10
+#define L_STATE     2//报警/故障链表状态
+#define L_CANID     3//报警/故障链表ID
 
 /*用户级别*/
-#define USERS   0
-#define ADMIN   1
-#define SUPER   2
+#define USERS       0
+#define ADMIN       1
+#define SUPER       2
 /*历史记录*/
-#define R_LOOP    0//回路
-#define R_CANID   1//地址
-#define R_PASS    2//通道
-#define R_TYPE    3//通道的类型
-#define R_STATE   4//状态
-#define R_VALUE   5//报警值
-#define R_TIME    6//报警时间
-#define R_AREA    7//安装位置
+#define R_LOOP      0//回路
+#define R_CANID     1//地址
+#define R_PASS      2//通道
+#define R_TYPE      3//通道的类型
+#define R_STATE     4//状态
+#define R_VALUE     5//报警值
+#define R_TIME      6//报警时间
+#define R_AREA      7//安装位置
 
-#define ROWMUN    10//每页记录的数目
+#define ROWMUN      10//每页记录的数目
 
 /*通道数据位*/
-#define N_PASS        0x00//通道编号
-#define N_TYPE        0x01//通道类型
-#define N_STATE       0x02//通道状态
-#define N_VALUE_1     0x03//通道数值1
-#define N_VALUE_2     0x04//通道数值2
-#define N_VALUE_3     0x05//通道数值3
+#define N_PASS      0x00//通道编号
+#define N_TYPE      0x01//通道类型
+#define N_STATE     0x02//通道状态
+#define N_VALUE_1   0x03//通道数值1
+#define N_VALUE_2   0x04//通道数值2
+#define N_VALUE_3   0x05//通道数值3
 
 /*通道型号*/
 #define N_LEAK  0x01
@@ -94,9 +97,9 @@
 #define LOOPERROR       10 //回路心跳丢失次数
 
 /*探测器型号*/
-#define MOD_UREG        0x00
-#define MOD_L1T4        0x01//组合式
-#define MOD_L12T4       0x02//一体式
+#define MOD_UREG        0x00//
+#define MOD_L1T4        0x01//一体式
+#define MOD_L12T4       0x02//组合式
 #define MOD_EARC        0x03//电弧
 #define MOD_PYRO        0x04//热解
 #define MOD_THER        0x09//热成像
@@ -107,36 +110,8 @@
 #define MOD_2V          0x15//三相-两路电压
 #define MOD_V           0x16//三相-一路电压
 #define MOD_6V3A        0x17//单相-六路电压三路电流
-#define MOD_6V          0x18//单相-六路电压三路电流
-#define MOD_3A          0x19//单相-六路电压三路电流
-
-/*探测器状态*/
-#define N_NOMAL         0x01//通讯正常
-#define N_LOSTPOWER     0x02//电源中断
-#define N_OVERVOL       0x03//过压故障
-#define N_OVERCUR       0x04//过流故障
-#define N_UNDERVOL      0x05//欠压故障
-#define N_LOSTPHASE     0x06//错相故障
-#define N_ERRORPHASE    0x07//缺相故障
-#define N_ERROR         0x08//传感器故障
-#define N_ALARM         0x09//通道报警
-#define N_OFFLINE       0x0A//通讯故障
-#define N_COVER         0x0B//遮挡
-#define N_DISCON        0x0C//断网
-#define N_COVDIS        0x0D//遮挡+断网
-
-/*探测器状态*/
-#define N_NORMAL        0x01//节点正常
-#define N_POWERLOST     0x02//电源中断
-#define N_OVERVOL       0x03//节点过压
-#define N_OVERCUR       0x04//节点过流
-#define N_LACKVOL       0x05//节点欠压
-#define N_LACKPHA       0x06//节点缺相
-#define N_ERRORPHA      0x07//节点错相
-#define N_ERROR         0x08//节点故障
-#define N_ALARM         0x09//节点报警
-#define N_OFFLINE       0x0A//节点掉线
-#define N_LOOPERR       0x0B//回路板故障
+#define MOD_6V          0x18//单相-六路电压
+#define MOD_3A          0x19//单相-三路电流
 
 #define TIMER           500//系统时间
 
@@ -189,21 +164,35 @@
 #define SYSTEM_ON       19//系统故障灯-亮
 #define SYSTEM_OFF      20//系统故障灯-灭
 
-/*探测器状态信息记录*/
-#define N_NORMAL      0x01//节点正常
-#define N_LOSTPOW     0x02//电源中断
-#define N_OVERVOL     0x03//节点过压
-#define N_OVERCUR     0x04//节点过流
-#define N_LACKVOL     0x05//节点欠压
-#define N_LACKPHA     0x06//节点缺相
-#define N_ERRORPHA    0x07//节点错相
-#define N_ERROR       0x08//节点故障
-#define N_ALARM       0x09//节点报警
-#define N_OFFLINE     0x0A//节点掉线
-#define N_MAINPOW     0xAA//主电故障
-#define N_BACKPOW     0xBB//备电故障
-#define N_RESET       0xCC//复位操作
-#define N_MUTE        0xDD//静音操作
-#define N_EXTEERROR   0xEE//分机故障
+
+/*探测器状态*/
+#define N_NORMAL        0x01//通讯正常
+#define N_POWERLOST     0x02//电源中断
+#define N_OVERVOL       0x03//过压故障
+#define N_OVERCUR       0x04//过流故障
+#define N_LACKVOL       0x05//节点欠压
+#define N_LACKPHA       0x06//节点缺相
+#define N_ERRORPHA      0x07//节点错相
+#define N_ERROR         0x08//传感器故障
+#define N_ALARM         0x09//通道报警
+#define N_OFFLINE       0x0A//通讯故障
+#define N_COVER         0x0B//遮挡
+#define N_DISCON        0x0C//断网
+#define N_COVDIS        0x0D//遮挡+断网
+#define N_MAINPOW       0xAA//主电故障
+#define N_BACKPOW       0xBB//备电故障
+#define N_RESET         0xCC//复位操作
+#define N_MUTE          0xDD//静音操作
+#define N_EXTEERROR     0xEE//分机故障
+
+/*UDP 发送数据格式*/
+#define DATA_HEAD   0x00
+#define DATA_LOOP   0x01
+#define DATA_ID     0x02
+#define DATA_TYPE   0x03
+#define DATA_STATE  0x04
+#define DATA_TAIL   0x05
+#define HEAD_AA     0xAA
+#define TAIL_FF     0xFF
 
 #endif // INCLUDES_H

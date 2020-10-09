@@ -4,13 +4,18 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql
+QT       += core gui sql serialport
+
+DEFINES += RUN_ON_ARM
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = PantographCtrl
+DESTDIR = ./APP/
+TARGET = app
 TEMPLATE = app
 
+CONFIG += serialport
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -19,7 +24,7 @@ SOURCES += main.cpp\
     MsgBox/infobox.cpp \
     MsgBox/msgbox.cpp \
     MsgBox/questbox.cpp \
-    SQLite/mysqlite.cpp
+    UartCom/uartcom.cpp
 
 HEADERS  += mainwindow.h \
     SystemConf/systemconf.h \
@@ -27,9 +32,8 @@ HEADERS  += mainwindow.h \
     MsgBox/infobox.h \
     MsgBox/msgbox.h \
     MsgBox/questbox.h \
-    SQLite/mysqlite.h \
-    SQLite/nodesqlite.h \
-    includes.h
+    includes.h \
+    UartCom/uartcom.h
 
 FORMS    += mainwindow.ui \
     SystemConf/systemconf.ui \

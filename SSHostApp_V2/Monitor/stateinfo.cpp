@@ -151,15 +151,15 @@ void StateInfo::currentIndexInfo(QStringList infoList)
         ui->lbState->setText(tr("过流故障"));
         ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
-    case N_UNDERVOL:
+    case N_LACKVOL:
         ui->lbState->setText(tr("欠压故障"));
         ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
-    case N_LOSTPHASE:
+    case N_LACKPHA:
         ui->lbState->setText(tr("缺相故障"));
         ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
-    case N_ERRORPHASE:
+    case N_ERRORPHA:
         ui->lbState->setText(tr("错相故障"));
         ui->lbState->setStyleSheet("color: rgb(255, 151, 0);");
         break;
@@ -193,7 +193,6 @@ void StateInfo::setLabelAlarmVisible(bool visible)
     ui->lbAlarm->setVisible(visible);
     ui->lbAlarmValue->setVisible(visible);
     visible ? ui->lbTime->setText(tr("报警时间:")): ui->lbTime->setText(tr("故障时间:"));
-
 }
 
 void StateInfo::initConnect()

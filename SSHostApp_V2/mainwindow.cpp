@@ -98,7 +98,7 @@ void MainWindow::initWidget()
         ui->lbVersonEF->setVisible(true);
         ui->lbVersonPM->setVisible(false);
     } else if (DEV_PMFE == devType) {
-        ::system("./syserror.sh &");
+        //::system("./syserror.sh &");
         ui->lbTitle->setText(tr("消防设备电源监控系统"));
         ui->tBtnSystemError->setVisible(true);
         ui->lbVersonEF->setVisible(false);

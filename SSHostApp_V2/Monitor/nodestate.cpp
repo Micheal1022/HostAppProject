@@ -30,9 +30,9 @@ NodeState::NodeState(QWidget *parent) :
     m_hostType = MySQLite::getDevType(devdb);
     MySQLite::closeConnection(devdb);
     if (DEV_EFMQ == m_hostType) {
-        m_rowCount = 21;
+        m_rowCount = 21;//实时数据显示列
     } else if (DEV_PMFE == m_hostType) {
-        m_rowCount = 9;
+        m_rowCount = 9; //实时数据显示列
     }
     initNodeTable(ui->tableWidget,m_hostType);
 
@@ -63,17 +63,17 @@ void NodeState::showNodeInfo(int loop, int canId, int nodeType, QString area)
     ui->lbNodeType->setText(getNodeTypeStr(m_nodeType));
 
     if (m_nodeType == MOD_THER) {
-        m_rowCount = 21;
+        m_rowCount = ROW_THER;
         ui->tableWidget->horizontalHeaderItem(3)->setText(tr("最高温度"));
         ui->tableWidget->horizontalHeaderItem(4)->setText(tr("最低温度"));
         ui->tableWidget->horizontalHeaderItem(5)->setText(tr("平均温度"));
     } else if (m_nodeType == MOD_L1T4 || m_nodeType == MOD_L12T4) {
-        m_rowCount = 12;
+        m_rowCount = ROW_EFMQ;
         ui->tableWidget->horizontalHeaderItem(3)->setText(tr("实时值"));
         ui->tableWidget->horizontalHeaderItem(4)->setText(tr("报警值"));
         ui->tableWidget->horizontalHeaderItem(5)->setText(tr("设定值"));
     } else {
-        m_rowCount = 9;
+        m_rowCount = ROW_PMFE;
         ui->tableWidget->horizontalHeaderItem(3)->setText(tr("Ua/Ia/1路"));
         ui->tableWidget->horizontalHeaderItem(4)->setText(tr("Ub/Ib/2路"));
         ui->tableWidget->horizontalHeaderItem(5)->setText(tr("Uc/Ic/2路"));
@@ -102,10 +102,10 @@ QString NodeState::getStateStr(int state)
 {
     QString stateStr;
     switch (state) {
-    case N_NOMAL:
+    case N_NORMAL:
         stateStr = tr("通道正常");
         break;
-    case N_LOSTPOWER:
+    case N_POWERLOST:
         stateStr = tr("电源中断");
         break;
     case N_OVERVOL:
@@ -114,13 +114,13 @@ QString NodeState::getStateStr(int state)
     case N_OVERCUR:
         stateStr = tr("过流故障");
         break;
-    case N_UNDERVOL:
+    case N_LACKVOL:
         stateStr = tr("欠压故障");
         break;
-    case N_LOSTPHASE:
+    case N_LACKPHA:
         stateStr = tr("缺相故障");
         break;
-    case N_ERRORPHASE:
+    case N_ERRORPHA:
         stateStr = tr("错相故障");
         break;
     case N_ERROR:

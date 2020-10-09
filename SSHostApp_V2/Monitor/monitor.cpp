@@ -146,10 +146,10 @@ void Monitor::initVariable(QList<int> passList)
         m_nodeViewMap.insert(loop,nodeView);//存储到MAP
         ui->stackedWgtPass->addWidget(nodeView);//添加到堆栈视图
         UDPServer *udpServer = new UDPServer;
-        udpServer->initConf();
+        udpServer->initConf(loop);
         connect(this,SIGNAL(sigBtnReset()),nodeView,SLOT(slotReset()));
         connect(nodeView,SIGNAL(sigNodeInfoCount(int,int,int,int,int,int)),this,SLOT(slotNodeInfoCount(int,int,int,int,int,int)));
-        connect(nodeView,SIGNAL(sigSendUdpData(int,int,int,int,int,QList<int>,QString)),udpServer,SLOT(slotSendCanData(int,int,int,int,int,QList<int>,QString)));
+        //connect(nodeView,SIGNAL(sigSendUdpData(int,int,int,int,int,QList<int>,QString)),udpServer,SLOT(slotSendCanData(int,int,int,int,int,QList<int>,QString)));
     }
     //判断回路开启的数量，配置第一条回路
     if (m_LoopList.count() > 0) {

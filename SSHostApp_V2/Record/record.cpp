@@ -237,7 +237,7 @@ void Record::displayQuery(QString queryStr, QTableWidget *tableWidget, int pageC
                 case R_STATE:
                     stateStr = stringList.value(column);
                     switch (stateStr.toInt()) {
-                    case N_LOSTPOW:
+                    case N_POWERLOST:
                         item->setText(tr("电源中断"));
                         break;
                     case N_OVERVOL:
